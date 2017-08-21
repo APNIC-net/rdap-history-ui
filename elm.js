@@ -3407,974 +3407,6 @@ _Fresheyeball$elm_tuple_extra$Tuple2_ops['=>'] = F2(
 		return {ctor: '_Tuple2', _0: a, _1: b};
 	});
 
-var _elm_lang$core$Native_Bitwise = function() {
-
-return {
-	and: F2(function and(a, b) { return a & b; }),
-	or: F2(function or(a, b) { return a | b; }),
-	xor: F2(function xor(a, b) { return a ^ b; }),
-	complement: function complement(a) { return ~a; },
-	shiftLeftBy: F2(function(offset, a) { return a << offset; }),
-	shiftRightBy: F2(function(offset, a) { return a >> offset; }),
-	shiftRightZfBy: F2(function(offset, a) { return a >>> offset; })
-};
-
-}();
-
-var _elm_lang$core$Bitwise$shiftRightZfBy = _elm_lang$core$Native_Bitwise.shiftRightZfBy;
-var _elm_lang$core$Bitwise$shiftRightBy = _elm_lang$core$Native_Bitwise.shiftRightBy;
-var _elm_lang$core$Bitwise$shiftLeftBy = _elm_lang$core$Native_Bitwise.shiftLeftBy;
-var _elm_lang$core$Bitwise$complement = _elm_lang$core$Native_Bitwise.complement;
-var _elm_lang$core$Bitwise$xor = _elm_lang$core$Native_Bitwise.xor;
-var _elm_lang$core$Bitwise$or = _elm_lang$core$Native_Bitwise.or;
-var _elm_lang$core$Bitwise$and = _elm_lang$core$Native_Bitwise.and;
-
-var _Skinney$elm_array_exploration$Native_JsArray = function() {
-
-var empty = [];
-
-function singleton(val) {
-    return [val];
-}
-
-function length(arr) {
-    return arr.length;
-}
-
-function initialize(size, offset, f) {
-    var result = new Array(size);
-
-    for (var i = 0; i < size; i++) {
-        result[i] = f(offset + i);
-    }
-
-    return result;
-}
-
-function initializeFromList(max, ls) {
-    var result = new Array(max);
-
-    for (var i = 0; i < max && ls.ctor !== '[]'; i++) {
-        result[i] = ls._0;
-        ls = ls._1;
-    }
-
-    result.length = i;
-
-    return {
-        ctor: '_Tuple2',
-        _0: result,
-        _1: ls
-    };
-}
-
-function unsafeGet(idx, arr) {
-    return arr[idx];
-}
-
-function unsafeSet(idx, val, arr) {
-    var length = arr.length;
-    var result = new Array(length);
-
-    for (var i = 0; i < length; i++) {
-        result[i] = arr[i];
-    }
-
-    result[idx] = val;
-    return result;
-}
-
-function push(val, arr) {
-    var length = arr.length;
-    var result = new Array(length + 1);
-
-    for (var i = 0; i < length; i++) {
-        result[i] = arr[i];
-    }
-
-    result[length] = val;
-    return result;
-}
-
-function foldl(f, acc, arr) {
-    var length = arr.length;
-
-    for (var i = 0; i < length; i++) {
-        acc = A2(f, arr[i], acc);
-    }
-
-    return acc;
-}
-
-function foldr(f, acc, arr) {
-    for (var i = arr.length - 1; i >= 0; i--) {
-        acc = A2(f, arr[i], acc);
-    }
-
-    return acc;
-}
-
-function map(f, arr) {
-    var length = arr.length;
-    var result = new Array(length);
-
-    for (var i = 0; i < length; i++) {
-        result[i] = f(arr[i]);
-    }
-
-    return result;
-}
-
-function indexedMap(f, offset, arr) {
-    var length = arr.length;
-    var result = new Array(length);
-
-    for (var i = 0; i < length; i++) {
-        result[i] = A2(f, offset + i, arr[i]);
-    }
-
-    return result;
-}
-
-function slice(from, to, arr) {
-    return arr.slice(from, to);
-}
-
-function appendN(n, dest, source) {
-    var destLen = dest.length;
-    var itemsToCopy = n - destLen;
-
-    if (itemsToCopy > source.length) {
-        itemsToCopy = source.length;
-    }
-
-    var size = destLen + itemsToCopy;
-    var result = new Array(size);
-
-    for (var i = 0; i < destLen; i++) {
-        result[i] = dest[i];
-    }
-
-    for (var i = 0; i < itemsToCopy; i++) {
-        result[i + destLen] = source[i];
-    }
-
-    return result;
-}
-
-return {
-    empty: empty,
-    singleton: singleton,
-    length: length,
-    initialize: F3(initialize),
-    initializeFromList: F2(initializeFromList),
-    unsafeGet: F2(unsafeGet),
-    unsafeSet: F3(unsafeSet),
-    push: F2(push),
-    foldl: F3(foldl),
-    foldr: F3(foldr),
-    map: F2(map),
-    indexedMap: F3(indexedMap),
-    slice: F3(slice),
-    appendN: F3(appendN)
-};
-
-}();
-
-var _Skinney$elm_array_exploration$Array_JsArray$appendN = _Skinney$elm_array_exploration$Native_JsArray.appendN;
-var _Skinney$elm_array_exploration$Array_JsArray$slice = _Skinney$elm_array_exploration$Native_JsArray.slice;
-var _Skinney$elm_array_exploration$Array_JsArray$indexedMap = _Skinney$elm_array_exploration$Native_JsArray.indexedMap;
-var _Skinney$elm_array_exploration$Array_JsArray$map = _Skinney$elm_array_exploration$Native_JsArray.map;
-var _Skinney$elm_array_exploration$Array_JsArray$foldr = _Skinney$elm_array_exploration$Native_JsArray.foldr;
-var _Skinney$elm_array_exploration$Array_JsArray$foldl = _Skinney$elm_array_exploration$Native_JsArray.foldl;
-var _Skinney$elm_array_exploration$Array_JsArray$push = _Skinney$elm_array_exploration$Native_JsArray.push;
-var _Skinney$elm_array_exploration$Array_JsArray$unsafeSet = _Skinney$elm_array_exploration$Native_JsArray.unsafeSet;
-var _Skinney$elm_array_exploration$Array_JsArray$unsafeGet = _Skinney$elm_array_exploration$Native_JsArray.unsafeGet;
-var _Skinney$elm_array_exploration$Array_JsArray$initializeFromList = _Skinney$elm_array_exploration$Native_JsArray.initializeFromList;
-var _Skinney$elm_array_exploration$Array_JsArray$initialize = _Skinney$elm_array_exploration$Native_JsArray.initialize;
-var _Skinney$elm_array_exploration$Array_JsArray$length = _Skinney$elm_array_exploration$Native_JsArray.length;
-var _Skinney$elm_array_exploration$Array_JsArray$singleton = _Skinney$elm_array_exploration$Native_JsArray.singleton;
-var _Skinney$elm_array_exploration$Array_JsArray$empty = _Skinney$elm_array_exploration$Native_JsArray.empty;
-var _Skinney$elm_array_exploration$Array_JsArray$JsArray = function (a) {
-	return {ctor: 'JsArray', _0: a};
-};
-
-var _Skinney$elm_array_exploration$Array_Hamt$emptyBuilder = {
-	tail: _Skinney$elm_array_exploration$Array_JsArray$empty,
-	nodeList: {ctor: '[]'},
-	nodeListSize: 0
-};
-var _Skinney$elm_array_exploration$Array_Hamt$translateIndex = F2(
-	function (idx, _p0) {
-		var _p1 = _p0;
-		var _p2 = _p1._0;
-		var posIndex = (_elm_lang$core$Native_Utils.cmp(idx, 0) < 0) ? (_p2 + idx) : idx;
-		return (_elm_lang$core$Native_Utils.cmp(posIndex, 0) < 0) ? 0 : ((_elm_lang$core$Native_Utils.cmp(posIndex, _p2) > 0) ? _p2 : posIndex);
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$foldl = F3(
-	function (f, init, _p3) {
-		var _p4 = _p3;
-		var helper = F2(
-			function (i, acc) {
-				var _p5 = i;
-				if (_p5.ctor === 'SubTree') {
-					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, acc, _p5._0);
-				} else {
-					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, f, acc, _p5._0);
-				}
-			});
-		var acc = A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, init, _p4._2);
-		return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, f, acc, _p4._3);
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$foldr = F3(
-	function (f, init, _p6) {
-		var _p7 = _p6;
-		var acc = A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, f, init, _p7._3);
-		var helper = F2(
-			function (i, acc) {
-				var _p8 = i;
-				if (_p8.ctor === 'SubTree') {
-					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, helper, acc, _p8._0);
-				} else {
-					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, f, acc, _p8._0);
-				}
-			});
-		return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, helper, acc, _p7._2);
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$toIndexedList = function (_p9) {
-	var _p10 = _p9;
-	var helper = F2(
-		function (n, _p11) {
-			var _p12 = _p11;
-			var _p13 = _p12._0;
-			return {
-				ctor: '_Tuple2',
-				_0: _p13 - 1,
-				_1: {
-					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: _p13, _1: n},
-					_1: _p12._1
-				}
-			};
-		});
-	return _elm_lang$core$Tuple$second(
-		A3(
-			_Skinney$elm_array_exploration$Array_Hamt$foldr,
-			helper,
-			{
-				ctor: '_Tuple2',
-				_0: _p10._0 - 1,
-				_1: {ctor: '[]'}
-			},
-			_p10));
-};
-var _Skinney$elm_array_exploration$Array_Hamt$toList = function (arr) {
-	return A3(
-		_Skinney$elm_array_exploration$Array_Hamt$foldr,
-		F2(
-			function (x, y) {
-				return {ctor: '::', _0: x, _1: y};
-			}),
-		{ctor: '[]'},
-		arr);
-};
-var _Skinney$elm_array_exploration$Array_Hamt$tailIndex = function (len) {
-	return (len >>> 5) << 5;
-};
-var _Skinney$elm_array_exploration$Array_Hamt$length = function (_p14) {
-	var _p15 = _p14;
-	return _p15._0;
-};
-var _Skinney$elm_array_exploration$Array_Hamt$isEmpty = function (_p16) {
-	var _p17 = _p16;
-	return _elm_lang$core$Native_Utils.eq(_p17._0, 0);
-};
-var _Skinney$elm_array_exploration$Array_Hamt$branchFactor = 32;
-var _Skinney$elm_array_exploration$Array_Hamt$shiftStep = _elm_lang$core$Basics$ceiling(
-	A2(
-		_elm_lang$core$Basics$logBase,
-		2,
-		_elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor)));
-var _Skinney$elm_array_exploration$Array_Hamt$bitMask = 4294967295 >>> (32 - _Skinney$elm_array_exploration$Array_Hamt$shiftStep);
-var _Skinney$elm_array_exploration$Array_Hamt$getHelp = F3(
-	function (shift, idx, tree) {
-		getHelp:
-		while (true) {
-			var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (idx >>> shift);
-			var _p18 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
-			if (_p18.ctor === 'SubTree') {
-				var _v10 = shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
-					_v11 = idx,
-					_v12 = _p18._0;
-				shift = _v10;
-				idx = _v11;
-				tree = _v12;
-				continue getHelp;
-			} else {
-				return A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, _p18._0);
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$get = F2(
-	function (idx, _p19) {
-		var _p20 = _p19;
-		var _p21 = _p20._0;
-		return ((_elm_lang$core$Native_Utils.cmp(idx, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(idx, _p21) > -1)) ? _elm_lang$core$Maybe$Nothing : ((_elm_lang$core$Native_Utils.cmp(
-			idx,
-			_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p21)) > -1) ? _elm_lang$core$Maybe$Just(
-			A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, _p20._3)) : _elm_lang$core$Maybe$Just(
-			A3(_Skinney$elm_array_exploration$Array_Hamt$getHelp, _p20._1, idx, _p20._2)));
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$fetchNewTail = F4(
-	function (shift, end, treeEnd, tree) {
-		fetchNewTail:
-		while (true) {
-			var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (treeEnd >>> shift);
-			var _p22 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
-			if (_p22.ctor === 'SubTree') {
-				var _v15 = shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
-					_v16 = end,
-					_v17 = treeEnd,
-					_v18 = _p22._0;
-				shift = _v15;
-				end = _v16;
-				treeEnd = _v17;
-				tree = _v18;
-				continue fetchNewTail;
-			} else {
-				return A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, _Skinney$elm_array_exploration$Array_Hamt$bitMask & end, _p22._0);
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$hoistTree = F3(
-	function (oldShift, newShift, tree) {
-		hoistTree:
-		while (true) {
-			if ((_elm_lang$core$Native_Utils.cmp(oldShift, newShift) < 1) || _elm_lang$core$Native_Utils.eq(
-				_Skinney$elm_array_exploration$Array_JsArray$length(tree),
-				0)) {
-				return tree;
-			} else {
-				var _p23 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, 0, tree);
-				if (_p23.ctor === 'SubTree') {
-					var _v20 = oldShift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
-						_v21 = newShift,
-						_v22 = _p23._0;
-					oldShift = _v20;
-					newShift = _v21;
-					tree = _v22;
-					continue hoistTree;
-				} else {
-					return tree;
-				}
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$builderFromArray = function (_p24) {
-	var _p25 = _p24;
-	var helper = F2(
-		function (node, acc) {
-			var _p26 = node;
-			if (_p26.ctor === 'SubTree') {
-				return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, acc, _p26._0);
-			} else {
-				return {ctor: '::', _0: node, _1: acc};
-			}
-		});
-	return {
-		tail: _p25._3,
-		nodeList: A3(
-			_Skinney$elm_array_exploration$Array_JsArray$foldl,
-			helper,
-			{ctor: '[]'},
-			_p25._2),
-		nodeListSize: (_p25._0 / _Skinney$elm_array_exploration$Array_Hamt$branchFactor) | 0
-	};
-};
-var _Skinney$elm_array_exploration$Array_Hamt$Builder = F3(
-	function (a, b, c) {
-		return {tail: a, nodeList: b, nodeListSize: c};
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$Array = F4(
-	function (a, b, c, d) {
-		return {ctor: 'Array', _0: a, _1: b, _2: c, _3: d};
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$empty = A4(_Skinney$elm_array_exploration$Array_Hamt$Array, 0, _Skinney$elm_array_exploration$Array_Hamt$shiftStep, _Skinney$elm_array_exploration$Array_JsArray$empty, _Skinney$elm_array_exploration$Array_JsArray$empty);
-var _Skinney$elm_array_exploration$Array_Hamt$Leaf = function (a) {
-	return {ctor: 'Leaf', _0: a};
-};
-var _Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder = F2(
-	function (tail, builder) {
-		var tailLen = _Skinney$elm_array_exploration$Array_JsArray$length(tail);
-		var notAppended = (_Skinney$elm_array_exploration$Array_Hamt$branchFactor - _Skinney$elm_array_exploration$Array_JsArray$length(builder.tail)) - tailLen;
-		var appended = A3(_Skinney$elm_array_exploration$Array_JsArray$appendN, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, builder.tail, tail);
-		return (_elm_lang$core$Native_Utils.cmp(notAppended, 0) < 0) ? {
-			tail: A3(_Skinney$elm_array_exploration$Array_JsArray$slice, notAppended, tailLen, tail),
-			nodeList: {
-				ctor: '::',
-				_0: _Skinney$elm_array_exploration$Array_Hamt$Leaf(appended),
-				_1: builder.nodeList
-			},
-			nodeListSize: builder.nodeListSize + 1
-		} : (_elm_lang$core$Native_Utils.eq(notAppended, 0) ? {
-			tail: _Skinney$elm_array_exploration$Array_JsArray$empty,
-			nodeList: {
-				ctor: '::',
-				_0: _Skinney$elm_array_exploration$Array_Hamt$Leaf(appended),
-				_1: builder.nodeList
-			},
-			nodeListSize: builder.nodeListSize + 1
-		} : {tail: appended, nodeList: builder.nodeList, nodeListSize: builder.nodeListSize});
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$SubTree = function (a) {
-	return {ctor: 'SubTree', _0: a};
-};
-var _Skinney$elm_array_exploration$Array_Hamt$setHelp = F4(
-	function (shift, idx, val, tree) {
-		var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (idx >>> shift);
-		var _p27 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
-		if (_p27.ctor === 'SubTree') {
-			var newSub = A4(_Skinney$elm_array_exploration$Array_Hamt$setHelp, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, idx, val, _p27._0);
-			return A3(
-				_Skinney$elm_array_exploration$Array_JsArray$unsafeSet,
-				pos,
-				_Skinney$elm_array_exploration$Array_Hamt$SubTree(newSub),
-				tree);
-		} else {
-			var newLeaf = A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, val, _p27._0);
-			return A3(
-				_Skinney$elm_array_exploration$Array_JsArray$unsafeSet,
-				pos,
-				_Skinney$elm_array_exploration$Array_Hamt$Leaf(newLeaf),
-				tree);
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$set = F3(
-	function (idx, val, _p28) {
-		var _p29 = _p28;
-		var _p33 = _p29._2;
-		var _p32 = _p29._3;
-		var _p31 = _p29._1;
-		var _p30 = _p29._0;
-		return ((_elm_lang$core$Native_Utils.cmp(idx, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(idx, _p30) > -1)) ? _p29 : ((_elm_lang$core$Native_Utils.cmp(
-			idx,
-			_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p30)) > -1) ? A4(
-			_Skinney$elm_array_exploration$Array_Hamt$Array,
-			_p30,
-			_p31,
-			_p33,
-			A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, val, _p32)) : A4(
-			_Skinney$elm_array_exploration$Array_Hamt$Array,
-			_p30,
-			_p31,
-			A4(_Skinney$elm_array_exploration$Array_Hamt$setHelp, _p31, idx, val, _p33),
-			_p32));
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$insertTailInTree = F4(
-	function (shift, idx, tail, tree) {
-		var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (idx >>> shift);
-		if (_elm_lang$core$Native_Utils.cmp(
-			pos,
-			_Skinney$elm_array_exploration$Array_JsArray$length(tree)) > -1) {
-			if (_elm_lang$core$Native_Utils.eq(shift, 5)) {
-				return A2(
-					_Skinney$elm_array_exploration$Array_JsArray$push,
-					_Skinney$elm_array_exploration$Array_Hamt$Leaf(tail),
-					tree);
-			} else {
-				var newSub = _Skinney$elm_array_exploration$Array_Hamt$SubTree(
-					A4(_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, idx, tail, _Skinney$elm_array_exploration$Array_JsArray$empty));
-				return A2(_Skinney$elm_array_exploration$Array_JsArray$push, newSub, tree);
-			}
-		} else {
-			var val = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
-			var _p34 = val;
-			if (_p34.ctor === 'SubTree') {
-				var newSub = _Skinney$elm_array_exploration$Array_Hamt$SubTree(
-					A4(_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, idx, tail, _p34._0));
-				return A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, pos, newSub, tree);
-			} else {
-				var newSub = _Skinney$elm_array_exploration$Array_Hamt$SubTree(
-					A4(
-						_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree,
-						shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
-						idx,
-						tail,
-						_Skinney$elm_array_exploration$Array_JsArray$singleton(val)));
-				return A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, pos, newSub, tree);
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail = F2(
-	function (newTail, _p35) {
-		var _p36 = _p35;
-		var _p39 = _p36._2;
-		var _p38 = _p36._1;
-		var _p37 = _p36._0;
-		var newTailLen = _Skinney$elm_array_exploration$Array_JsArray$length(newTail);
-		var originalTailLen = _Skinney$elm_array_exploration$Array_JsArray$length(_p36._3);
-		var newArrayLen = _p37 + (newTailLen - originalTailLen);
-		if (_elm_lang$core$Native_Utils.eq(newTailLen, _Skinney$elm_array_exploration$Array_Hamt$branchFactor)) {
-			var overflow = _elm_lang$core$Native_Utils.cmp(newArrayLen >>> _Skinney$elm_array_exploration$Array_Hamt$shiftStep, 1 << _p38) > 0;
-			if (overflow) {
-				var newShift = _p38 + _Skinney$elm_array_exploration$Array_Hamt$shiftStep;
-				var newTree = A4(
-					_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree,
-					newShift,
-					_p37,
-					newTail,
-					_Skinney$elm_array_exploration$Array_JsArray$singleton(
-						_Skinney$elm_array_exploration$Array_Hamt$SubTree(_p39)));
-				return A4(_Skinney$elm_array_exploration$Array_Hamt$Array, newArrayLen, newShift, newTree, _Skinney$elm_array_exploration$Array_JsArray$empty);
-			} else {
-				return A4(
-					_Skinney$elm_array_exploration$Array_Hamt$Array,
-					newArrayLen,
-					_p38,
-					A4(_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree, _p38, _p37, newTail, _p39),
-					_Skinney$elm_array_exploration$Array_JsArray$empty);
-			}
-		} else {
-			return A4(_Skinney$elm_array_exploration$Array_Hamt$Array, newArrayLen, _p38, _p39, newTail);
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$push = F2(
-	function (a, _p40) {
-		var _p41 = _p40;
-		return A2(
-			_Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail,
-			A2(_Skinney$elm_array_exploration$Array_JsArray$push, a, _p41._3),
-			_p41);
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$appendHelpTree = F2(
-	function (toAppend, _p42) {
-		var _p43 = _p42;
-		var _p44 = _p43._3;
-		var itemsToAppend = _Skinney$elm_array_exploration$Array_JsArray$length(toAppend);
-		var notAppended = (_Skinney$elm_array_exploration$Array_Hamt$branchFactor - _Skinney$elm_array_exploration$Array_JsArray$length(_p44)) - itemsToAppend;
-		var appended = A3(_Skinney$elm_array_exploration$Array_JsArray$appendN, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, _p44, toAppend);
-		var newArray = A2(_Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail, appended, _p43);
-		if (_elm_lang$core$Native_Utils.cmp(notAppended, 0) < 0) {
-			var nextTail = A3(_Skinney$elm_array_exploration$Array_JsArray$slice, notAppended, itemsToAppend, toAppend);
-			return A2(_Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail, nextTail, newArray);
-		} else {
-			return newArray;
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$map = F2(
-	function (f, _p45) {
-		var _p46 = _p45;
-		var helper = function (i) {
-			var _p47 = i;
-			if (_p47.ctor === 'SubTree') {
-				return _Skinney$elm_array_exploration$Array_Hamt$SubTree(
-					A2(_Skinney$elm_array_exploration$Array_JsArray$map, helper, _p47._0));
-			} else {
-				return _Skinney$elm_array_exploration$Array_Hamt$Leaf(
-					A2(_Skinney$elm_array_exploration$Array_JsArray$map, f, _p47._0));
-			}
-		};
-		return A4(
-			_Skinney$elm_array_exploration$Array_Hamt$Array,
-			_p46._0,
-			_p46._1,
-			A2(_Skinney$elm_array_exploration$Array_JsArray$map, helper, _p46._2),
-			A2(_Skinney$elm_array_exploration$Array_JsArray$map, f, _p46._3));
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$toString = function (array) {
-	var content = A2(
-		_elm_lang$core$String$join,
-		',',
-		_Skinney$elm_array_exploration$Array_Hamt$toList(
-			A2(_Skinney$elm_array_exploration$Array_Hamt$map, _elm_lang$core$Basics$toString, array)));
-	return A2(
-		_elm_lang$core$Basics_ops['++'],
-		'Array [',
-		A2(_elm_lang$core$Basics_ops['++'], content, ']'));
-};
-var _Skinney$elm_array_exploration$Array_Hamt$sliceTree = F3(
-	function (shift, endIdx, tree) {
-		var lastPos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (endIdx >>> shift);
-		var _p48 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, lastPos, tree);
-		if (_p48.ctor === 'SubTree') {
-			var newSub = A3(_Skinney$elm_array_exploration$Array_Hamt$sliceTree, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, endIdx, _p48._0);
-			return _elm_lang$core$Native_Utils.eq(
-				_Skinney$elm_array_exploration$Array_JsArray$length(newSub),
-				0) ? A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, lastPos, tree) : A3(
-				_Skinney$elm_array_exploration$Array_JsArray$unsafeSet,
-				lastPos,
-				_Skinney$elm_array_exploration$Array_Hamt$SubTree(newSub),
-				A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, lastPos + 1, tree));
-		} else {
-			return A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, lastPos, tree);
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$sliceRight = F2(
-	function (end, _p49) {
-		var _p50 = _p49;
-		var _p53 = _p50._2;
-		var _p52 = _p50._1;
-		var _p51 = _p50._0;
-		if (_elm_lang$core$Native_Utils.eq(end, _p51)) {
-			return _p50;
-		} else {
-			if (_elm_lang$core$Native_Utils.cmp(
-				end,
-				_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p51)) > -1) {
-				return A4(
-					_Skinney$elm_array_exploration$Array_Hamt$Array,
-					end,
-					_p52,
-					_p53,
-					A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, _Skinney$elm_array_exploration$Array_Hamt$bitMask & end, _p50._3));
-			} else {
-				var endIdx = _Skinney$elm_array_exploration$Array_Hamt$tailIndex(end);
-				var depth = _elm_lang$core$Basics$floor(
-					A2(
-						_elm_lang$core$Basics$logBase,
-						_elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor),
-						_elm_lang$core$Basics$toFloat(
-							A2(_elm_lang$core$Basics$max, 1, endIdx - 1))));
-				var newShift = A2(_elm_lang$core$Basics$max, 5, depth * _Skinney$elm_array_exploration$Array_Hamt$shiftStep);
-				return A4(
-					_Skinney$elm_array_exploration$Array_Hamt$Array,
-					end,
-					newShift,
-					A3(
-						_Skinney$elm_array_exploration$Array_Hamt$hoistTree,
-						_p52,
-						newShift,
-						A3(_Skinney$elm_array_exploration$Array_Hamt$sliceTree, _p52, endIdx, _p53)),
-					A4(_Skinney$elm_array_exploration$Array_Hamt$fetchNewTail, _p52, end, endIdx, _p53));
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$compressNodes = F2(
-	function (nodes, acc) {
-		compressNodes:
-		while (true) {
-			var _p54 = A2(_Skinney$elm_array_exploration$Array_JsArray$initializeFromList, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, nodes);
-			var node = _p54._0;
-			var remainingNodes = _p54._1;
-			var newAcc = {
-				ctor: '::',
-				_0: _Skinney$elm_array_exploration$Array_Hamt$SubTree(node),
-				_1: acc
-			};
-			var _p55 = remainingNodes;
-			if (_p55.ctor === '[]') {
-				return _elm_lang$core$List$reverse(newAcc);
-			} else {
-				var _v36 = remainingNodes,
-					_v37 = newAcc;
-				nodes = _v36;
-				acc = _v37;
-				continue compressNodes;
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$treeFromBuilder = F2(
-	function (nodeList, nodeListSize) {
-		treeFromBuilder:
-		while (true) {
-			var newNodeSize = _elm_lang$core$Basics$ceiling(
-				_elm_lang$core$Basics$toFloat(nodeListSize) / _elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor));
-			if (_elm_lang$core$Native_Utils.eq(newNodeSize, 1)) {
-				return _elm_lang$core$Tuple$first(
-					A2(_Skinney$elm_array_exploration$Array_JsArray$initializeFromList, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, nodeList));
-			} else {
-				var _v38 = A2(
-					_Skinney$elm_array_exploration$Array_Hamt$compressNodes,
-					nodeList,
-					{ctor: '[]'}),
-					_v39 = newNodeSize;
-				nodeList = _v38;
-				nodeListSize = _v39;
-				continue treeFromBuilder;
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$builderToArray = F2(
-	function (reverseNodeList, builder) {
-		if (_elm_lang$core$Native_Utils.eq(builder.nodeListSize, 0)) {
-			return A4(
-				_Skinney$elm_array_exploration$Array_Hamt$Array,
-				_Skinney$elm_array_exploration$Array_JsArray$length(builder.tail),
-				_Skinney$elm_array_exploration$Array_Hamt$shiftStep,
-				_Skinney$elm_array_exploration$Array_JsArray$empty,
-				builder.tail);
-		} else {
-			var correctNodeList = reverseNodeList ? _elm_lang$core$List$reverse(builder.nodeList) : builder.nodeList;
-			var tree = A2(_Skinney$elm_array_exploration$Array_Hamt$treeFromBuilder, correctNodeList, builder.nodeListSize);
-			var treeLen = builder.nodeListSize * _Skinney$elm_array_exploration$Array_Hamt$branchFactor;
-			var depth = _elm_lang$core$Basics$floor(
-				A2(
-					_elm_lang$core$Basics$logBase,
-					_elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor),
-					_elm_lang$core$Basics$toFloat(treeLen - 1)));
-			return A4(
-				_Skinney$elm_array_exploration$Array_Hamt$Array,
-				_Skinney$elm_array_exploration$Array_JsArray$length(builder.tail) + treeLen,
-				A2(_elm_lang$core$Basics$max, 5, depth * _Skinney$elm_array_exploration$Array_Hamt$shiftStep),
-				tree,
-				builder.tail);
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$initializeHelp = F5(
-	function (fn, fromIndex, length, nodeList, tail) {
-		initializeHelp:
-		while (true) {
-			if (_elm_lang$core$Native_Utils.cmp(fromIndex, 0) < 0) {
-				return A2(
-					_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
-					false,
-					{tail: tail, nodeList: nodeList, nodeListSize: (length / _Skinney$elm_array_exploration$Array_Hamt$branchFactor) | 0});
-			} else {
-				var leaf = _Skinney$elm_array_exploration$Array_Hamt$Leaf(
-					A3(_Skinney$elm_array_exploration$Array_JsArray$initialize, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, fromIndex, fn));
-				var _v40 = fn,
-					_v41 = fromIndex - _Skinney$elm_array_exploration$Array_Hamt$branchFactor,
-					_v42 = length,
-					_v43 = {ctor: '::', _0: leaf, _1: nodeList},
-					_v44 = tail;
-				fn = _v40;
-				fromIndex = _v41;
-				length = _v42;
-				nodeList = _v43;
-				tail = _v44;
-				continue initializeHelp;
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$initialize = F2(
-	function (length, fn) {
-		if (_elm_lang$core$Native_Utils.cmp(length, 0) < 1) {
-			return _Skinney$elm_array_exploration$Array_Hamt$empty;
-		} else {
-			var tailLen = A2(_elm_lang$core$Basics$rem, length, _Skinney$elm_array_exploration$Array_Hamt$branchFactor);
-			var tail = A3(_Skinney$elm_array_exploration$Array_JsArray$initialize, tailLen, length - tailLen, fn);
-			var initialFromIndex = (length - tailLen) - _Skinney$elm_array_exploration$Array_Hamt$branchFactor;
-			return A5(
-				_Skinney$elm_array_exploration$Array_Hamt$initializeHelp,
-				fn,
-				initialFromIndex,
-				length,
-				{ctor: '[]'},
-				tail);
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$repeat = F2(
-	function (n, e) {
-		return A2(
-			_Skinney$elm_array_exploration$Array_Hamt$initialize,
-			n,
-			function (_p56) {
-				return e;
-			});
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$fromListHelp = F3(
-	function (list, nodeList, nodeListSize) {
-		fromListHelp:
-		while (true) {
-			var _p57 = A2(_Skinney$elm_array_exploration$Array_JsArray$initializeFromList, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, list);
-			var jsArray = _p57._0;
-			var remainingItems = _p57._1;
-			if (_elm_lang$core$Native_Utils.cmp(
-				_Skinney$elm_array_exploration$Array_JsArray$length(jsArray),
-				_Skinney$elm_array_exploration$Array_Hamt$branchFactor) < 0) {
-				return A2(
-					_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
-					true,
-					{tail: jsArray, nodeList: nodeList, nodeListSize: nodeListSize});
-			} else {
-				var _v45 = remainingItems,
-					_v46 = {
-					ctor: '::',
-					_0: _Skinney$elm_array_exploration$Array_Hamt$Leaf(jsArray),
-					_1: nodeList
-				},
-					_v47 = nodeListSize + 1;
-				list = _v45;
-				nodeList = _v46;
-				nodeListSize = _v47;
-				continue fromListHelp;
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$fromList = function (ls) {
-	var _p58 = ls;
-	if (_p58.ctor === '[]') {
-		return _Skinney$elm_array_exploration$Array_Hamt$empty;
-	} else {
-		return A3(
-			_Skinney$elm_array_exploration$Array_Hamt$fromListHelp,
-			ls,
-			{ctor: '[]'},
-			0);
-	}
-};
-var _Skinney$elm_array_exploration$Array_Hamt$filter = F2(
-	function (f, arr) {
-		var helper = F2(
-			function (n, acc) {
-				return f(n) ? {ctor: '::', _0: n, _1: acc} : acc;
-			});
-		return _Skinney$elm_array_exploration$Array_Hamt$fromList(
-			A3(
-				_Skinney$elm_array_exploration$Array_Hamt$foldr,
-				helper,
-				{ctor: '[]'},
-				arr));
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$indexedMap = F2(
-	function (f, _p59) {
-		var _p60 = _p59;
-		var initialBuilder = {
-			tail: A3(
-				_Skinney$elm_array_exploration$Array_JsArray$indexedMap,
-				f,
-				_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p60._0),
-				_p60._3),
-			nodeList: {ctor: '[]'},
-			nodeListSize: 0
-		};
-		var helper = F2(
-			function (node, builder) {
-				var _p61 = node;
-				if (_p61.ctor === 'SubTree') {
-					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, builder, _p61._0);
-				} else {
-					var offset = builder.nodeListSize * _Skinney$elm_array_exploration$Array_Hamt$branchFactor;
-					var mappedLeaf = _Skinney$elm_array_exploration$Array_Hamt$Leaf(
-						A3(_Skinney$elm_array_exploration$Array_JsArray$indexedMap, f, offset, _p61._0));
-					return {
-						tail: builder.tail,
-						nodeList: {ctor: '::', _0: mappedLeaf, _1: builder.nodeList},
-						nodeListSize: builder.nodeListSize + 1
-					};
-				}
-			});
-		return A2(
-			_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
-			true,
-			A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, initialBuilder, _p60._2));
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$append = F2(
-	function (_p63, _p62) {
-		var _p64 = _p63;
-		var _p70 = _p64;
-		var _p65 = _p62;
-		var _p69 = _p65._2;
-		var _p68 = _p65._3;
-		if (_elm_lang$core$Native_Utils.cmp(_p65._0, _Skinney$elm_array_exploration$Array_Hamt$branchFactor * 4) < 1) {
-			var foldHelper = F2(
-				function (node, arr) {
-					var _p66 = node;
-					if (_p66.ctor === 'SubTree') {
-						return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, arr, _p66._0);
-					} else {
-						return A2(_Skinney$elm_array_exploration$Array_Hamt$appendHelpTree, _p66._0, arr);
-					}
-				});
-			return A2(
-				_Skinney$elm_array_exploration$Array_Hamt$appendHelpTree,
-				_p68,
-				A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, _p70, _p69));
-		} else {
-			var foldHelper = F2(
-				function (node, builder) {
-					var _p67 = node;
-					if (_p67.ctor === 'SubTree') {
-						return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, builder, _p67._0);
-					} else {
-						return A2(_Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder, _p67._0, builder);
-					}
-				});
-			var builder = _Skinney$elm_array_exploration$Array_Hamt$builderFromArray(_p70);
-			return A2(
-				_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
-				true,
-				A2(
-					_Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder,
-					_p68,
-					A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, builder, _p69)));
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$sliceLeft = F2(
-	function (from, _p71) {
-		var _p72 = _p71;
-		var _p77 = _p72._3;
-		var _p76 = _p72._0;
-		if (_elm_lang$core$Native_Utils.eq(from, 0)) {
-			return _p72;
-		} else {
-			if (_elm_lang$core$Native_Utils.cmp(
-				from,
-				_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p76)) > -1) {
-				return A4(
-					_Skinney$elm_array_exploration$Array_Hamt$Array,
-					_p76 - from,
-					_Skinney$elm_array_exploration$Array_Hamt$shiftStep,
-					_Skinney$elm_array_exploration$Array_JsArray$empty,
-					A3(
-						_Skinney$elm_array_exploration$Array_JsArray$slice,
-						from - _Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p76),
-						_Skinney$elm_array_exploration$Array_JsArray$length(_p77),
-						_p77));
-			} else {
-				var skipNodes = (from / _Skinney$elm_array_exploration$Array_Hamt$branchFactor) | 0;
-				var helper = F2(
-					function (node, acc) {
-						var _p73 = node;
-						if (_p73.ctor === 'SubTree') {
-							return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, helper, acc, _p73._0);
-						} else {
-							return {ctor: '::', _0: _p73._0, _1: acc};
-						}
-					});
-				var leafNodes = A3(
-					_Skinney$elm_array_exploration$Array_JsArray$foldr,
-					helper,
-					{
-						ctor: '::',
-						_0: _p77,
-						_1: {ctor: '[]'}
-					},
-					_p72._2);
-				var nodesToInsert = A2(_elm_lang$core$List$drop, skipNodes, leafNodes);
-				var _p74 = nodesToInsert;
-				if (_p74.ctor === '[]') {
-					return _Skinney$elm_array_exploration$Array_Hamt$empty;
-				} else {
-					var _p75 = _p74._0;
-					var firstSlice = from - (skipNodes * _Skinney$elm_array_exploration$Array_Hamt$branchFactor);
-					var initialBuilder = {
-						tail: A3(
-							_Skinney$elm_array_exploration$Array_JsArray$slice,
-							firstSlice,
-							_Skinney$elm_array_exploration$Array_JsArray$length(_p75),
-							_p75),
-						nodeList: {ctor: '[]'},
-						nodeListSize: 0
-					};
-					return A2(
-						_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
-						true,
-						A3(_elm_lang$core$List$foldl, _Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder, initialBuilder, _p74._1));
-				}
-			}
-		}
-	});
-var _Skinney$elm_array_exploration$Array_Hamt$slice = F3(
-	function (from, to, arr) {
-		var correctTo = A2(_Skinney$elm_array_exploration$Array_Hamt$translateIndex, to, arr);
-		var correctFrom = A2(_Skinney$elm_array_exploration$Array_Hamt$translateIndex, from, arr);
-		return (_elm_lang$core$Native_Utils.cmp(correctFrom, correctTo) > 0) ? _Skinney$elm_array_exploration$Array_Hamt$empty : A2(
-			_Skinney$elm_array_exploration$Array_Hamt$sliceLeft,
-			correctFrom,
-			A2(_Skinney$elm_array_exploration$Array_Hamt$sliceRight, correctTo, arr));
-	});
-
 //import Native.List //
 
 var _elm_lang$core$Native_Array = function() {
@@ -12968,8 +12000,8 @@ var _jinjor$elm_diff$Diff$makeChangesHelp = F5(
 					getA(_p6)) : _elm_lang$core$Native_Utils.crash(
 					'Diff',
 					{
-						start: {line: 144, column: 25},
-						end: {line: 144, column: 36}
+						start: {line: 138, column: 13},
+						end: {line: 138, column: 24}
 					})(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
@@ -13020,11 +12052,11 @@ var _jinjor$elm_diff$Diff$step = F4(
 		var fromTop = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
-			A2(_Skinney$elm_array_exploration$Array_Hamt$get, (k + 1) + offset, v));
+			A2(_elm_lang$core$Array$get, (k + 1) + offset, v));
 		var fromLeft = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
-			A2(_Skinney$elm_array_exploration$Array_Hamt$get, (k - 1) + offset, v));
+			A2(_elm_lang$core$Array$get, (k - 1) + offset, v));
 		var _p9 = function () {
 			var _p10 = {ctor: '_Tuple2', _0: fromLeft, _1: fromTop};
 			if (_p10._0.ctor === '[]') {
@@ -13078,7 +12110,7 @@ var _jinjor$elm_diff$Diff$step = F4(
 		var newPath = _p13._0;
 		var goal = _p13._1;
 		return goal ? _jinjor$elm_diff$Diff$Found(newPath) : _jinjor$elm_diff$Diff$Continue(
-			A3(_Skinney$elm_array_exploration$Array_Hamt$set, k + offset, newPath, v));
+			A3(_elm_lang$core$Array$set, k + offset, newPath, v));
 	});
 var _jinjor$elm_diff$Diff$ondLoopDK = F5(
 	function (snake, offset, d, k, v) {
@@ -13119,7 +12151,7 @@ var _jinjor$elm_diff$Diff$ondLoopDK = F5(
 var _jinjor$elm_diff$Diff$ond = F4(
 	function (getA, getB, m, n) {
 		var v = A2(
-			_Skinney$elm_array_exploration$Array_Hamt$initialize,
+			_elm_lang$core$Array$initialize,
 			(m + n) + 1,
 			_elm_lang$core$Basics$always(
 				{ctor: '[]'}));
@@ -13191,7 +12223,7 @@ var _jinjor$elm_diff$Diff$onp = F4(
 	function (getA, getB, m, n) {
 		var delta = n - m;
 		var v = A2(
-			_Skinney$elm_array_exploration$Array_Hamt$initialize,
+			_elm_lang$core$Array$initialize,
 			(m + n) + 1,
 			_elm_lang$core$Basics$always(
 				{ctor: '[]'}));
@@ -13205,10 +12237,10 @@ var _jinjor$elm_diff$Diff$onp = F4(
 	});
 var _jinjor$elm_diff$Diff$diff = F2(
 	function (a, b) {
-		var arrB = _Skinney$elm_array_exploration$Array_Hamt$fromList(b);
-		var n = _Skinney$elm_array_exploration$Array_Hamt$length(arrB);
+		var arrB = _elm_lang$core$Array$fromList(b);
+		var n = _elm_lang$core$Array$length(arrB);
 		var getB = function (y) {
-			return A2(_Skinney$elm_array_exploration$Array_Hamt$get, y - 1, arrB);
+			return A2(_elm_lang$core$Array$get, y - 1, arrB);
 		};
 		var getBOrCrash = function (y) {
 			var _p18 = getB(y);
@@ -13218,8 +12250,8 @@ var _jinjor$elm_diff$Diff$diff = F2(
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Diff',
 					{
-						start: {line: 103, column: 13},
-						end: {line: 108, column: 71}
+						start: {line: 101, column: 7},
+						end: {line: 103, column: 70}
 					},
 					_p18)(
 					A2(
@@ -13231,10 +12263,10 @@ var _jinjor$elm_diff$Diff$diff = F2(
 							']')));
 			}
 		};
-		var arrA = _Skinney$elm_array_exploration$Array_Hamt$fromList(a);
-		var m = _Skinney$elm_array_exploration$Array_Hamt$length(arrA);
+		var arrA = _elm_lang$core$Array$fromList(a);
+		var m = _elm_lang$core$Array$length(arrA);
 		var getA = function (x) {
-			return A2(_Skinney$elm_array_exploration$Array_Hamt$get, x - 1, arrA);
+			return A2(_elm_lang$core$Array$get, x - 1, arrA);
 		};
 		var getAOrCrash = function (x) {
 			var _p20 = getA(x);
@@ -13244,8 +12276,8 @@ var _jinjor$elm_diff$Diff$diff = F2(
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Diff',
 					{
-						start: {line: 95, column: 13},
-						end: {line: 100, column: 71}
+						start: {line: 96, column: 7},
+						end: {line: 98, column: 70}
 					},
 					_p20)(
 					A2(
@@ -14704,9 +13736,9 @@ var _user$project$Model$Response = F2(
 	function (a, b) {
 		return {stamp: a, history: b};
 	});
-var _user$project$Model$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {resource: a, response: b, selected: c, displayedVersions: d, navigationLocks: e, versionDateDetail: f, redraw: g};
+var _user$project$Model$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {resource: a, response: b, selected: c, displayedVersions: d, navigationLocks: e, redraw: f};
 	});
 var _user$project$Model$Identifier = F2(
 	function (a, b) {
@@ -14720,9 +13752,6 @@ var _user$project$Model$Version = F3(
 	function (a, b, c) {
 		return {from: a, until: b, object: c};
 	});
-var _user$project$Model$FlipShowVersionDateDetail = function (a) {
-	return {ctor: 'FlipShowVersionDateDetail', _0: a};
-};
 var _user$project$Model$FlipNavLock = function (a) {
 	return {ctor: 'FlipNavLock', _0: a};
 };
@@ -14849,10 +13878,6 @@ var _user$project$Rdap$run = F3(
 				A2(_elm_lang$core$Json_Decode$decodeValue, d, v)));
 	});
 var _user$project$Rdap$tabulated = _user$project$Rdap$run(_elm_lang$core$Basics$identity);
-var _user$project$Rdap$mobileSpacer = A2(
-	_elm_lang$html$Html$hr,
-	{ctor: '[]'},
-	{ctor: '[]'});
 var _user$project$Rdap$spacer = A2(
 	_elm_lang$html$Html$tr,
 	{
@@ -14883,13 +13908,13 @@ var _user$project$Rdap$diffattr = function (d) {
 	var _p0 = d;
 	switch (_p0.ctor) {
 		case 'Unchanged':
-			return 'diff-unchanged';
+			return _elm_lang$html$Html_Attributes$class('diff-unchanged');
 		case 'Modified':
-			return 'diff-modified';
+			return _elm_lang$html$Html_Attributes$class('diff-modified');
 		case 'New':
-			return 'diff-new';
+			return _elm_lang$html$Html_Attributes$class('diff-new');
 		default:
-			return 'diff-deleted';
+			return _elm_lang$html$Html_Attributes$class('diff-deleted');
 	}
 };
 var _user$project$Rdap$row = F3(
@@ -14898,8 +13923,7 @@ var _user$project$Rdap$row = F3(
 			_elm_lang$html$Html$tr,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class(
-					_user$project$Rdap$diffattr(d)),
+				_0: _user$project$Rdap$diffattr(d),
 				_1: {ctor: '[]'}
 			},
 			{
@@ -15094,43 +14118,9 @@ var _user$project$Rdap$output = function (rdap) {
 					},
 					rdap))));
 };
-var _user$project$Rdap$mobileValue = F2(
-	function (mode, value) {
-		var _p23 = mode;
-		switch (_p23.ctor) {
-			case 'Text':
-				return _user$project$Rdap$newlined(value);
-			case 'Lookup':
-				return {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$a,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$href(
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									'#',
-									_user$project$Rdap$flatText(value))),
-							_1: {ctor: '[]'}
-						},
-						_user$project$Rdap$convertValue(value)),
-					_1: {ctor: '[]'}
-				};
-			default:
-				return {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$pre,
-						{ctor: '[]'},
-						_user$project$Rdap$convertValue(value)),
-					_1: {ctor: '[]'}
-				};
-		}
-	});
 var _user$project$Rdap$ot = function (s) {
-	var _p24 = s;
-	switch (_p24) {
+	var _p23 = s;
+	switch (_p23) {
 		case 'ip network':
 			return _elm_lang$core$Maybe$Just(_user$project$Model$InetNum);
 		case 'autnum':
@@ -15351,8 +14341,8 @@ var _user$project$Rdap$tel = function (v) {
 					A2(_elm_lang$core$Dict$get, 'type', v.parameters)))));
 };
 var _user$project$Rdap$vcardEntry = function (v) {
-	var _p25 = v.name;
-	switch (_p25) {
+	var _p24 = v.name;
+	switch (_p24) {
 		case 'fn':
 			return A2(_user$project$Rdap$simple, 'name', v);
 		case 'kind':
@@ -15388,11 +14378,11 @@ var _user$project$Rdap$vcard = F2(
 			{ctor: '[]'},
 			A2(
 				_elm_lang$core$Result$map,
-				function (_p26) {
+				function (_p25) {
 					return A2(
 						_elm_lang$core$List$concatMap,
 						_user$project$Rdap$vcardEntry,
-						A2(_elm_lang$core$List$drop, 1, _p26));
+						A2(_elm_lang$core$List$drop, 1, _p25));
 				},
 				A2(_elm_lang$core$Json_Decode$decodeValue, d, v)));
 	});
@@ -15670,8 +14660,8 @@ var _user$project$Rdap$domain = function (v) {
 };
 var _user$project$Rdap$render = F2(
 	function (i, value) {
-		var _p27 = i.objectClass;
-		switch (_p27.ctor) {
+		var _p26 = i.objectClass;
+		switch (_p26.ctor) {
 			case 'InetNum':
 				return {
 					ctor: '::',
@@ -15712,171 +14702,47 @@ var _user$project$Rdap$render = F2(
 	});
 var _user$project$Rdap$Deleted = {ctor: 'Deleted'};
 var _user$project$Rdap$New = {ctor: 'New'};
-var _user$project$Rdap$mobileModifiedValue = F2(
-	function (mode, mvs) {
-		var added = A2(
-			_elm_lang$core$List$filter,
-			function (_p28) {
-				var _p29 = _p28;
-				return !_elm_lang$core$Native_Utils.eq(_p29._1, _user$project$Rdap$Deleted);
-			},
-			mvs);
-		var removed = A2(
-			_elm_lang$core$List$filter,
-			function (_p30) {
-				var _p31 = _p30;
-				return !_elm_lang$core$Native_Utils.eq(_p31._1, _user$project$Rdap$New);
-			},
-			mvs);
-		return {
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('mobileRemovedLine'),
-					_1: {ctor: '[]'}
-				},
-				A2(
-					_user$project$Rdap$mobileValue,
-					mode,
-					_user$project$Rdap$ModifiedValue(removed))),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('mobileAddedLine'),
-						_1: {ctor: '[]'}
-					},
-					A2(
-						_user$project$Rdap$mobileValue,
-						mode,
-						_user$project$Rdap$ModifiedValue(added))),
-				_1: {ctor: '[]'}
-			}
-		};
-	});
-var _user$project$Rdap$mobileLine = function (_p32) {
-	var _p33 = _p32;
-	var _p36 = _p33.value;
-	var _p35 = _p33.display;
-	var values = function () {
-		var _p34 = _p36;
-		if (_p34.ctor === 'ModifiedValue') {
-			return A2(_user$project$Rdap$mobileModifiedValue, _p35, _p34._0);
-		} else {
-			return A2(_user$project$Rdap$mobileValue, _p35, _p36);
-		}
-	}();
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('mobileLine'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class(
-						_user$project$Rdap$diffattr(_p33.diffMode)),
-					_1: {ctor: '[]'}
-				},
-				A2(
-					_elm_lang$core$Basics_ops['++'],
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('mobileLineTitle'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(_p33.label),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					},
-					values)),
-			_1: {ctor: '[]'}
-		});
-};
-var _user$project$Rdap$mobileObject = _elm_lang$core$List$map(_user$project$Rdap$mobileLine);
-var _user$project$Rdap$mobileOutput = function (rdap) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('mobileRdapDiff'),
-			_1: {ctor: '[]'}
-		},
-		_elm_lang$core$List$concat(
-			A2(
-				_elm_lang$core$List$intersperse,
-				{
-					ctor: '::',
-					_0: _user$project$Rdap$mobileSpacer,
-					_1: {ctor: '[]'}
-				},
-				A2(
-					_elm_lang$core$List$map,
-					function (_p37) {
-						return _user$project$Rdap$mobileObject(
-							function (_) {
-								return _.object;
-							}(_p37));
-					},
-					rdap))));
-};
 var _user$project$Rdap$Modified = {ctor: 'Modified'};
 var _user$project$Rdap$Unchanged = {ctor: 'Unchanged'};
 var _user$project$Rdap$setModifiedDiff = F2(
 	function (from, to) {
 		var sanatiseWS = function (cs) {
-			var _p38 = cs;
-			if (_p38.ctor === '[]') {
+			var _p27 = cs;
+			if (_p27.ctor === '[]') {
 				return {ctor: '[]'};
 			} else {
-				if (((_p38._1.ctor === '::') && (_p38._1._0.ctor === 'NoChange')) && (_p38._1._1.ctor === '::')) {
-					if (_p38._0.ctor === 'NoChange') {
+				if (((_p27._1.ctor === '::') && (_p27._1._0.ctor === 'NoChange')) && (_p27._1._1.ctor === '::')) {
+					if (_p27._0.ctor === 'NoChange') {
 						return {
 							ctor: '::',
-							_0: _jinjor$elm_diff$Diff$NoChange(_p38._0._0),
+							_0: _jinjor$elm_diff$Diff$NoChange(_p27._0._0),
 							_1: {
 								ctor: '::',
-								_0: _jinjor$elm_diff$Diff$NoChange(_p38._1._0._0),
+								_0: _jinjor$elm_diff$Diff$NoChange(_p27._1._0._0),
 								_1: sanatiseWS(
-									{ctor: '::', _0: _p38._1._1._0, _1: _p38._1._1._1})
+									{ctor: '::', _0: _p27._1._1._0, _1: _p27._1._1._1})
 							}
 						};
 					} else {
-						if (_p38._1._1._0.ctor === 'NoChange') {
+						if (_p27._1._1._0.ctor === 'NoChange') {
 							return {
 								ctor: '::',
-								_0: _p38._0,
+								_0: _p27._0,
 								_1: {
 									ctor: '::',
-									_0: _jinjor$elm_diff$Diff$NoChange(_p38._1._0._0),
+									_0: _jinjor$elm_diff$Diff$NoChange(_p27._1._0._0),
 									_1: {
 										ctor: '::',
-										_0: _jinjor$elm_diff$Diff$NoChange(_p38._1._1._0._0),
-										_1: sanatiseWS(_p38._1._1._1)
+										_0: _jinjor$elm_diff$Diff$NoChange(_p27._1._1._0._0),
+										_1: sanatiseWS(_p27._1._1._1)
 									}
 								}
 							};
 						} else {
-							var _p42 = _p38._1._0._0;
-							var _p41 = _p38._1._1._1;
-							var _p40 = _p38._1._1._0;
-							var _p39 = _p38._0;
+							var _p31 = _p27._1._0._0;
+							var _p30 = _p27._1._1._1;
+							var _p29 = _p27._1._1._0;
+							var _p28 = _p27._0;
 							return A2(
 								_elm_lang$core$String$all,
 								F2(
@@ -15884,27 +14750,27 @@ var _user$project$Rdap$setModifiedDiff = F2(
 										return _elm_lang$core$Native_Utils.eq(x, y);
 									})(
 									_elm_lang$core$Native_Utils.chr(' ')),
-								_p42) ? {
+								_p31) ? {
 								ctor: '::',
-								_0: _p39,
+								_0: _p28,
 								_1: {
 									ctor: '::',
-									_0: _jinjor$elm_diff$Diff$Added(_p42),
+									_0: _jinjor$elm_diff$Diff$Added(_p31),
 									_1: {
 										ctor: '::',
-										_0: _jinjor$elm_diff$Diff$Removed(_p42),
+										_0: _jinjor$elm_diff$Diff$Removed(_p31),
 										_1: sanatiseWS(
-											{ctor: '::', _0: _p40, _1: _p41})
+											{ctor: '::', _0: _p29, _1: _p30})
 									}
 								}
 							} : {
 								ctor: '::',
-								_0: _p39,
+								_0: _p28,
 								_1: {
 									ctor: '::',
-									_0: _jinjor$elm_diff$Diff$NoChange(_p42),
+									_0: _jinjor$elm_diff$Diff$NoChange(_p31),
 									_1: sanatiseWS(
-										{ctor: '::', _0: _p40, _1: _p41})
+										{ctor: '::', _0: _p29, _1: _p30})
 								}
 							};
 						}
@@ -15912,26 +14778,26 @@ var _user$project$Rdap$setModifiedDiff = F2(
 				} else {
 					return {
 						ctor: '::',
-						_0: _p38._0,
-						_1: sanatiseWS(_p38._1)
+						_0: _p27._0,
+						_1: sanatiseWS(_p27._1)
 					};
 				}
 			}
 		};
 		var convertDiff = function (d) {
-			var _p43 = d;
-			switch (_p43.ctor) {
+			var _p32 = d;
+			switch (_p32.ctor) {
 				case 'Added':
-					return {ctor: '_Tuple2', _0: _p43._0, _1: _user$project$Rdap$New};
+					return {ctor: '_Tuple2', _0: _p32._0, _1: _user$project$Rdap$New};
 				case 'Removed':
-					return {ctor: '_Tuple2', _0: _p43._0, _1: _user$project$Rdap$Deleted};
+					return {ctor: '_Tuple2', _0: _p32._0, _1: _user$project$Rdap$Deleted};
 				default:
-					return {ctor: '_Tuple2', _0: _p43._0, _1: _user$project$Rdap$Unchanged};
+					return {ctor: '_Tuple2', _0: _p32._0, _1: _user$project$Rdap$Unchanged};
 			}
 		};
 		var toString = _user$project$Rdap$flatText(to.value);
 		var fromString = _user$project$Rdap$flatText(from.value);
-		var splitLine = function (_p44) {
+		var splitLine = function (_p33) {
 			return A2(
 				_elm_lang$core$List$map,
 				_elm_lang$core$String$fromList,
@@ -15945,9 +14811,9 @@ var _user$project$Rdap$setModifiedDiff = F2(
 								c2,
 								_elm_lang$core$Native_Utils.chr(' ')));
 						}),
-					_elm_lang$core$String$toList(_p44)));
+					_elm_lang$core$String$toList(_p33)));
 		};
-		var splitValue = function (_p45) {
+		var splitValue = function (_p34) {
 			return _elm_lang$core$List$concat(
 				A2(
 					_elm_lang$core$List$intersperse,
@@ -15959,7 +14825,7 @@ var _user$project$Rdap$setModifiedDiff = F2(
 					A2(
 						_elm_lang$core$List$map,
 						splitLine,
-						_elm_lang$core$String$lines(_p45))));
+						_elm_lang$core$String$lines(_p34))));
 		};
 		var wordsDiff = A2(
 			_jinjor$elm_diff$Diff$diff,
@@ -15985,63 +14851,63 @@ var _user$project$Rdap$setModifiedDiff = F2(
 		};
 	});
 var _user$project$Rdap$diffed = function (changes) {
-	var _p46 = changes;
-	if (_p46.ctor === '[]') {
+	var _p35 = changes;
+	if (_p35.ctor === '[]') {
 		return {ctor: '[]'};
 	} else {
-		switch (_p46._0.ctor) {
+		switch (_p35._0.ctor) {
 			case 'Added':
 				return {
 					ctor: '::',
-					_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$New, _p46._0._0),
-					_1: _user$project$Rdap$diffed(_p46._1)
+					_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$New, _p35._0._0),
+					_1: _user$project$Rdap$diffed(_p35._1)
 				};
 			case 'Removed':
-				var _p51 = _p46._0._0;
-				var _p50 = _p46._1;
+				var _p40 = _p35._0._0;
+				var _p39 = _p35._1;
 				var mc = A2(
 					_elm_community$list_extra$List_Extra$find,
 					function (c) {
-						var _p47 = c;
-						if (_p47.ctor === 'Added') {
-							return _elm_lang$core$Native_Utils.eq(_p51.label, _p47._0.label);
+						var _p36 = c;
+						if (_p36.ctor === 'Added') {
+							return _elm_lang$core$Native_Utils.eq(_p40.label, _p36._0.label);
 						} else {
 							return false;
 						}
 					},
-					_p50);
-				var _p48 = mc;
-				if (_p48.ctor === 'Nothing') {
+					_p39);
+				var _p37 = mc;
+				if (_p37.ctor === 'Nothing') {
 					return {
 						ctor: '::',
-						_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$Deleted, _p51),
-						_1: _user$project$Rdap$diffed(_p50)
+						_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$Deleted, _p40),
+						_1: _user$project$Rdap$diffed(_p39)
 					};
 				} else {
-					if (_p48._0.ctor === 'Added') {
-						var _p49 = _p48._0._0;
+					if (_p37._0.ctor === 'Added') {
+						var _p38 = _p37._0._0;
 						return {
 							ctor: '::',
-							_0: A2(_user$project$Rdap$setModifiedDiff, _p51, _p49),
+							_0: A2(_user$project$Rdap$setModifiedDiff, _p40, _p38),
 							_1: _user$project$Rdap$diffed(
 								A2(
 									_elm_community$list_extra$List_Extra$remove,
-									_jinjor$elm_diff$Diff$Added(_p49),
-									_p50))
+									_jinjor$elm_diff$Diff$Added(_p38),
+									_p39))
 						};
 					} else {
 						return {
 							ctor: '::',
-							_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$Deleted, _p51),
-							_1: _user$project$Rdap$diffed(_p50)
+							_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$Deleted, _p40),
+							_1: _user$project$Rdap$diffed(_p39)
 						};
 					}
 				}
 			default:
 				return {
 					ctor: '::',
-					_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$Unchanged, _p46._0._0),
-					_1: _user$project$Rdap$diffed(_p46._1)
+					_0: A2(_user$project$Rdap$setDiff, _user$project$Rdap$Unchanged, _p35._0._0),
+					_1: _user$project$Rdap$diffed(_p35._1)
 				};
 		}
 	}
@@ -16053,16 +14919,16 @@ var _user$project$Rdap$diffObject = F2(
 	});
 var _user$project$Rdap$diffRecord = F2(
 	function (orig, obj) {
-		var _p52 = A2(
+		var _p41 = A2(
 			_elm_community$list_extra$List_Extra$find,
 			function (r) {
 				return _elm_lang$core$Native_Utils.eq(r.identifier, obj.identifier);
 			},
 			orig);
-		if (_p52.ctor === 'Nothing') {
+		if (_p41.ctor === 'Nothing') {
 			return A2(_user$project$Rdap$using, _user$project$Rdap$New, obj);
 		} else {
-			var $new = A2(_user$project$Rdap$diffObject, _p52._0.object, obj.object);
+			var $new = A2(_user$project$Rdap$diffObject, _p41._0.object, obj.object);
 			return _elm_lang$core$Native_Utils.update(
 				obj,
 				{object: $new});
@@ -16070,19 +14936,19 @@ var _user$project$Rdap$diffRecord = F2(
 	});
 var _user$project$Rdap$diff = F2(
 	function (mOrig, $new) {
-		var _p53 = mOrig;
-		if (_p53.ctor === 'Nothing') {
+		var _p42 = mOrig;
+		if (_p42.ctor === 'Nothing') {
 			return A2(
 				_elm_lang$core$List$map,
 				_user$project$Rdap$using(_user$project$Rdap$Unchanged),
 				$new);
 		} else {
-			var _p54 = _p53._0;
+			var _p43 = _p42._0;
 			return A2(
 				_elm_lang$core$Basics_ops['++'],
 				A2(
 					_elm_lang$core$List$map,
-					_user$project$Rdap$diffRecord(_p54),
+					_user$project$Rdap$diffRecord(_p43),
 					$new),
 				A2(
 					_elm_lang$core$List$map,
@@ -16099,7 +14965,7 @@ var _user$project$Rdap$diff = F2(
 									$new),
 								_elm_lang$core$Maybe$Nothing);
 						},
-						_p54)));
+						_p43)));
 		}
 	});
 
@@ -16260,13 +15126,13 @@ var _user$project$Render$checkNavDisabled = F2(
 			dir,
 			ctx.navigationLocks);
 	});
-var _user$project$Render$lockerIcon = F3(
-	function (state, svgClass, id) {
+var _user$project$Render$lockerIcon = F2(
+	function (state, svgClass) {
 		var iconTitle = _elm_lang$core$Native_Utils.eq(state, _user$project$Model$Locked) ? 'Unlock version' : 'Lock version';
 		var maskName = A2(
 			_elm_lang$core$Basics_ops['++'],
 			_elm_lang$core$Basics$toString(state),
-			id);
+			svgClass);
 		var maskPathDraw = function () {
 			var _p0 = state;
 			if (_p0.ctor === 'Locked') {
@@ -16437,192 +15303,54 @@ var _user$project$Render$lockerIcon = F3(
 				}
 			});
 	});
-var _user$project$Render$expandIcon = function (svgClass) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 100 100'),
-			_1: {
+var _user$project$Render$moreIcon = F2(
+	function (svgClass, tooltipText) {
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
 				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$defs,
-				{ctor: '[]'},
-				{
+				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 100 100'),
+				_1: {
 					ctor: '::',
-					_0: A2(
-						_elm_lang$svg$Svg$mask,
-						{
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$id(svgClass),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$svg$Svg$rect,
-								{
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$x('0'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$y('0'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$width('100'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$height('100'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$fill('white'),
-													_1: {ctor: '[]'}
-												}
-											}
-										}
-									}
-								},
-								{ctor: '[]'}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$svg$Svg$path,
-									{
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$strokeWidth('17'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$fill('transparent'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$svg$Svg_Attributes$d('M 20 35 L 50 65 L 80 35'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
-															_1: {ctor: '[]'}
-														}
-													}
-												}
-											}
-										}
-									},
-									{ctor: '[]'}),
-								_1: {ctor: '[]'}
-							}
-						}),
+					_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
 					_1: {ctor: '[]'}
-				}),
-			_1: {
+				}
+			},
+			{
 				ctor: '::',
 				_0: A2(
-					_elm_lang$svg$Svg$circle,
+					_elm_lang$svg$Svg$defs,
+					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$cx('50'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$cy('50'),
-							_1: {
+						_0: A2(
+							_elm_lang$svg$Svg$mask,
+							{
 								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$r('50'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$mask(
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											'url(#',
-											A2(_elm_lang$core$Basics_ops['++'], svgClass, ')'))),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$Render$moreIcon = function (svgClass) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 100 100'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$defs,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$svg$Svg$mask,
-						{
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$id(svgClass),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$svg$Svg$rect,
-								{
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$x('0'),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$y('0'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$width('100'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$height('100'),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$fill('white'),
-													_1: {ctor: '[]'}
-												}
-											}
-										}
-									}
-								},
-								{ctor: '[]'}),
-							_1: {
+								_0: _elm_lang$svg$Svg_Attributes$id(svgClass),
+								_1: {ctor: '[]'}
+							},
+							{
 								ctor: '::',
 								_0: A2(
-									_elm_lang$svg$Svg$circle,
+									_elm_lang$svg$Svg$rect,
 									{
 										ctor: '::',
-										_0: _elm_lang$svg$Svg_Attributes$cx('50'),
+										_0: _elm_lang$svg$Svg_Attributes$x('0'),
 										_1: {
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$cy('50'),
+											_0: _elm_lang$svg$Svg_Attributes$y('0'),
 											_1: {
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$r('13.33'),
+												_0: _elm_lang$svg$Svg_Attributes$width('100'),
 												_1: {
 													ctor: '::',
-													_0: _elm_lang$svg$Svg_Attributes$fill('black'),
-													_1: {ctor: '[]'}
+													_0: _elm_lang$svg$Svg_Attributes$height('100'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$fill('white'),
+														_1: {ctor: '[]'}
+													}
 												}
 											}
 										}
@@ -16634,7 +15362,7 @@ var _user$project$Render$moreIcon = function (svgClass) {
 										_elm_lang$svg$Svg$circle,
 										{
 											ctor: '::',
-											_0: _elm_lang$svg$Svg_Attributes$cx('18.33'),
+											_0: _elm_lang$svg$Svg_Attributes$cx('50'),
 											_1: {
 												ctor: '::',
 												_0: _elm_lang$svg$Svg_Attributes$cy('50'),
@@ -16656,7 +15384,7 @@ var _user$project$Render$moreIcon = function (svgClass) {
 											_elm_lang$svg$Svg$circle,
 											{
 												ctor: '::',
-												_0: _elm_lang$svg$Svg_Attributes$cx('81.66'),
+												_0: _elm_lang$svg$Svg_Attributes$cx('18.33'),
 												_1: {
 													ctor: '::',
 													_0: _elm_lang$svg$Svg_Attributes$cy('50'),
@@ -16672,53 +15400,94 @@ var _user$project$Render$moreIcon = function (svgClass) {
 												}
 											},
 											{ctor: '[]'}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$svg$Svg$circle,
+												{
+													ctor: '::',
+													_0: _elm_lang$svg$Svg_Attributes$cx('81.66'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$cy('50'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$svg$Svg_Attributes$r('13.33'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$svg$Svg_Attributes$fill('black'),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												},
+												{ctor: '[]'}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$circle,
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$cx('50'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$cy('50'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$r('50'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$mask(
+											A2(
+												_elm_lang$core$Basics_ops['++'],
+												'url(#',
+												A2(_elm_lang$core$Basics_ops['++'], svgClass, ')'))),
 										_1: {ctor: '[]'}
 									}
 								}
 							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$svg$Svg$title,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(tooltipText),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
 						}),
 					_1: {ctor: '[]'}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$svg$Svg$circle,
-					{
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$cx('50'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$cy('50'),
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$svg$Svg_Attributes$r('50'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$svg$Svg_Attributes$mask(
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											'url(#',
-											A2(_elm_lang$core$Basics_ops['++'], svgClass, ')'))),
-									_1: {ctor: '[]'}
-								}
-							}
-						}
-					},
-					{ctor: '[]'}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
+				}
+			});
+	});
 var _user$project$Render$arrow = function (svgClass) {
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		{
 			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 50 100'),
+			_0: _elm_lang$svg$Svg_Attributes$width('50'),
 			_1: {
 				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
-				_1: {ctor: '[]'}
+				_0: _elm_lang$svg$Svg_Attributes$height('100'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 50 100'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		},
 		{
@@ -16750,57 +15519,52 @@ var _user$project$Render$arrow = function (svgClass) {
 			_1: {ctor: '[]'}
 		});
 };
-var _user$project$Render$prettifyDate = F2(
-	function (d, df) {
-		var spanClass = function () {
-			var _p1 = df;
-			if (_p1.ctor === 'Short') {
-				return 'dateShort';
-			} else {
-				return 'dateLong';
-			}
-		}();
-		var pattern = function () {
-			var _p2 = df;
-			if (_p2.ctor === 'Short') {
-				return '%d/%m/%y';
-			} else {
-				return '%d/%m/%Y %H:%M';
-			}
-		}();
-		return A2(
-			_elm_lang$html$Html$span,
-			{
+var _user$project$Render$prettifyDate = function (_p1) {
+	return _elm_lang$html$Html$text(
+		A3(_rluiten$elm_date_extra$Date_Extra_Format$formatUtc, _rluiten$elm_date_extra$Date_Extra_Config_Config_en_au$config, '%d/%m/%Y %H:%M', _p1));
+};
+var _user$project$Render$createDateLabel = function (md) {
+	var _p2 = md;
+	if (_p2.ctor === 'Nothing') {
+		return {
+			ctor: '::',
+			_0: _elm_lang$html$Html$text('Present'),
+			_1: {ctor: '[]'}
+		};
+	} else {
+		var _p3 = _p2._0;
+		return {
+			ctor: '::',
+			_0: _user$project$Render$prettifyDate(_p3),
+			_1: {
 				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class(spanClass),
+				_0: A2(
+					_user$project$Render$moreIcon,
+					'moreIconSvg',
+					_elm_lang$core$Basics$toString(_p3)),
 				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(
-					A3(_rluiten$elm_date_extra$Date_Extra_Format$formatUtc, _rluiten$elm_date_extra$Date_Extra_Config_Config_en_au$config, pattern, d)),
-				_1: {ctor: '[]'}
-			});
-	});
+			}
+		};
+	}
+};
 var _user$project$Render$viewDiff = F3(
 	function (ctx, was, is) {
 		var rIs = A2(_user$project$Rdap$render, ctx.history.identifier, is.object);
 		var rWas = A2(
 			_elm_lang$core$Maybe$map,
-			function (_p3) {
+			function (_p4) {
 				return A2(
 					_user$project$Rdap$render,
 					ctx.history.identifier,
 					function (_) {
 						return _.object;
-					}(_p3));
+					}(_p4));
 			},
 			was);
-		var diff = A2(_user$project$Rdap$diff, rWas, rIs);
-		var diffOutput = _user$project$Rdap$output(diff);
-		var mobileDiffOutput = _user$project$Rdap$mobileOutput(diff);
-		var _p4 = was;
-		if (_p4.ctor === 'Nothing') {
+		var diffOutput = _user$project$Rdap$output(
+			A2(_user$project$Rdap$diff, rWas, rIs));
+		var _p5 = was;
+		if (_p5.ctor === 'Nothing') {
 			return {
 				ctor: '::',
 				_0: A2(
@@ -16826,22 +15590,7 @@ var _user$project$Render$viewDiff = F3(
 							}),
 						_1: {ctor: '[]'}
 					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('rdap-mobile'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: mobileDiffOutput,
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			};
 		} else {
 			return {
@@ -16872,28 +15621,13 @@ var _user$project$Render$viewDiff = F3(
 							_0: diffOutput,
 							_1: {ctor: '[]'}
 						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('rdap-mobile'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: mobileDiffOutput,
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				}
 			};
 		}
 	});
-var _user$project$Render$lockButton = F3(
-	function (ctx, dir, id) {
+var _user$project$Render$lockButton = F2(
+	function (ctx, dir) {
 		var f = _elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Tuple$second : _elm_lang$core$Tuple$first;
 		var state = f(ctx.navigationLocks);
 		var buttonClass = _elm_lang$core$Native_Utils.eq(state, _user$project$Model$Locked) ? 'lockedButton' : 'unlockedButton';
@@ -16911,103 +15645,68 @@ var _user$project$Render$lockButton = F3(
 			},
 			{
 				ctor: '::',
-				_0: A3(_user$project$Render$lockerIcon, state, 'lockerIcon', id),
+				_0: A2(
+					_user$project$Render$lockerIcon,
+					state,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						'lockedIcon',
+						_elm_lang$core$Basics$toString(dir))),
 				_1: {ctor: '[]'}
 			});
 	});
-var _user$project$Render$arrowButton = F2(
-	function (ctx, direction) {
-		var _p5 = direction;
-		if (_p5.ctor === 'Bkwd') {
-			return A2(
-				_elm_lang$html$Html$button,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('arrowButton'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(
-							_user$project$Model$NavigateDiff(_user$project$Model$Bkwd)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$disabled(
-								A2(_user$project$Render$checkNavDisabled, ctx, direction)),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: _user$project$Render$arrow('leftArrow'),
-					_1: {ctor: '[]'}
-				});
-		} else {
-			return A2(
-				_elm_lang$html$Html$button,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('arrowButton'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Events$onClick(
-							_user$project$Model$NavigateDiff(_user$project$Model$Fwd)),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$disabled(
-								A2(_user$project$Render$checkNavDisabled, ctx, direction)),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: _user$project$Render$arrow('rightArrow'),
-					_1: {ctor: '[]'}
-				});
-		}
-	});
-var _user$project$Render$navBottomPanel = function (ctx) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('navBottomPanel'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: A3(_user$project$Render$lockButton, ctx, _user$project$Model$Bkwd, 'navBottomBkwd'),
-					_1: {
-						ctor: '::',
-						_0: A2(_user$project$Render$arrowButton, ctx, _user$project$Model$Bkwd),
-						_1: {ctor: '[]'}
-					}
-				}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{ctor: '[]'},
-					{
-						ctor: '::',
-						_0: A2(_user$project$Render$arrowButton, ctx, _user$project$Model$Fwd),
-						_1: {
-							ctor: '::',
-							_0: A3(_user$project$Render$lockButton, ctx, _user$project$Model$Fwd, 'navBottomFwd'),
-							_1: {ctor: '[]'}
-						}
-					}),
-				_1: {ctor: '[]'}
-			}
-		});
-};
 var _user$project$Render$navPanel = F2(
 	function (ctx, direction) {
+		var arrowButton = function () {
+			var _p6 = direction;
+			if (_p6.ctor === 'Bkwd') {
+				return A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('arrowButton'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_user$project$Model$NavigateDiff(_user$project$Model$Bkwd)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$disabled(
+									A2(_user$project$Render$checkNavDisabled, ctx, direction)),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Render$arrow('leftArrow'),
+						_1: {ctor: '[]'}
+					});
+			} else {
+				return A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('arrowButton'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_user$project$Model$NavigateDiff(_user$project$Model$Fwd)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$disabled(
+									A2(_user$project$Render$checkNavDisabled, ctx, direction)),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Render$arrow('rightArrow'),
+						_1: {ctor: '[]'}
+					});
+			}
+		}();
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -17037,7 +15736,7 @@ var _user$project$Render$navPanel = F2(
 						{ctor: '[]'}),
 					_1: {
 						ctor: '::',
-						_0: A2(_user$project$Render$arrowButton, ctx, direction),
+						_0: arrowButton,
 						_1: {
 							ctor: '::',
 							_0: A2(
@@ -17049,14 +15748,7 @@ var _user$project$Render$navPanel = F2(
 								},
 								{
 									ctor: '::',
-									_0: A3(
-										_user$project$Render$lockButton,
-										ctx,
-										direction,
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											'navPanel',
-											_elm_lang$core$Basics$toString(direction))),
+									_0: A2(_user$project$Render$lockButton, ctx, direction),
 									_1: {ctor: '[]'}
 								}),
 							_1: {ctor: '[]'}
@@ -17065,38 +15757,195 @@ var _user$project$Render$navPanel = F2(
 				}
 			});
 	});
-var _user$project$Render$versionDateDetailPanel = function (ctx) {
-	var _p6 = function () {
-		var _p7 = ctx.versionDateDetail;
-		if (_p7.ctor === 'Nothing') {
-			return {ctor: '_Tuple2', _0: 'hidePanel', _1: ''};
+var _user$project$Render$versionDatesPanel = function (ctx) {
+	var _p7 = ctx.versions;
+	if (_p7.ctor === '[]') {
+		return _elm_lang$html$Html$text('');
+	} else {
+		if (_p7._1.ctor === '[]') {
+			var _p8 = _p7._0;
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('versionDatesPanel'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('versionDateLeft'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$span,
+								{ctor: '[]'},
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_user$project$Render$createDateLabel(
+										_elm_lang$core$Maybe$Just(_p8.from)),
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(' >'),
+										_1: {ctor: '[]'}
+									})),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('versionDateRight'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$span,
+									{ctor: '[]'},
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('< '),
+											_1: {ctor: '[]'}
+										},
+										_user$project$Render$createDateLabel(_p8.until))),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				});
 		} else {
-			return {
-				ctor: '_Tuple2',
-				_0: 'showPanel',
-				_1: _elm_lang$core$Basics$toString(_p7._0)
+			var _p10 = _p7._1._0;
+			var _p9 = _p7._0;
+			var versionsInBetween = A2(
+				F2(
+					function (x, y) {
+						return x + y;
+					}),
+				-1,
+				A2(
+					_elm_lang$core$Maybe$withDefault,
+					0,
+					A3(_user$project$Model$getDistance, _p9, _p10, ctx.history.versions)));
+			var middleLabel = _elm_lang$core$Native_Utils.eq(versionsInBetween, 0) ? _user$project$Render$createDateLabel(
+				_elm_lang$core$Maybe$Just(_p10.from)) : {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(versionsInBetween),
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							' version',
+							(_elm_lang$core$Native_Utils.cmp(versionsInBetween, 1) > 0) ? 's' : ''))),
+				_1: {ctor: '[]'}
 			};
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('versionDatesPanel'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('versionDateLeft'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$span,
+								{ctor: '[]'},
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									_user$project$Render$createDateLabel(
+										_elm_lang$core$Maybe$Just(_p9.from)),
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(' >'),
+										_1: {ctor: '[]'}
+									})),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('versionDateCenter'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$span,
+									{ctor: '[]'},
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('< '),
+											_1: {ctor: '[]'}
+										},
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											middleLabel,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(' >'),
+												_1: {ctor: '[]'}
+											}))),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('versionDateRight'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$span,
+										{ctor: '[]'},
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text('< '),
+												_1: {ctor: '[]'}
+											},
+											_user$project$Render$createDateLabel(_p10.until))),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				});
 		}
-	}();
-	var panelClass = _p6._0;
-	var dateString = _p6._1;
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class(
-				A2(_elm_lang$core$Basics_ops['++'], 'versionDateDetailPanel ', panelClass)),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(dateString),
-			_1: {ctor: '[]'}
-		});
+	}
 };
 var _user$project$Render$diffPanel = function (ctx) {
-	var _p8 = ctx.toVersion;
-	if (_p8.ctor === 'Nothing') {
+	var _p11 = ctx.toVersion;
+	if (_p11.ctor === 'Nothing') {
 		return _elm_lang$html$Html$text('Nothing to show');
 	} else {
 		return A2(
@@ -17106,73 +15955,50 @@ var _user$project$Render$diffPanel = function (ctx) {
 				_0: _elm_lang$html$Html_Attributes$class('diffPanel'),
 				_1: {ctor: '[]'}
 			},
-			A3(_user$project$Render$viewDiff, ctx, ctx.fromVersion, _p8._0));
+			A3(_user$project$Render$viewDiff, ctx, ctx.fromVersion, _p11._0));
 	}
 };
-var _user$project$Render$dropdownResultsMobile = F2(
-	function (historyList, idx) {
-		var clickedIndex = function (s) {
-			return A2(
-				_elm_lang$core$Result$withDefault,
-				0,
-				_elm_lang$core$String$toInt(s));
-		};
-		return A2(
-			_elm_lang$html$Html$select,
+var _user$project$Render$detailPanel = function (ctx) {
+	return {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$div,
 			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onInput(
-					function (s) {
-						return _user$project$Model$Select(
-							clickedIndex(s));
-					}),
+				_0: _elm_lang$html$Html_Attributes$class('detailPanel'),
 				_1: {ctor: '[]'}
 			},
-			A2(
-				_elm_lang$core$List$indexedMap,
-				F2(
-					function (x, h) {
-						return A2(
-							_elm_lang$html$Html$option,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$value(
-									_elm_lang$core$Basics$toString(x)),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text(h.identifier.handle),
-								_1: {ctor: '[]'}
-							});
-					}),
-				historyList));
-	});
-var _user$project$Render$objectListMobile = F2(
-	function (historyList, idx) {
-		return (_elm_lang$core$Native_Utils.cmp(
-			_elm_lang$core$List$length(historyList),
-			1) < 1) ? {ctor: '[]'} : {
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
+			{
+				ctor: '::',
+				_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Bkwd),
+				_1: {
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('objectListMobile'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Search results: '),
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('detailCenterPanel'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _user$project$Render$versionDatesPanel(ctx),
+							_1: {
+								ctor: '::',
+								_0: _user$project$Render$diffPanel(ctx),
+								_1: {ctor: '[]'}
+							}
+						}),
 					_1: {
 						ctor: '::',
-						_0: A2(_user$project$Render$dropdownResultsMobile, historyList, idx),
+						_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Fwd),
 						_1: {ctor: '[]'}
 					}
-				}),
-			_1: {ctor: '[]'}
-		};
-	});
+				}
+			}),
+		_1: {ctor: '[]'}
+	};
+};
 var _user$project$Render$viewSummary = F3(
 	function (sel, idx, h) {
 		return A2(
@@ -17225,335 +16051,35 @@ var _user$project$Render$objectListPanel = F2(
 			_1: {ctor: '[]'}
 		};
 	});
-var _user$project$Render$Context = F6(
-	function (a, b, c, d, e, f) {
-		return {history: a, fromVersion: b, toVersion: c, versions: d, navigationLocks: e, versionDateDetail: f};
+var _user$project$Render$Context = F5(
+	function (a, b, c, d, e) {
+		return {history: a, fromVersion: b, toVersion: c, versions: d, navigationLocks: e};
 	});
 var _user$project$Render$mkCtx = F3(
-	function (h, _p9, navigationLockers) {
-		var _p10 = _p9;
-		var _p12 = _p10._1;
-		var _p11 = _p10._0;
+	function (h, _p12, navigationLockers) {
+		var _p13 = _p12;
+		var _p15 = _p13._1;
+		var _p14 = _p13._0;
 		var versions = _elm_community$maybe_extra$Maybe_Extra$values(
 			{
 				ctor: '::',
-				_0: _p11,
+				_0: _p14,
 				_1: {
 					ctor: '::',
-					_0: _p12,
+					_0: _p15,
 					_1: {ctor: '[]'}
 				}
 			});
-		return A5(_user$project$Render$Context, h, _p11, _p12, versions, navigationLockers);
+		return A5(_user$project$Render$Context, h, _p14, _p15, versions, navigationLockers);
 	});
-var _user$project$Render$Long = {ctor: 'Long'};
-var _user$project$Render$Short = {ctor: 'Short'};
-var _user$project$Render$createDateLabel = F2(
-	function (md, versionDateDetail) {
-		var _p13 = md;
-		if (_p13.ctor === 'Nothing') {
-			return {
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Present'),
-				_1: {ctor: '[]'}
-			};
-		} else {
-			var _p16 = _p13._0;
-			var flipTo = function () {
-				var _p14 = versionDateDetail;
-				if (_p14.ctor === 'Nothing') {
-					return md;
-				} else {
-					return A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$Same, _p16, _p14._0) ? _elm_lang$core$Maybe$Nothing : md;
-				}
-			}();
-			var _p15 = _elm_lang$core$Native_Utils.eq(flipTo, _elm_lang$core$Maybe$Nothing) ? {ctor: '_Tuple2', _0: 'pressedFlipShowVersionButton', _1: 'Hide date detail'} : {ctor: '_Tuple2', _0: 'flipShowVersionButton', _1: 'Show date detail'};
-			var buttonClass = _p15._0;
-			var tooltipText = _p15._1;
-			return {
-				ctor: '::',
-				_0: A2(_user$project$Render$prettifyDate, _p16, _user$project$Render$Short),
-				_1: {
-					ctor: '::',
-					_0: A2(_user$project$Render$prettifyDate, _p16, _user$project$Render$Long),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$button,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class(buttonClass),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(
-										_user$project$Model$FlipShowVersionDateDetail(flipTo)),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html_Attributes$title(tooltipText),
-										_1: {ctor: '[]'}
-									}
-								}
-							},
-							{
-								ctor: '::',
-								_0: _user$project$Render$expandIcon('moreIconSvg'),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}
-			};
-		}
-	});
-var _user$project$Render$versionDatesPanel = function (ctx) {
-	var _p17 = ctx.versions;
-	if (_p17.ctor === '[]') {
-		return _elm_lang$html$Html$text('');
-	} else {
-		if (_p17._1.ctor === '[]') {
-			var _p18 = _p17._0;
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('versionDatesPanel'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('versionDateLeft'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$span,
-								{ctor: '[]'},
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									A2(
-										_user$project$Render$createDateLabel,
-										_elm_lang$core$Maybe$Just(_p18.from),
-										ctx.versionDateDetail),
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('>'),
-										_1: {ctor: '[]'}
-									})),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('versionDateRight'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$span,
-									{ctor: '[]'},
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('<'),
-											_1: {ctor: '[]'}
-										},
-										A2(_user$project$Render$createDateLabel, _p18.until, ctx.versionDateDetail))),
-								_1: {ctor: '[]'}
-							}),
-						_1: {ctor: '[]'}
-					}
-				});
-		} else {
-			var _p20 = _p17._1._0;
-			var _p19 = _p17._0;
-			var versionsInBetween = A2(
-				F2(
-					function (x, y) {
-						return x + y;
-					}),
-				-1,
-				A2(
-					_elm_lang$core$Maybe$withDefault,
-					0,
-					A3(_user$project$Model$getDistance, _p19, _p20, ctx.history.versions)));
-			var middleLabel = _elm_lang$core$Native_Utils.eq(versionsInBetween, 0) ? A2(
-				_user$project$Render$createDateLabel,
-				_elm_lang$core$Maybe$Just(_p20.from),
-				ctx.versionDateDetail) : {
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(
-					A2(
-						_elm_lang$core$Basics_ops['++'],
-						_elm_lang$core$Basics$toString(versionsInBetween),
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							' version',
-							(_elm_lang$core$Native_Utils.cmp(versionsInBetween, 1) > 0) ? 's' : ''))),
-				_1: {ctor: '[]'}
-			};
-			return A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('versionDatesPanel'),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('versionDateLeft'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$span,
-								{ctor: '[]'},
-								A2(
-									_elm_lang$core$Basics_ops['++'],
-									A2(
-										_user$project$Render$createDateLabel,
-										_elm_lang$core$Maybe$Just(_p19.from),
-										ctx.versionDateDetail),
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('>'),
-										_1: {ctor: '[]'}
-									})),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('versionDateCenter'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$span,
-									{ctor: '[]'},
-									A2(
-										_elm_lang$core$Basics_ops['++'],
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('<'),
-											_1: {ctor: '[]'}
-										},
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											middleLabel,
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('>'),
-												_1: {ctor: '[]'}
-											}))),
-								_1: {ctor: '[]'}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('versionDateRight'),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$span,
-										{ctor: '[]'},
-										A2(
-											_elm_lang$core$Basics_ops['++'],
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('<'),
-												_1: {ctor: '[]'}
-											},
-											A2(_user$project$Render$createDateLabel, _p20.until, ctx.versionDateDetail))),
-									_1: {ctor: '[]'}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}
-				});
-		}
-	}
-};
-var _user$project$Render$detailPanel = function (ctx) {
-	return {
-		ctor: '::',
-		_0: A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('detailPanel'),
-				_1: {ctor: '[]'}
-			},
-			{
-				ctor: '::',
-				_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Bkwd),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('detailCenterPanel'),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _user$project$Render$versionDatesPanel(ctx),
-							_1: {
-								ctor: '::',
-								_0: _user$project$Render$versionDateDetailPanel(ctx),
-								_1: {
-									ctor: '::',
-									_0: _user$project$Render$diffPanel(ctx),
-									_1: {ctor: '[]'}
-								}
-							}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Fwd),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Render$navBottomPanel(ctx),
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}),
-		_1: {ctor: '[]'}
-	};
-};
-var _user$project$Render$viewAsList = F5(
-	function (response, idx, displayedVersions, navigationLocks, versionDateDetail) {
+var _user$project$Render$viewAsList = F4(
+	function (response, idx, displayedVersions, navigationLocks) {
 		var history = A2(_elm_community$list_extra$List_Extra_ops['!!'], response.history, idx);
-		var _p21 = history;
-		if (_p21.ctor === 'Nothing') {
+		var _p16 = history;
+		if (_p16.ctor === 'Nothing') {
 			return {ctor: '[]'};
 		} else {
-			var ctx = A4(_user$project$Render$mkCtx, _p21._0, displayedVersions, navigationLocks, versionDateDetail);
+			var ctx = A3(_user$project$Render$mkCtx, _p16._0, displayedVersions, navigationLocks);
 			return {
 				ctor: '::',
 				_0: A2(
@@ -17566,10 +16092,7 @@ var _user$project$Render$viewAsList = F5(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
 						A2(_user$project$Render$objectListPanel, response.history, idx),
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							A2(_user$project$Render$objectListMobile, response.history, idx),
-							_user$project$Render$detailPanel(ctx)))),
+						_user$project$Render$detailPanel(ctx))),
 				_1: {ctor: '[]'}
 			};
 		}
@@ -17657,39 +16180,6 @@ var _user$project$Main$fl = function (xs) {
 	return _elm_lang$core$String$concat(
 		A2(_elm_lang$core$List$intersperse, '\n', xs));
 };
-var _user$project$Main$searchIcon = function (svgClass) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 24 24'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$d('M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$Main$searchBox = function (model) {
 	var cease = {stopPropagation: true, preventDefault: true};
 	return A2(
@@ -17717,82 +16207,73 @@ var _user$project$Main$searchBox = function (model) {
 					}
 				},
 				{ctor: '[]'}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$button,
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('searchButton'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _user$project$Main$searchIcon('searchIcon'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
+			_1: {ctor: '[]'}
 		});
 };
 var _user$project$Main$headerBar = function (model) {
 	return {
 		ctor: '::',
 		_0: A2(
-			_elm_lang$html$Html$div,
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html_Attributes$class('headerBar'),
-				_1: {ctor: '[]'}
-			},
+			_elm_lang$html$Html$nav,
+			{ctor: '[]'},
 			{
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$div,
+					_elm_lang$html$Html$ul,
 					{ctor: '[]'},
 					{
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$img,
+							_elm_lang$html$Html$li,
+							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('logo'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$src('images/APNIC-Formal-Logo_cmyk-svg-optimized-white.svg'),
-									_1: {ctor: '[]'}
-								}
-							},
-							{ctor: '[]'}),
+								_0: A2(
+									_elm_lang$html$Html$img,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('logo'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$src('images/APNIC-Formal-Logo_cmyk-svg-optimized-white.svg'),
+											_1: {ctor: '[]'}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							}),
 						_1: {
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$span,
+								_elm_lang$html$Html$li,
+								{ctor: '[]'},
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$class('title'),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text('Whowas'),
+									_0: A2(
+										_elm_lang$html$Html$h1,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Whowas'),
+											_1: {ctor: '[]'}
+										}),
 									_1: {ctor: '[]'}
 								}),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$li,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _user$project$Main$searchBox(model),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
 						}
 					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _user$project$Main$searchBox(model),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			}),
 		_1: {ctor: '[]'}
 	};
@@ -17835,7 +16316,7 @@ var _user$project$Main$view_ = function (model) {
 				_1: {ctor: '[]'}
 			};
 		} else {
-			return A5(_user$project$Render$viewAsList, _p2._0, model.selected, model.displayedVersions, model.navigationLocks, model.versionDateDetail);
+			return A4(_user$project$Render$viewAsList, _p2._0, model.selected, model.displayedVersions, model.navigationLocks);
 		}
 	}();
 	return A2(
@@ -17868,12 +16349,6 @@ var _user$project$Main$view = function (model) {
 		},
 		model.redraw);
 };
-var _user$project$Main$flipShowVersionDateDetail = F2(
-	function (m, d) {
-		return _elm_lang$core$Native_Utils.update(
-			m,
-			{versionDateDetail: d});
-	});
 var _user$project$Main$flipNavigationLock = F2(
 	function (model, direction) {
 		var _p3 = model.displayedVersions;
@@ -17921,8 +16396,7 @@ var _user$project$Main$flipNavigationLock = F2(
 			model,
 			{
 				navigationLocks: {ctor: '_Tuple2', _0: newBkwdState, _1: newFwdState},
-				displayedVersions: {ctor: '_Tuple2', _0: newLeftVersion, _1: rightVersion},
-				versionDateDetail: _elm_lang$core$Maybe$Nothing
+				displayedVersions: {ctor: '_Tuple2', _0: newLeftVersion, _1: rightVersion}
 			});
 	});
 var _user$project$Main$navigate = F2(
@@ -17961,7 +16435,7 @@ var _user$project$Main$navigate = F2(
 				{ctor: '_Tuple2', _0: newV1, _1: newV2});
 			return _elm_lang$core$Native_Utils.update(
 				model,
-				{displayedVersions: newDV, versionDateDetail: _elm_lang$core$Maybe$Nothing});
+				{displayedVersions: newDV});
 		}
 	});
 var _user$project$Main$upd = function (model) {
@@ -17990,7 +16464,7 @@ var _user$project$Main$upd = function (model) {
 	}();
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{redraw: !model.redraw, displayedVersions: displayedVersions, versionDateDetail: _elm_lang$core$Maybe$Nothing});
+		{redraw: !model.redraw, displayedVersions: displayedVersions});
 };
 var _user$project$Main$errMsg = function (err) {
 	var _p11 = err;
@@ -18021,14 +16495,13 @@ var _user$project$Main$init = function (loc) {
 	var resource = _elm_lang$core$String$isEmpty(hash) ? '203.133.248.0/24' : hash;
 	return {
 		ctor: '_Tuple2',
-		_0: A7(
+		_0: A6(
 			_user$project$Model$Model,
 			resource,
 			_toastal$either$Either$Left('Searching…'),
 			0,
 			{ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing},
 			{ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked},
-			_elm_lang$core$Maybe$Nothing,
 			false),
 		_1: _user$project$Main$search(resource)
 	};
@@ -18059,10 +16532,7 @@ var _user$project$Main$update = F2(
 					_0: _user$project$Main$upd(
 						_elm_lang$core$Native_Utils.update(
 							model,
-							{
-								selected: _p13._0,
-								navigationLocks: {ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked}
-							})),
+							{selected: _p13._0})),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'StartSearch':
@@ -18078,16 +16548,10 @@ var _user$project$Main$update = F2(
 					_0: A2(_user$project$Main$navigate, model, _p13._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'FlipNavLock':
-				return {
-					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$flipNavigationLock, model, _p13._0),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$flipShowVersionDateDetail, model, _p13._0),
+					_0: A2(_user$project$Main$flipNavigationLock, model, _p13._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
