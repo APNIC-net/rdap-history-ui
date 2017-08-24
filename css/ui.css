@@ -417,18 +417,21 @@ abbr {
         height: 2.3em; } }
 
 .timelineWidget {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  height: 90px;
-  background-color: #006FAB;
-  padding: 0.3em 1em 0.3em 1em; }
+  display: none; }
+  @media screen and (min-width: 800px) {
+    .timelineWidget {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      height: 90px;
+      background-color: #006FAB;
+      padding: 0.3em 1em 0.3em 1em; } }
   .timelineWidget .timelineBox {
     flex: 1 1 auto;
     position: relative; }
