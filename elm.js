@@ -11922,6 +11922,34 @@ var _elm_lang$svg$Svg_Attributes$accumulate = _elm_lang$virtual_dom$VirtualDom$a
 var _elm_lang$svg$Svg_Attributes$accelerate = _elm_lang$virtual_dom$VirtualDom$attribute('accelerate');
 var _elm_lang$svg$Svg_Attributes$accentHeight = _elm_lang$virtual_dom$VirtualDom$attribute('accent-height');
 
+var _elm_lang$svg$Svg_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$svg$Svg_Events$simpleOn = F2(
+	function (name, msg) {
+		return A2(
+			_elm_lang$svg$Svg_Events$on,
+			name,
+			_elm_lang$core$Json_Decode$succeed(msg));
+	});
+var _elm_lang$svg$Svg_Events$onBegin = _elm_lang$svg$Svg_Events$simpleOn('begin');
+var _elm_lang$svg$Svg_Events$onEnd = _elm_lang$svg$Svg_Events$simpleOn('end');
+var _elm_lang$svg$Svg_Events$onRepeat = _elm_lang$svg$Svg_Events$simpleOn('repeat');
+var _elm_lang$svg$Svg_Events$onAbort = _elm_lang$svg$Svg_Events$simpleOn('abort');
+var _elm_lang$svg$Svg_Events$onError = _elm_lang$svg$Svg_Events$simpleOn('error');
+var _elm_lang$svg$Svg_Events$onResize = _elm_lang$svg$Svg_Events$simpleOn('resize');
+var _elm_lang$svg$Svg_Events$onScroll = _elm_lang$svg$Svg_Events$simpleOn('scroll');
+var _elm_lang$svg$Svg_Events$onLoad = _elm_lang$svg$Svg_Events$simpleOn('load');
+var _elm_lang$svg$Svg_Events$onUnload = _elm_lang$svg$Svg_Events$simpleOn('unload');
+var _elm_lang$svg$Svg_Events$onZoom = _elm_lang$svg$Svg_Events$simpleOn('zoom');
+var _elm_lang$svg$Svg_Events$onActivate = _elm_lang$svg$Svg_Events$simpleOn('activate');
+var _elm_lang$svg$Svg_Events$onClick = _elm_lang$svg$Svg_Events$simpleOn('click');
+var _elm_lang$svg$Svg_Events$onFocusIn = _elm_lang$svg$Svg_Events$simpleOn('focusin');
+var _elm_lang$svg$Svg_Events$onFocusOut = _elm_lang$svg$Svg_Events$simpleOn('focusout');
+var _elm_lang$svg$Svg_Events$onMouseDown = _elm_lang$svg$Svg_Events$simpleOn('mousedown');
+var _elm_lang$svg$Svg_Events$onMouseMove = _elm_lang$svg$Svg_Events$simpleOn('mousemove');
+var _elm_lang$svg$Svg_Events$onMouseOut = _elm_lang$svg$Svg_Events$simpleOn('mouseout');
+var _elm_lang$svg$Svg_Events$onMouseOver = _elm_lang$svg$Svg_Events$simpleOn('mouseover');
+var _elm_lang$svg$Svg_Events$onMouseUp = _elm_lang$svg$Svg_Events$simpleOn('mouseup');
+
 var _jinjor$elm_diff$Diff$snake = F5(
 	function (getA, getB, nextX, nextY, path) {
 		snake:
@@ -13337,6 +13365,343 @@ var _rluiten$elm_date_extra$Date_Extra_Format$utcIsoString = function (date) {
 };
 var _rluiten$elm_date_extra$Date_Extra_Format$isoFormat = '%Y-%m-%dT%H:%M:%S';
 
+var _rluiten$elm_date_extra$Date_Extra_Duration$positiveDiffDays = F3(
+	function (date1, date2, multiplier) {
+		var date2DaysFromCivil = A3(
+			_rluiten$elm_date_extra$Date_Extra_Internal$daysFromCivil,
+			_elm_lang$core$Date$year(date2),
+			_rluiten$elm_date_extra$Date_Extra_Core$monthToInt(
+				_elm_lang$core$Date$month(date2)),
+			_elm_lang$core$Date$day(date2));
+		var date1DaysFromCivil = A3(
+			_rluiten$elm_date_extra$Date_Extra_Internal$daysFromCivil,
+			_elm_lang$core$Date$year(date1),
+			_rluiten$elm_date_extra$Date_Extra_Core$monthToInt(
+				_elm_lang$core$Date$month(date1)),
+			_elm_lang$core$Date$day(date1));
+		return (date1DaysFromCivil - date2DaysFromCivil) * multiplier;
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$diffDays = F2(
+	function (date1, date2) {
+		return A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$After, date1, date2) ? A3(_rluiten$elm_date_extra$Date_Extra_Duration$positiveDiffDays, date1, date2, 1) : A3(_rluiten$elm_date_extra$Date_Extra_Duration$positiveDiffDays, date2, date1, -1);
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$positiveDiff = F3(
+	function (date1, date2, multiplier) {
+		var accDiff = F4(
+			function (acc, v1, v2, maxV2) {
+				return (_elm_lang$core$Native_Utils.cmp(v1, v2) < 0) ? {ctor: '_Tuple2', _0: acc - 1, _1: (maxV2 + v1) - v2} : {ctor: '_Tuple2', _0: acc, _1: v1 - v2};
+			});
+		var msec2 = _elm_lang$core$Date$millisecond(date2);
+		var msec1 = _elm_lang$core$Date$millisecond(date1);
+		var second2 = _elm_lang$core$Date$second(date2);
+		var second1 = _elm_lang$core$Date$second(date1);
+		var minute2 = _elm_lang$core$Date$minute(date2);
+		var minute1 = _elm_lang$core$Date$minute(date1);
+		var hour2 = _elm_lang$core$Date$hour(date2);
+		var hour1 = _elm_lang$core$Date$hour(date1);
+		var day2 = _elm_lang$core$Date$day(date2);
+		var day1 = _elm_lang$core$Date$day(date1);
+		var month2Mon = _elm_lang$core$Date$month(date2);
+		var month2 = _rluiten$elm_date_extra$Date_Extra_Core$monthToInt(month2Mon);
+		var month1Mon = _elm_lang$core$Date$month(date1);
+		var month1 = _rluiten$elm_date_extra$Date_Extra_Core$monthToInt(month1Mon);
+		var year2 = _elm_lang$core$Date$year(date2);
+		var daysInDate2Month = A2(_rluiten$elm_date_extra$Date_Extra_Core$daysInMonth, year2, month2Mon);
+		var year1 = _elm_lang$core$Date$year(date1);
+		var _p0 = A4(accDiff, year1 - year2, month1, month2, 12);
+		var yearDiff = _p0._0;
+		var monthDiffA = _p0._1;
+		var _p1 = A4(accDiff, monthDiffA, day1, day2, daysInDate2Month);
+		var monthDiff = _p1._0;
+		var dayDiffA = _p1._1;
+		var _p2 = A4(accDiff, dayDiffA, hour1, hour2, 24);
+		var dayDiff = _p2._0;
+		var hourDiffA = _p2._1;
+		var _p3 = A4(accDiff, hourDiffA, minute1, minute2, 60);
+		var hourDiff = _p3._0;
+		var minuteDiffA = _p3._1;
+		var _p4 = A4(accDiff, minuteDiffA, second1, second2, 60);
+		var minuteDiff = _p4._0;
+		var secondDiffA = _p4._1;
+		var _p5 = A4(accDiff, secondDiffA, msec1, msec2, 1000);
+		var secondDiff = _p5._0;
+		var msecDiff = _p5._1;
+		return {year: yearDiff * multiplier, month: monthDiff * multiplier, day: dayDiff * multiplier, hour: hourDiff * multiplier, minute: minuteDiff * multiplier, second: secondDiff * multiplier, millisecond: msecDiff * multiplier};
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$diff = F2(
+	function (date1, date2) {
+		return A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$After, date1, date2) ? A3(_rluiten$elm_date_extra$Date_Extra_Duration$positiveDiff, date1, date2, 1) : A3(_rluiten$elm_date_extra$Date_Extra_Duration$positiveDiff, date2, date1, -1);
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$addMonth = F2(
+	function (monthCount, date) {
+		var day = _elm_lang$core$Date$day(date);
+		var monthInt = _rluiten$elm_date_extra$Date_Extra_Core$monthToInt(
+			_elm_lang$core$Date$month(date));
+		var newMonthInt = monthInt + monthCount;
+		var targetMonthInt = A2(_elm_lang$core$Basics_ops['%'], newMonthInt, 12);
+		var yearOffset = (_elm_lang$core$Native_Utils.cmp(newMonthInt, 0) < 0) ? (((newMonthInt / 12) | 0) - 1) : ((newMonthInt / 12) | 0);
+		var year = _elm_lang$core$Date$year(date);
+		var inputCivil = A3(_rluiten$elm_date_extra$Date_Extra_Internal$daysFromCivil, year, monthInt, day);
+		var newYear = year + yearOffset;
+		var newDay = A2(
+			_elm_lang$core$Basics$min,
+			A2(
+				_rluiten$elm_date_extra$Date_Extra_Core$daysInMonth,
+				newYear,
+				_rluiten$elm_date_extra$Date_Extra_Core$intToMonth(newMonthInt)),
+			day);
+		var newCivil = A3(_rluiten$elm_date_extra$Date_Extra_Internal$daysFromCivil, newYear, targetMonthInt, newDay);
+		var daysDifferent = newCivil - inputCivil;
+		return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Day, daysDifferent, date);
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$addYear = F2(
+	function (yearCount, date) {
+		return A2(_rluiten$elm_date_extra$Date_Extra_Duration$addMonth, 12 * yearCount, date);
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$daylightOffsetCompensate = F2(
+	function (dateBefore, dateAfter) {
+		var offsetAfter = _rluiten$elm_date_extra$Date_Extra_Create$getTimezoneOffset(dateAfter);
+		var offsetBefore = _rluiten$elm_date_extra$Date_Extra_Create$getTimezoneOffset(dateBefore);
+		if (!_elm_lang$core$Native_Utils.eq(offsetBefore, offsetAfter)) {
+			var adjustedDate = A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Millisecond, (offsetAfter - offsetBefore) * _rluiten$elm_date_extra$Date_Extra_Core$ticksAMinute, dateAfter);
+			var adjustedOffset = _rluiten$elm_date_extra$Date_Extra_Create$getTimezoneOffset(adjustedDate);
+			return (!_elm_lang$core$Native_Utils.eq(adjustedOffset, offsetAfter)) ? dateAfter : adjustedDate;
+		} else {
+			return dateAfter;
+		}
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$requireDaylightCompensateInAdd = function (duration) {
+	var _p6 = duration;
+	switch (_p6.ctor) {
+		case 'Millisecond':
+			return false;
+		case 'Second':
+			return false;
+		case 'Minute':
+			return false;
+		case 'Hour':
+			return false;
+		case 'Day':
+			return true;
+		case 'Week':
+			return true;
+		case 'Month':
+			return true;
+		case 'Year':
+			return true;
+		default:
+			var _p7 = _p6._0;
+			return (!_elm_lang$core$Native_Utils.eq(_p7.day, 0)) || ((!_elm_lang$core$Native_Utils.eq(_p7.month, 0)) || (!_elm_lang$core$Native_Utils.eq(_p7.year, 0)));
+	}
+};
+var _rluiten$elm_date_extra$Date_Extra_Duration$zeroDelta = {year: 0, month: 0, day: 0, hour: 0, minute: 0, second: 0, millisecond: 0};
+var _rluiten$elm_date_extra$Date_Extra_Duration$DeltaRecord = F7(
+	function (a, b, c, d, e, f, g) {
+		return {year: a, month: b, day: c, hour: d, minute: e, second: f, millisecond: g};
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$Delta = function (a) {
+	return {ctor: 'Delta', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Year = {ctor: 'Year'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Month = {ctor: 'Month'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$doAdd = F3(
+	function (duration, addend, date) {
+		var _p8 = duration;
+		switch (_p8.ctor) {
+			case 'Millisecond':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Millisecond, addend, date);
+			case 'Second':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Second, addend, date);
+			case 'Minute':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Minute, addend, date);
+			case 'Hour':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Hour, addend, date);
+			case 'Day':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Day, addend, date);
+			case 'Week':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Period$add, _rluiten$elm_date_extra$Date_Extra_Period$Week, addend, date);
+			case 'Month':
+				return A2(_rluiten$elm_date_extra$Date_Extra_Duration$addMonth, addend, date);
+			case 'Year':
+				return A2(_rluiten$elm_date_extra$Date_Extra_Duration$addYear, addend, date);
+			default:
+				var _p9 = _p8._0;
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Period$add,
+					_rluiten$elm_date_extra$Date_Extra_Period$Delta(
+						{week: 0, day: _p9.day, hour: _p9.hour, minute: _p9.minute, second: _p9.second, millisecond: _p9.millisecond}),
+					addend,
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$doAdd,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Month,
+						_p9.month,
+						A3(_rluiten$elm_date_extra$Date_Extra_Duration$doAdd, _rluiten$elm_date_extra$Date_Extra_Duration$Year, _p9.year, date)));
+		}
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$add = F3(
+	function (duration, addend, date) {
+		var outputDate = A3(_rluiten$elm_date_extra$Date_Extra_Duration$doAdd, duration, addend, date);
+		return _rluiten$elm_date_extra$Date_Extra_Duration$requireDaylightCompensateInAdd(duration) ? A2(_rluiten$elm_date_extra$Date_Extra_Duration$daylightOffsetCompensate, date, outputDate) : outputDate;
+	});
+var _rluiten$elm_date_extra$Date_Extra_Duration$Week = {ctor: 'Week'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Day = {ctor: 'Day'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Hour = {ctor: 'Hour'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Minute = {ctor: 'Minute'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Second = {ctor: 'Second'};
+var _rluiten$elm_date_extra$Date_Extra_Duration$Millisecond = {ctor: 'Millisecond'};
+
+var _rluiten$elm_date_extra$Date_Extra_Field$dayOfWeekToDate = F3(
+	function (newDayOfWeek, startOfWeekDay, date) {
+		var targetIsoDay = _rluiten$elm_date_extra$Date_Extra_Core$isoDayOfWeek(newDayOfWeek);
+		var dayOfWeek = _elm_lang$core$Date$dayOfWeek(date);
+		var daysToStartOfWeek = A2(_rluiten$elm_date_extra$Date_Extra_Core$daysBackToStartOfWeek, dayOfWeek, startOfWeekDay);
+		var isoDay = _rluiten$elm_date_extra$Date_Extra_Core$isoDayOfWeek(dayOfWeek);
+		var dayDiff = targetIsoDay - isoDay;
+		var adjustedDiff = (_elm_lang$core$Native_Utils.cmp(daysToStartOfWeek + dayDiff, 0) < 0) ? (dayDiff + 7) : dayDiff;
+		return A3(_rluiten$elm_date_extra$Date_Extra_Duration$add, _rluiten$elm_date_extra$Date_Extra_Duration$Day, adjustedDiff, date);
+	});
+var _rluiten$elm_date_extra$Date_Extra_Field$monthToDate = F2(
+	function (month, date) {
+		var monthInt = _rluiten$elm_date_extra$Date_Extra_Core$monthToInt(
+			_elm_lang$core$Date$month(date));
+		var targetMonthInt = _rluiten$elm_date_extra$Date_Extra_Core$monthToInt(month);
+		return A3(_rluiten$elm_date_extra$Date_Extra_Duration$add, _rluiten$elm_date_extra$Date_Extra_Duration$Month, targetMonthInt - monthInt, date);
+	});
+var _rluiten$elm_date_extra$Date_Extra_Field$fieldToDateClamp = F2(
+	function (field, date) {
+		var _p0 = field;
+		switch (_p0.ctor) {
+			case 'Millisecond':
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Duration$add,
+					_rluiten$elm_date_extra$Date_Extra_Duration$Millisecond,
+					A3(_elm_lang$core$Basics$clamp, 0, 999, _p0._0) - _elm_lang$core$Date$millisecond(date),
+					date);
+			case 'Second':
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Duration$add,
+					_rluiten$elm_date_extra$Date_Extra_Duration$Second,
+					A3(_elm_lang$core$Basics$clamp, 0, 59, _p0._0) - _elm_lang$core$Date$second(date),
+					date);
+			case 'Minute':
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Duration$add,
+					_rluiten$elm_date_extra$Date_Extra_Duration$Minute,
+					A3(_elm_lang$core$Basics$clamp, 0, 59, _p0._0) - _elm_lang$core$Date$minute(date),
+					date);
+			case 'Hour':
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Duration$add,
+					_rluiten$elm_date_extra$Date_Extra_Duration$Hour,
+					A3(_elm_lang$core$Basics$clamp, 0, 23, _p0._0) - _elm_lang$core$Date$hour(date),
+					date);
+			case 'DayOfWeek':
+				return A3(_rluiten$elm_date_extra$Date_Extra_Field$dayOfWeekToDate, _p0._0._0, _p0._0._1, date);
+			case 'DayOfMonth':
+				var maxDays = _rluiten$elm_date_extra$Date_Extra_Core$daysInMonthDate(date);
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Duration$add,
+					_rluiten$elm_date_extra$Date_Extra_Duration$Day,
+					A3(_elm_lang$core$Basics$clamp, 1, maxDays, _p0._0) - _elm_lang$core$Date$day(date),
+					date);
+			case 'Month':
+				return A2(_rluiten$elm_date_extra$Date_Extra_Field$monthToDate, _p0._0, date);
+			default:
+				var _p1 = _p0._0;
+				var minYear = (_elm_lang$core$Native_Utils.cmp(_p1, 0) < 0) ? 0 : _p1;
+				return A3(
+					_rluiten$elm_date_extra$Date_Extra_Duration$add,
+					_rluiten$elm_date_extra$Date_Extra_Duration$Year,
+					minYear - _elm_lang$core$Date$year(date),
+					date);
+		}
+	});
+var _rluiten$elm_date_extra$Date_Extra_Field$fieldToDate = F2(
+	function (field, date) {
+		var _p2 = field;
+		switch (_p2.ctor) {
+			case 'Millisecond':
+				var _p3 = _p2._0;
+				return ((_elm_lang$core$Native_Utils.cmp(_p3, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(_p3, 999) > 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$add,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Millisecond,
+						_p3 - _elm_lang$core$Date$millisecond(date),
+						date));
+			case 'Second':
+				var _p4 = _p2._0;
+				return ((_elm_lang$core$Native_Utils.cmp(_p4, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(_p4, 59) > 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$add,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Second,
+						_p4 - _elm_lang$core$Date$second(date),
+						date));
+			case 'Minute':
+				var _p5 = _p2._0;
+				return ((_elm_lang$core$Native_Utils.cmp(_p5, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(_p5, 59) > 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$add,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Minute,
+						_p5 - _elm_lang$core$Date$minute(date),
+						date));
+			case 'Hour':
+				var _p6 = _p2._0;
+				return ((_elm_lang$core$Native_Utils.cmp(_p6, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(_p6, 23) > 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$add,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Hour,
+						_p6 - _elm_lang$core$Date$hour(date),
+						date));
+			case 'DayOfWeek':
+				return _elm_lang$core$Maybe$Just(
+					A3(_rluiten$elm_date_extra$Date_Extra_Field$dayOfWeekToDate, _p2._0._0, _p2._0._1, date));
+			case 'DayOfMonth':
+				var _p7 = _p2._0;
+				var maxDays = _rluiten$elm_date_extra$Date_Extra_Core$daysInMonthDate(date);
+				return ((_elm_lang$core$Native_Utils.cmp(_p7, 1) < 0) || (_elm_lang$core$Native_Utils.cmp(_p7, maxDays) > 0)) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$add,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Day,
+						_p7 - _elm_lang$core$Date$day(date),
+						date));
+			case 'Month':
+				return _elm_lang$core$Maybe$Just(
+					A2(_rluiten$elm_date_extra$Date_Extra_Field$monthToDate, _p2._0, date));
+			default:
+				var _p8 = _p2._0;
+				return (_elm_lang$core$Native_Utils.cmp(_p8, 0) < 0) ? _elm_lang$core$Maybe$Nothing : _elm_lang$core$Maybe$Just(
+					A3(
+						_rluiten$elm_date_extra$Date_Extra_Duration$add,
+						_rluiten$elm_date_extra$Date_Extra_Duration$Year,
+						_p8 - _elm_lang$core$Date$year(date),
+						date));
+		}
+	});
+var _rluiten$elm_date_extra$Date_Extra_Field$Year = function (a) {
+	return {ctor: 'Year', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$Month = function (a) {
+	return {ctor: 'Month', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$DayOfMonth = function (a) {
+	return {ctor: 'DayOfMonth', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$DayOfWeek = function (a) {
+	return {ctor: 'DayOfWeek', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$Hour = function (a) {
+	return {ctor: 'Hour', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$Minute = function (a) {
+	return {ctor: 'Minute', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$Second = function (a) {
+	return {ctor: 'Second', _0: a};
+};
+var _rluiten$elm_date_extra$Date_Extra_Field$Millisecond = function (a) {
+	return {ctor: 'Millisecond', _0: a};
+};
+
 var _toastal$either$Either$unwrap = F3(
 	function (d, f, e) {
 		var _p0 = e;
@@ -13736,9 +14101,9 @@ var _user$project$Model$Response = F2(
 	function (a, b) {
 		return {stamp: a, history: b};
 	});
-var _user$project$Model$Model = F7(
-	function (a, b, c, d, e, f, g) {
-		return {resource: a, response: b, selected: c, displayedVersions: d, navigationLocks: e, versionDateDetail: f, redraw: g};
+var _user$project$Model$Model = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {resource: a, response: b, selected: c, displayedVersions: d, navigationLocks: e, versionDateDetail: f, redraw: g, timelineWidgetZoom: h, timelineWidgetZoomDate: i};
 	});
 var _user$project$Model$Identifier = F2(
 	function (a, b) {
@@ -13752,11 +14117,18 @@ var _user$project$Model$Version = F3(
 	function (a, b, c) {
 		return {from: a, until: b, object: c};
 	});
+var _user$project$Model$ZoomTimelineWidget = F2(
+	function (a, b) {
+		return {ctor: 'ZoomTimelineWidget', _0: a, _1: b};
+	});
 var _user$project$Model$FlipShowVersionDateDetail = function (a) {
 	return {ctor: 'FlipShowVersionDateDetail', _0: a};
 };
 var _user$project$Model$FlipNavLock = function (a) {
 	return {ctor: 'FlipNavLock', _0: a};
+};
+var _user$project$Model$NavigateDiffToVersion = function (a) {
+	return {ctor: 'NavigateDiffToVersion', _0: a};
 };
 var _user$project$Model$NavigateDiff = function (a) {
 	return {ctor: 'NavigateDiff', _0: a};
@@ -13858,6 +14230,9 @@ var _user$project$Model$canNavigate = F4(
 							_elm_lang$core$Maybe$Just(vs))))));
 		return isOnlyDirectionLocked ? (leftAndRightAreNotAdjacent || isNotOnEdge) : isNotOnEdge;
 	});
+var _user$project$Model$Month = {ctor: 'Month'};
+var _user$project$Model$Year = {ctor: 'Year'};
+var _user$project$Model$Lifetime = {ctor: 'Lifetime'};
 
 var _user$project$Rdap$setDiff = F2(
 	function (d, a) {
@@ -15283,16 +15658,497 @@ var _user$project$Decode$history = A2(
 				'records',
 				_elm_lang$core$Json_Decode$list(_user$project$Decode$record)))));
 
-var _user$project$Render$checkNavDisabled = F2(
-	function (ctx, dir) {
-		return !A4(
-			_user$project$Model$canNavigate,
-			ctx.history.versions,
-			{ctor: '_Tuple2', _0: ctx.fromVersion, _1: ctx.toVersion},
-			dir,
-			ctx.navigationLocks);
+var _user$project$Icons$markerButton = F4(
+	function (selected, mMsg, style, tooltip) {
+		var action = function () {
+			var _p0 = mMsg;
+			if (_p0.ctor === 'Nothing') {
+				return {ctor: '[]'};
+			} else {
+				return {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Events$onClick(_p0._0),
+					_1: {ctor: '[]'}
+				};
+			}
+		}();
+		var svgClass = _elm_lang$core$Native_Utils.eq(selected, true) ? ' selected' : '';
+		return A2(
+			_elm_lang$svg$Svg$svg,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 20 50'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$class(
+						A2(_elm_lang$core$Basics_ops['++'], 'timelineMarker ', svgClass)),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$style(style),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$line,
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$x1('10'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$y1('20'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$x2('10'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$y2('50'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						},
+						action),
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$svg$Svg$title,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$svg$Svg$text(tooltip),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$circle,
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							{
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$cx('10'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$cy('10'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$r('7'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$style('stroke-width: 6'),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							},
+							action),
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$svg$Svg$title,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$svg$Svg$text(tooltip),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			});
 	});
-var _user$project$Render$lockerIcon = F3(
+var _user$project$Icons$zoomBackIcon = function () {
+	var svgClass = 'zoomBackIcon';
+	return A2(
+		_elm_lang$svg$Svg$svg,
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 1400 1400'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$svg$Svg$defs,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$mask,
+						{
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$id(svgClass),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$svg$Svg$rect,
+								{
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$x('0'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$y('0'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$width('1400'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$height('1400'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$svg$Svg_Attributes$fill('white'),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$svg$Svg$path,
+									{
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$strokeWidth('17'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$fill('black'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$d('M 500,304.6 V 147.8 c 0,-15.7 -6,-31.4 -17.9,-43.4 -11.9,-11.9 -27.6,-17.9 -43.3,-17.9 -15.7,0 -31.4,5.9 -43.3,17.9 L 10,484.7 395.4,864.9 c 11.9,11.9 27.6,17.9 43.3,17.9 15.7,0 31.4,-6 43.3,-17.9 11.9,-11.9 17.9,-27.7 17.9,-43.3 V 669.1 c 168.4,4.2 352.5,34.7 490,244.3 V 852.1 C 990,568.4 775.6,335.1 500,304.6 Z'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$svg$Svg_Attributes$stroke('black'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$svg$Svg_Attributes$transform('translate(200, 150)'),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$circle,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$cx('700'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$cy('700'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$r('700'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$mask(
+										A2(
+											_elm_lang$core$Basics_ops['++'],
+											'url(#',
+											A2(_elm_lang$core$Basics_ops['++'], svgClass, ')'))),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$svg$Svg$title,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$svg$Svg$text('Zoom back'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+}();
+var _user$project$Icons$zoomOutIcon2 = A2(
+	_elm_lang$svg$Svg$svg,
+	{
+		ctor: '::',
+		_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 24 24'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$class('zoomOutIcon'),
+			_1: {ctor: '[]'}
+		}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$svg$Svg$defs,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$mask,
+					{
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$id('zoomOutMask'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$svg$Svg$rect,
+							{
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$x('0'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$y('0'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$width('24'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$height('24'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$fill('white'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$svg$Svg$path,
+								{
+									ctor: '::',
+									_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$fill('black'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$d('M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z M 3 4 h 10'),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$svg$Svg$rect,
+									{
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$x('6'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$y('8.5'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$width('7'),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$svg$Svg_Attributes$height('2'),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$svg$Svg_Attributes$fill('black'),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									},
+									{ctor: '[]'}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$svg$Svg$circle,
+				{
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$cx('12'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$cy('12'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$r('12'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$mask('url(#zoomOutMask)'),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$title,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Zoom out'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Icons$zoomOutIcon = A2(
+	_elm_lang$svg$Svg$svg,
+	{
+		ctor: '::',
+		_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 24 24'),
+		_1: {
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$class('zoomOutIcon'),
+			_1: {ctor: '[]'}
+		}
+	},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$svg$Svg$path,
+			{
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$d('M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z M 3 4 h 10'),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$svg$Svg$title,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Zoom out'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$svg$Svg$rect,
+				{
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$x('6'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$y('8.5'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$width('7'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$svg$Svg_Attributes$height('2'),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$svg$Svg$title,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Zoom out'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Icons$zoomIcon = function (svgClass) {
+	return A2(
+		_elm_lang$svg$Svg$svg,
+		{
+			ctor: '::',
+			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 24 24'),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$svg$Svg$path,
+				{
+					ctor: '::',
+					_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$svg$Svg_Attributes$d('M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {ctor: '[]'}
+		});
+};
+var _user$project$Icons$lockerIcon = F3(
 	function (state, svgClass, id) {
 		var iconTitle = _elm_lang$core$Native_Utils.eq(state, _user$project$Model$Locked) ? 'Unlock version' : 'Lock version';
 		var maskName = A2(
@@ -15300,8 +16156,8 @@ var _user$project$Render$lockerIcon = F3(
 			_elm_lang$core$Basics$toString(state),
 			id);
 		var maskPathDraw = function () {
-			var _p0 = state;
-			if (_p0.ctor === 'Locked') {
+			var _p1 = state;
+			if (_p1.ctor === 'Locked') {
 				return 'M 35 50 v -20 c 0 -20 30 -20 30 0 v 20';
 			} else {
 				return 'M 35 50 v -20 c 0 -20 30 -20 30 0';
@@ -15469,7 +16325,7 @@ var _user$project$Render$lockerIcon = F3(
 				}
 			});
 	});
-var _user$project$Render$expandIcon = function (svgClass) {
+var _user$project$Icons$expandIcon = function (svgClass) {
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		{
@@ -15586,7 +16442,7 @@ var _user$project$Render$expandIcon = function (svgClass) {
 			}
 		});
 };
-var _user$project$Render$moreIcon = function (svgClass) {
+var _user$project$Icons$moreIcon = function (svgClass) {
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		{
@@ -15741,7 +16597,7 @@ var _user$project$Render$moreIcon = function (svgClass) {
 			}
 		});
 };
-var _user$project$Render$arrow = function (svgClass) {
+var _user$project$Icons$arrow = function (svgClass) {
 	return A2(
 		_elm_lang$svg$Svg$svg,
 		{
@@ -15782,19 +16638,754 @@ var _user$project$Render$arrow = function (svgClass) {
 			_1: {ctor: '[]'}
 		});
 };
+
+var _user$project$TimelineWidget$zoomBack = function (m) {
+	var _p0 = m.zoom;
+	switch (_p0.ctor) {
+		case 'Lifetime':
+			return {ctor: '[]'};
+		case 'Year':
+			return {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('zoomOutButton'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								A2(_user$project$Model$ZoomTimelineWidget, _user$project$Model$Lifetime, _elm_lang$core$Maybe$Nothing)),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$title('Zoom out'),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Icons$zoomOutIcon,
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			};
+		default:
+			return {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('zoomOutButton'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								A2(
+									_user$project$Model$ZoomTimelineWidget,
+									_user$project$Model$Year,
+									A2(
+										_elm_lang$core$Maybe$map,
+										_rluiten$elm_date_extra$Date_Extra_Field$fieldToDateClamp(
+											_rluiten$elm_date_extra$Date_Extra_Field$Month(_elm_lang$core$Date$Jan)),
+										m.zoomDate))),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Icons$zoomOutIcon,
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			};
+	}
+};
+var _user$project$TimelineWidget$timelineMarkers = function (model) {
+	var prune = _elm_lang$core$List$filter(
+		function (meas) {
+			return (_elm_lang$core$Native_Utils.cmp(meas.fromPct, 0) > -1) && (!_elm_lang$core$Native_Utils.eq(
+				_elm_lang$core$Maybe$Just(meas.version),
+				_elm_community$list_extra$List_Extra$last(model.versions)));
+		});
+	var style = function (meas) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			'left: ',
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_elm_lang$core$Basics$toString(meas.fromPct),
+				'%'));
+	};
+	var createMarker = function (meas) {
+		return A4(
+			_user$project$Icons$markerButton,
+			meas.selected,
+			_elm_lang$core$Maybe$Just(
+				_user$project$Model$NavigateDiffToVersion(meas.version)),
+			style(meas),
+			_elm_lang$core$Basics$toString(meas.version.from));
+	};
+	return function (_p1) {
+		return A2(
+			_elm_lang$core$List$map,
+			createMarker,
+			prune(_p1));
+	};
+};
+var _user$project$TimelineWidget$checkNavDisabled = F2(
+	function (m, dir) {
+		var isFistYear = _elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Maybe$map, _elm_lang$core$Date$year, m.zoomDate),
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p2) {
+					return _elm_lang$core$Date$year(
+						function (_) {
+							return _.from;
+						}(_p2));
+				},
+				_elm_community$list_extra$List_Extra$last(m.versions)));
+		var isFistMonth = isFistYear && _elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Maybe$map, _elm_lang$core$Date$month, m.zoomDate),
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p3) {
+					return _elm_lang$core$Date$month(
+						function (_) {
+							return _.from;
+						}(_p3));
+				},
+				_elm_community$list_extra$List_Extra$last(m.versions)));
+		var isLastYear = _elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Maybe$map, _elm_lang$core$Date$year, m.zoomDate),
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p4) {
+					return _elm_lang$core$Date$year(
+						A2(
+							_elm_lang$core$Maybe$withDefault,
+							m.today,
+							function (_) {
+								return _.until;
+							}(_p4)));
+				},
+				_elm_lang$core$List$head(m.versions)));
+		var isLastMonth = isLastYear && _elm_lang$core$Native_Utils.eq(
+			A2(_elm_lang$core$Maybe$map, _elm_lang$core$Date$month, m.zoomDate),
+			A2(
+				_elm_lang$core$Maybe$map,
+				function (_p5) {
+					return _elm_lang$core$Date$month(
+						A2(
+							_elm_lang$core$Maybe$withDefault,
+							m.today,
+							function (_) {
+								return _.until;
+							}(_p5)));
+				},
+				_elm_lang$core$List$head(m.versions)));
+		var _p6 = m.zoom;
+		switch (_p6.ctor) {
+			case 'Lifetime':
+				return true;
+			case 'Year':
+				return _elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? isLastYear : isFistYear;
+			default:
+				return _elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? isLastMonth : isFistMonth;
+		}
+	});
+var _user$project$TimelineWidget$navPanel = F2(
+	function (model, direction) {
+		var duration = _elm_lang$core$Native_Utils.eq(model.zoom, _user$project$Model$Month) ? _rluiten$elm_date_extra$Date_Extra_Duration$Month : _rluiten$elm_date_extra$Date_Extra_Duration$Year;
+		var action = A2(
+			_user$project$Model$ZoomTimelineWidget,
+			model.zoom,
+			A4(
+				_elm_lang$core$Maybe$map3,
+				_rluiten$elm_date_extra$Date_Extra_Duration$add,
+				_elm_lang$core$Maybe$Just(duration),
+				_elm_lang$core$Maybe$Just(
+					_elm_lang$core$Native_Utils.eq(direction, _user$project$Model$Fwd) ? 1 : -1),
+				model.zoomDate));
+		var arrowButton = function () {
+			var _p7 = direction;
+			if (_p7.ctor === 'Bkwd') {
+				return A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('arrowButton left'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(action),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$disabled(
+									A2(_user$project$TimelineWidget$checkNavDisabled, model, direction)),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Icons$arrow('timelineWidgetLeftArrow'),
+						_1: {ctor: '[]'}
+					});
+			} else {
+				return A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('arrowButton right'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(action),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$disabled(
+									A2(_user$project$TimelineWidget$checkNavDisabled, model, direction)),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Icons$arrow('timelineWidgetRightArrow'),
+						_1: {ctor: '[]'}
+					});
+			}
+		}();
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('timelineWidgetNavPanel'),
+				_1: {ctor: '[]'}
+			},
+			{
+				ctor: '::',
+				_0: arrowButton,
+				_1: {ctor: '[]'}
+			});
+	});
+var _user$project$TimelineWidget$zoomBox = F2(
+	function (m, d) {
+		var pct = function (x) {
+			return _elm_lang$core$Basics$toFloat(x) * (100 / 12);
+		};
+		var _p8 = m.zoom;
+		switch (_p8.ctor) {
+			case 'Lifetime':
+				return {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('zoomBoxYear'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									A2(
+										_user$project$Model$ZoomTimelineWidget,
+										_user$project$Model$Year,
+										_elm_lang$core$Maybe$Just(d))),
+								_1: {ctor: '[]'}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {ctor: '[]'}
+				};
+			case 'Year':
+				return A2(
+					_elm_lang$core$List$map,
+					function (x) {
+						return A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('zoomBoxMonth'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$style(
+										{
+											ctor: '::',
+											_0: {
+												ctor: '_Tuple2',
+												_0: 'left',
+												_1: A2(
+													_elm_lang$core$Basics_ops['++'],
+													_elm_lang$core$Basics$toString(
+														pct(x - 1)),
+													'%')
+											},
+											_1: {
+												ctor: '::',
+												_0: {
+													ctor: '_Tuple2',
+													_0: 'width',
+													_1: A2(
+														_elm_lang$core$Basics_ops['++'],
+														_elm_lang$core$Basics$toString(
+															pct(x) - pct(x - 1)),
+														'%')
+												},
+												_1: {ctor: '[]'}
+											}
+										}),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(
+											A2(
+												_user$project$Model$ZoomTimelineWidget,
+												_user$project$Model$Month,
+												_elm_lang$core$Maybe$Just(
+													A3(_rluiten$elm_date_extra$Date_Extra_Duration$add, _rluiten$elm_date_extra$Date_Extra_Duration$Month, x - 1, d)))),
+										_1: {ctor: '[]'}
+									}
+								}
+							},
+							{ctor: '[]'});
+					},
+					A2(_elm_lang$core$List$range, 1, 12));
+			default:
+				return {ctor: '[]'};
+		}
+	});
+var _user$project$TimelineWidget$timelineScales = F2(
+	function (z, d) {
+		var divClass = function (x) {
+			return A2(
+				_Fresheyeball$elm_guards$Guards_ops['|='],
+				A2(
+					_Fresheyeball$elm_guards$Guards_ops['=>'],
+					A2(
+						_elm_lang$core$List$member,
+						x,
+						{
+							ctor: '::',
+							_0: 0.0,
+							_1: {
+								ctor: '::',
+								_0: 100.0,
+								_1: {ctor: '[]'}
+							}
+						}),
+					'timelineScaleFull'),
+				A2(
+					_Fresheyeball$elm_guards$Guards_ops['|='],
+					A2(
+						_Fresheyeball$elm_guards$Guards_ops['=>'],
+						_elm_lang$core$Native_Utils.eq(x, 50.0),
+						'timelineScaleHalf'),
+					'timelineScale'));
+		};
+		var createDiv = function (x) {
+			return A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class(
+						divClass(x)),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$style(
+							{
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'left',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(x),
+										'%')
+								},
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				},
+				{ctor: '[]'});
+		};
+		var numDays = A2(
+			_rluiten$elm_date_extra$Date_Extra_Duration$diffDays,
+			A3(_rluiten$elm_date_extra$Date_Extra_Duration$add, _rluiten$elm_date_extra$Date_Extra_Duration$Month, 1, d),
+			d);
+		var yearlyScale = A2(
+			_elm_lang$core$List$map,
+			function (x) {
+				return _elm_lang$core$Basics$toFloat(x) * (100 / 12);
+			},
+			A2(_elm_lang$core$List$range, 0, 12));
+		var scales = function () {
+			var _p9 = z;
+			switch (_p9.ctor) {
+				case 'Lifetime':
+					return yearlyScale;
+				case 'Year':
+					return yearlyScale;
+				default:
+					return A2(
+						_elm_lang$core$List$map,
+						function (x) {
+							return _elm_lang$core$Basics$toFloat(x) * (100 / _elm_lang$core$Basics$toFloat(numDays));
+						},
+						A2(_elm_lang$core$List$range, 0, numDays));
+			}
+		}();
+		return A2(_elm_lang$core$List$map, createDiv, scales);
+	});
+var _user$project$TimelineWidget$timelineLifeline = function () {
+	var divClass = function (a) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			'timelineLifeline',
+			a ? ' active' : '');
+	};
+	var createDiv = function (_p10) {
+		var _p11 = _p10;
+		var _p12 = _p11._0;
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class(
+					divClass(_p11._2)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$style(
+						{
+							ctor: '::',
+							_0: {
+								ctor: '_Tuple2',
+								_0: 'left',
+								_1: A2(
+									_elm_lang$core$Basics_ops['++'],
+									_elm_lang$core$Basics$toString(_p12),
+									'%')
+							},
+							_1: {
+								ctor: '::',
+								_0: {
+									ctor: '_Tuple2',
+									_0: 'width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(_p11._1 - _p12),
+										'%')
+								},
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			},
+			{ctor: '[]'});
+	};
+	return function (_p13) {
+		return A2(
+			F2(
+				function (x, y) {
+					return A2(_elm_lang$core$Basics_ops['++'], x, y);
+				}),
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('timelineLifelineGuide'),
+						_1: {ctor: '[]'}
+					},
+					{ctor: '[]'}),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_elm_lang$core$List$map,
+				function (vm) {
+					return createDiv(
+						{
+							ctor: '_Tuple3',
+							_0: A2(_elm_lang$core$Basics$max, 0, vm.fromPct),
+							_1: A2(_elm_lang$core$Basics$min, 100, vm.untilPct),
+							_2: vm.active
+						});
+				},
+				_p13));
+	};
+}();
+var _user$project$TimelineWidget$timelineBoxTitle = F2(
+	function (m, d) {
+		var title = function () {
+			var _p14 = m.zoom;
+			switch (_p14.ctor) {
+				case 'Lifetime':
+					return _elm_lang$core$Basics$toString(
+						_elm_lang$core$Date$year(d));
+				case 'Year':
+					return _elm_lang$core$Basics$toString(
+						_elm_lang$core$Date$year(d));
+				default:
+					return A3(_rluiten$elm_date_extra$Date_Extra_Format$format, _rluiten$elm_date_extra$Date_Extra_Config_Config_en_au$config, '%B %Y', d);
+			}
+		}();
+		return {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('timelineBoxTitle'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(title),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		};
+	});
+var _user$project$TimelineWidget$Model = F5(
+	function (a, b, c, d, e) {
+		return {zoom: a, zoomDate: b, displayedVersions: c, versions: d, today: e};
+	});
+var _user$project$TimelineWidget$BoxVersionMeasurement = F5(
+	function (a, b, c, d, e) {
+		return {fromPct: a, untilPct: b, version: c, selected: d, active: e};
+	});
+var _user$project$TimelineWidget$calculateMeasurements = F2(
+	function (m, startDate) {
+		var prune = _elm_lang$core$List$filter(
+			function (p) {
+				return !(((_elm_lang$core$Native_Utils.cmp(p.fromPct, 0) < 0) && (_elm_lang$core$Native_Utils.cmp(p.untilPct, 0) < 0)) || ((_elm_lang$core$Native_Utils.cmp(p.fromPct, 100) > 0) && (_elm_lang$core$Native_Utils.cmp(p.untilPct, 100) > 0)));
+			});
+		var activateNext = function (vms) {
+			var _p15 = vms;
+			if (_p15.ctor === '::') {
+				if (_p15._1.ctor === '::') {
+					var _p17 = _p15._1._0;
+					var _p16 = _p15._0;
+					return {
+						ctor: '::',
+						_0: _elm_lang$core$Native_Utils.update(
+							_p16,
+							{active: _p16.selected || _p17.selected}),
+						_1: activateNext(
+							{ctor: '::', _0: _p17, _1: _p15._1._1})
+					};
+				} else {
+					return {
+						ctor: '::',
+						_0: _p15._0,
+						_1: {ctor: '[]'}
+					};
+				}
+			} else {
+				return {ctor: '[]'};
+			}
+		};
+		var activateReverse = function (_p18) {
+			return activateNext(
+				_elm_lang$core$List$reverse(_p18));
+		};
+		var isSelected = function (v) {
+			var _p19 = m.displayedVersions;
+			_v8_2:
+			do {
+				if (_p19.ctor === '_Tuple2') {
+					if (_p19._0.ctor === 'Nothing') {
+						if (_p19._1.ctor === 'Nothing') {
+							return false;
+						} else {
+							break _v8_2;
+						}
+					} else {
+						if (_p19._1.ctor === 'Just') {
+							return A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$After, v.from, _p19._0._0.from) && A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$SameOrBefore, v.from, _p19._1._0.from);
+						} else {
+							break _v8_2;
+						}
+					}
+				} else {
+					break _v8_2;
+				}
+			} while(false);
+			return true;
+		};
+		var period = function () {
+			var _p20 = m.zoom;
+			switch (_p20.ctor) {
+				case 'Lifetime':
+					return _rluiten$elm_date_extra$Date_Extra_Duration$Year;
+				case 'Year':
+					return _rluiten$elm_date_extra$Date_Extra_Duration$Year;
+				default:
+					return _rluiten$elm_date_extra$Date_Extra_Duration$Month;
+			}
+		}();
+		var endDate = A3(_rluiten$elm_date_extra$Date_Extra_Duration$add, period, 1, startDate);
+		var total = _elm_lang$core$Date$toTime(endDate) - _elm_lang$core$Date$toTime(startDate);
+		var convertDate = function (d) {
+			return ((_elm_lang$core$Date$toTime(d) - _elm_lang$core$Date$toTime(startDate)) / total) * 100;
+		};
+		var convert = function (v) {
+			return A5(
+				_user$project$TimelineWidget$BoxVersionMeasurement,
+				convertDate(v.from),
+				convertDate(
+					A2(_elm_lang$core$Maybe$withDefault, m.today, v.until)),
+				v,
+				isSelected(v),
+				isSelected(v));
+		};
+		return prune(
+			activateReverse(
+				A2(_elm_lang$core$List$map, convert, m.versions)));
+	});
+var _user$project$TimelineWidget$box = F2(
+	function (m, d) {
+		var measurements = A2(_user$project$TimelineWidget$calculateMeasurements, m, d);
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('timelineBox'),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				A2(_user$project$TimelineWidget$timelineBoxTitle, m, d),
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					_user$project$TimelineWidget$timelineLifeline(measurements),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						A2(_user$project$TimelineWidget$timelineScales, m.zoom, d),
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							A2(_user$project$TimelineWidget$zoomBox, m, d),
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								A2(_user$project$TimelineWidget$timelineMarkers, m, measurements),
+								_user$project$TimelineWidget$zoomBack(m)))))));
+	});
+var _user$project$TimelineWidget$render = function (m) {
+	var createNavPanel = function (dir) {
+		return _elm_lang$core$Native_Utils.eq(m.zoom, _user$project$Model$Lifetime) ? {ctor: '[]'} : {
+			ctor: '::',
+			_0: A2(_user$project$TimelineWidget$navPanel, m, dir),
+			_1: {ctor: '[]'}
+		};
+	};
+	var zoomedBox = function () {
+		var _p21 = m.zoomDate;
+		if (_p21.ctor === 'Nothing') {
+			return {ctor: '[]'};
+		} else {
+			return {
+				ctor: '::',
+				_0: A2(_user$project$TimelineWidget$box, m, _p21._0),
+				_1: {ctor: '[]'}
+			};
+		}
+	}();
+	var years = function (vs) {
+		return A2(
+			_elm_lang$core$List$range,
+			A2(
+				_elm_lang$core$Maybe$withDefault,
+				0,
+				A2(
+					_elm_lang$core$Maybe$map,
+					function (_p22) {
+						return _elm_lang$core$Date$year(
+							function (_) {
+								return _.from;
+							}(_p22));
+					},
+					_elm_community$list_extra$List_Extra$last(vs))),
+			A2(
+				_elm_lang$core$Maybe$withDefault,
+				_elm_lang$core$Date$year(m.today),
+				A2(
+					_elm_lang$core$Maybe$map,
+					_elm_lang$core$Date$year,
+					_elm_community$maybe_extra$Maybe_Extra$join(
+						A2(
+							_elm_lang$core$Maybe$map,
+							function (_) {
+								return _.until;
+							},
+							_elm_lang$core$List$head(vs))))));
+	};
+	var boxes = function () {
+		var _p23 = m.zoom;
+		switch (_p23.ctor) {
+			case 'Lifetime':
+				return A2(
+					_elm_lang$core$List$map,
+					function (y) {
+						return A2(
+							_user$project$TimelineWidget$box,
+							m,
+							A7(_rluiten$elm_date_extra$Date_Extra_Create$dateFromFields, y, _elm_lang$core$Date$Jan, 1, 0, 0, 0, 0));
+					},
+					years(m.versions));
+			case 'Year':
+				return zoomedBox;
+			default:
+				return zoomedBox;
+		}
+	}();
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('timelineWidget'),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			createNavPanel(_user$project$Model$Bkwd),
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				boxes,
+				createNavPanel(_user$project$Model$Fwd))));
+};
+
+var _user$project$Render$mkTimelineModel = function (ctx) {
+	return A5(
+		_user$project$TimelineWidget$Model,
+		ctx.timelineWidgetZoom,
+		ctx.timelineWidgetZoomDate,
+		{ctor: '_Tuple2', _0: ctx.fromVersion, _1: ctx.toVersion},
+		ctx.history.versions,
+		ctx.today);
+};
+var _user$project$Render$checkNavDisabled = F2(
+	function (ctx, dir) {
+		return !A4(
+			_user$project$Model$canNavigate,
+			ctx.history.versions,
+			{ctor: '_Tuple2', _0: ctx.fromVersion, _1: ctx.toVersion},
+			dir,
+			ctx.navigationLocks);
+	});
 var _user$project$Render$prettifyDate = F2(
 	function (d, df) {
 		var spanClass = function () {
-			var _p1 = df;
-			if (_p1.ctor === 'Short') {
+			var _p0 = df;
+			if (_p0.ctor === 'Short') {
 				return 'dateShort';
 			} else {
 				return 'dateLong';
 			}
 		}();
 		var pattern = function () {
-			var _p2 = df;
-			if (_p2.ctor === 'Short') {
+			var _p1 = df;
+			if (_p1.ctor === 'Short') {
 				return '%d/%m/%y';
 			} else {
 				return '%d/%m/%Y %H:%M';
@@ -15819,20 +17410,20 @@ var _user$project$Render$viewDiff = F3(
 		var rIs = A2(_user$project$Rdap$render, ctx.history.identifier, is.object);
 		var rWas = A2(
 			_elm_lang$core$Maybe$map,
-			function (_p3) {
+			function (_p2) {
 				return A2(
 					_user$project$Rdap$render,
 					ctx.history.identifier,
 					function (_) {
 						return _.object;
-					}(_p3));
+					}(_p2));
 			},
 			was);
 		var diff = A2(_user$project$Rdap$diff, rWas, rIs);
 		var diffOutput = _user$project$Rdap$output(diff);
 		var mobileDiffOutput = _user$project$Rdap$mobileOutput(diff);
-		var _p4 = was;
-		if (_p4.ctor === 'Nothing') {
+		var _p3 = was;
+		if (_p3.ctor === 'Nothing') {
 			return {
 				ctor: '::',
 				_0: A2(
@@ -15943,14 +17534,14 @@ var _user$project$Render$lockButton = F3(
 			},
 			{
 				ctor: '::',
-				_0: A3(_user$project$Render$lockerIcon, state, 'lockerIcon', id),
+				_0: A3(_user$project$Icons$lockerIcon, state, 'lockerIcon', id),
 				_1: {ctor: '[]'}
 			});
 	});
 var _user$project$Render$arrowButton = F2(
 	function (ctx, direction) {
-		var _p5 = direction;
-		if (_p5.ctor === 'Bkwd') {
+		var _p4 = direction;
+		if (_p4.ctor === 'Bkwd') {
 			return A2(
 				_elm_lang$html$Html$button,
 				{
@@ -15970,7 +17561,7 @@ var _user$project$Render$arrowButton = F2(
 				},
 				{
 					ctor: '::',
-					_0: _user$project$Render$arrow('leftArrow'),
+					_0: _user$project$Icons$arrow('leftArrow'),
 					_1: {ctor: '[]'}
 				});
 		} else {
@@ -15993,7 +17584,7 @@ var _user$project$Render$arrowButton = F2(
 				},
 				{
 					ctor: '::',
-					_0: _user$project$Render$arrow('rightArrow'),
+					_0: _user$project$Icons$arrow('rightArrow'),
 					_1: {ctor: '[]'}
 				});
 		}
@@ -16097,21 +17688,25 @@ var _user$project$Render$navPanel = F2(
 				}
 			});
 	});
+var _user$project$Render$timelineWidgetPanel = function (ctx) {
+	return _user$project$TimelineWidget$render(
+		_user$project$Render$mkTimelineModel(ctx));
+};
 var _user$project$Render$versionDateDetailPanel = function (ctx) {
-	var _p6 = function () {
-		var _p7 = ctx.versionDateDetail;
-		if (_p7.ctor === 'Nothing') {
+	var _p5 = function () {
+		var _p6 = ctx.versionDateDetail;
+		if (_p6.ctor === 'Nothing') {
 			return {ctor: '_Tuple2', _0: 'hidePanel', _1: ''};
 		} else {
 			return {
 				ctor: '_Tuple2',
 				_0: 'showPanel',
-				_1: _elm_lang$core$Basics$toString(_p7._0)
+				_1: _elm_lang$core$Basics$toString(_p6._0)
 			};
 		}
 	}();
-	var panelClass = _p6._0;
-	var dateString = _p6._1;
+	var panelClass = _p5._0;
+	var dateString = _p5._1;
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -16127,8 +17722,8 @@ var _user$project$Render$versionDateDetailPanel = function (ctx) {
 		});
 };
 var _user$project$Render$diffPanel = function (ctx) {
-	var _p8 = ctx.toVersion;
-	if (_p8.ctor === 'Nothing') {
+	var _p7 = ctx.toVersion;
+	if (_p7.ctor === 'Nothing') {
 		return _elm_lang$html$Html$text('Nothing to show');
 	} else {
 		return A2(
@@ -16138,7 +17733,7 @@ var _user$project$Render$diffPanel = function (ctx) {
 				_0: _elm_lang$html$Html_Attributes$class('diffPanel'),
 				_1: {ctor: '[]'}
 			},
-			A3(_user$project$Render$viewDiff, ctx, ctx.fromVersion, _p8._0));
+			A3(_user$project$Render$viewDiff, ctx, ctx.fromVersion, _p7._0));
 	}
 };
 var _user$project$Render$dropdownResultsMobile = F2(
@@ -16257,57 +17852,57 @@ var _user$project$Render$objectListPanel = F2(
 			_1: {ctor: '[]'}
 		};
 	});
-var _user$project$Render$Context = F6(
-	function (a, b, c, d, e, f) {
-		return {history: a, fromVersion: b, toVersion: c, versions: d, navigationLocks: e, versionDateDetail: f};
+var _user$project$Render$Context = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {history: a, fromVersion: b, toVersion: c, versions: d, navigationLocks: e, versionDateDetail: f, today: g, timelineWidgetZoom: h, timelineWidgetZoomDate: i};
 	});
 var _user$project$Render$mkCtx = F3(
-	function (h, _p9, navigationLockers) {
-		var _p10 = _p9;
-		var _p12 = _p10._1;
-		var _p11 = _p10._0;
+	function (today, h, m) {
+		var _p8 = m.displayedVersions;
+		var fromVersion = _p8._0;
+		var toVersion = _p8._1;
 		var versions = _elm_community$maybe_extra$Maybe_Extra$values(
 			{
 				ctor: '::',
-				_0: _p11,
+				_0: fromVersion,
 				_1: {
 					ctor: '::',
-					_0: _p12,
+					_0: toVersion,
 					_1: {ctor: '[]'}
 				}
 			});
-		return A5(_user$project$Render$Context, h, _p11, _p12, versions, navigationLockers);
+		return A9(_user$project$Render$Context, h, fromVersion, toVersion, versions, m.navigationLocks, m.versionDateDetail, today, m.timelineWidgetZoom, m.timelineWidgetZoomDate);
 	});
 var _user$project$Render$Long = {ctor: 'Long'};
 var _user$project$Render$Short = {ctor: 'Short'};
 var _user$project$Render$createDateLabel = F2(
 	function (md, versionDateDetail) {
-		var _p13 = md;
-		if (_p13.ctor === 'Nothing') {
+		var _p9 = md;
+		if (_p9.ctor === 'Nothing') {
 			return {
 				ctor: '::',
 				_0: _elm_lang$html$Html$text('Present'),
 				_1: {ctor: '[]'}
 			};
 		} else {
-			var _p16 = _p13._0;
+			var _p12 = _p9._0;
 			var flipTo = function () {
-				var _p14 = versionDateDetail;
-				if (_p14.ctor === 'Nothing') {
+				var _p10 = versionDateDetail;
+				if (_p10.ctor === 'Nothing') {
 					return md;
 				} else {
-					return A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$Same, _p16, _p14._0) ? _elm_lang$core$Maybe$Nothing : md;
+					return A3(_rluiten$elm_date_extra$Date_Extra_Compare$is, _rluiten$elm_date_extra$Date_Extra_Compare$Same, _p12, _p10._0) ? _elm_lang$core$Maybe$Nothing : md;
 				}
 			}();
-			var _p15 = _elm_lang$core$Native_Utils.eq(flipTo, _elm_lang$core$Maybe$Nothing) ? {ctor: '_Tuple2', _0: 'pressedFlipShowVersionButton', _1: 'Hide date detail'} : {ctor: '_Tuple2', _0: 'flipShowVersionButton', _1: 'Show date detail'};
-			var buttonClass = _p15._0;
-			var tooltipText = _p15._1;
+			var _p11 = _elm_lang$core$Native_Utils.eq(flipTo, _elm_lang$core$Maybe$Nothing) ? {ctor: '_Tuple2', _0: 'pressedFlipShowVersionButton', _1: 'Hide date detail'} : {ctor: '_Tuple2', _0: 'flipShowVersionButton', _1: 'Show date detail'};
+			var buttonClass = _p11._0;
+			var tooltipText = _p11._1;
 			return {
 				ctor: '::',
-				_0: A2(_user$project$Render$prettifyDate, _p16, _user$project$Render$Short),
+				_0: A2(_user$project$Render$prettifyDate, _p12, _user$project$Render$Short),
 				_1: {
 					ctor: '::',
-					_0: A2(_user$project$Render$prettifyDate, _p16, _user$project$Render$Long),
+					_0: A2(_user$project$Render$prettifyDate, _p12, _user$project$Render$Long),
 					_1: {
 						ctor: '::',
 						_0: A2(
@@ -16328,7 +17923,7 @@ var _user$project$Render$createDateLabel = F2(
 							},
 							{
 								ctor: '::',
-								_0: _user$project$Render$expandIcon('moreIconSvg'),
+								_0: _user$project$Icons$expandIcon('moreIconSvg'),
 								_1: {ctor: '[]'}
 							}),
 						_1: {ctor: '[]'}
@@ -16338,12 +17933,12 @@ var _user$project$Render$createDateLabel = F2(
 		}
 	});
 var _user$project$Render$versionDatesPanel = function (ctx) {
-	var _p17 = ctx.versions;
-	if (_p17.ctor === '[]') {
+	var _p13 = ctx.versions;
+	if (_p13.ctor === '[]') {
 		return _elm_lang$html$Html$text('');
 	} else {
-		if (_p17._1.ctor === '[]') {
-			var _p18 = _p17._0;
+		if (_p13._1.ctor === '[]') {
+			var _p14 = _p13._0;
 			return A2(
 				_elm_lang$html$Html$div,
 				{
@@ -16369,7 +17964,7 @@ var _user$project$Render$versionDatesPanel = function (ctx) {
 									_elm_lang$core$Basics_ops['++'],
 									A2(
 										_user$project$Render$createDateLabel,
-										_elm_lang$core$Maybe$Just(_p18.from),
+										_elm_lang$core$Maybe$Just(_p14.from),
 										ctx.versionDateDetail),
 									{
 										ctor: '::',
@@ -16399,15 +17994,15 @@ var _user$project$Render$versionDatesPanel = function (ctx) {
 											_0: _elm_lang$html$Html$text('<'),
 											_1: {ctor: '[]'}
 										},
-										A2(_user$project$Render$createDateLabel, _p18.until, ctx.versionDateDetail))),
+										A2(_user$project$Render$createDateLabel, _p14.until, ctx.versionDateDetail))),
 								_1: {ctor: '[]'}
 							}),
 						_1: {ctor: '[]'}
 					}
 				});
 		} else {
-			var _p20 = _p17._1._0;
-			var _p19 = _p17._0;
+			var _p16 = _p13._1._0;
+			var _p15 = _p13._0;
 			var versionsInBetween = A2(
 				F2(
 					function (x, y) {
@@ -16417,10 +18012,10 @@ var _user$project$Render$versionDatesPanel = function (ctx) {
 				A2(
 					_elm_lang$core$Maybe$withDefault,
 					0,
-					A3(_user$project$Model$getDistance, _p19, _p20, ctx.history.versions)));
+					A3(_user$project$Model$getDistance, _p15, _p16, ctx.history.versions)));
 			var middleLabel = _elm_lang$core$Native_Utils.eq(versionsInBetween, 0) ? A2(
 				_user$project$Render$createDateLabel,
-				_elm_lang$core$Maybe$Just(_p20.from),
+				_elm_lang$core$Maybe$Just(_p16.from),
 				ctx.versionDateDetail) : {
 				ctor: '::',
 				_0: _elm_lang$html$Html$text(
@@ -16458,7 +18053,7 @@ var _user$project$Render$versionDatesPanel = function (ctx) {
 									_elm_lang$core$Basics_ops['++'],
 									A2(
 										_user$project$Render$createDateLabel,
-										_elm_lang$core$Maybe$Just(_p19.from),
+										_elm_lang$core$Maybe$Just(_p15.from),
 										ctx.versionDateDetail),
 									{
 										ctor: '::',
@@ -16519,7 +18114,7 @@ var _user$project$Render$versionDatesPanel = function (ctx) {
 												_0: _elm_lang$html$Html$text('<'),
 												_1: {ctor: '[]'}
 											},
-											A2(_user$project$Render$createDateLabel, _p20.until, ctx.versionDateDetail))),
+											A2(_user$project$Render$createDateLabel, _p16.until, ctx.versionDateDetail))),
 									_1: {ctor: '[]'}
 								}),
 							_1: {ctor: '[]'}
@@ -16541,51 +18136,66 @@ var _user$project$Render$detailPanel = function (ctx) {
 			},
 			{
 				ctor: '::',
-				_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Bkwd),
+				_0: _user$project$Render$timelineWidgetPanel(ctx),
 				_1: {
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$div,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('detailCenterPanel'),
+							_0: _elm_lang$html$Html_Attributes$class('detailPanelMain'),
 							_1: {ctor: '[]'}
 						},
 						{
 							ctor: '::',
-							_0: _user$project$Render$versionDatesPanel(ctx),
+							_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Bkwd),
 							_1: {
 								ctor: '::',
-								_0: _user$project$Render$versionDateDetailPanel(ctx),
+								_0: A2(
+									_elm_lang$html$Html$div,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('detailCenterPanel'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _user$project$Render$versionDatesPanel(ctx),
+										_1: {
+											ctor: '::',
+											_0: _user$project$Render$versionDateDetailPanel(ctx),
+											_1: {
+												ctor: '::',
+												_0: _user$project$Render$diffPanel(ctx),
+												_1: {ctor: '[]'}
+											}
+										}
+									}),
 								_1: {
 									ctor: '::',
-									_0: _user$project$Render$diffPanel(ctx),
-									_1: {ctor: '[]'}
+									_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Fwd),
+									_1: {
+										ctor: '::',
+										_0: _user$project$Render$navBottomPanel(ctx),
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}),
-					_1: {
-						ctor: '::',
-						_0: A2(_user$project$Render$navPanel, ctx, _user$project$Model$Fwd),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Render$navBottomPanel(ctx),
-							_1: {ctor: '[]'}
-						}
-					}
+					_1: {ctor: '[]'}
 				}
 			}),
 		_1: {ctor: '[]'}
 	};
 };
-var _user$project$Render$viewAsList = F5(
-	function (response, idx, displayedVersions, navigationLocks, versionDateDetail) {
-		var history = A2(_elm_community$list_extra$List_Extra_ops['!!'], response.history, idx);
-		var _p21 = history;
-		if (_p21.ctor === 'Nothing') {
+var _user$project$Render$viewAsList = F2(
+	function (response, m) {
+		var history = A2(_elm_community$list_extra$List_Extra_ops['!!'], response.history, m.selected);
+		var _p17 = history;
+		if (_p17.ctor === 'Nothing') {
 			return {ctor: '[]'};
 		} else {
-			var ctx = A4(_user$project$Render$mkCtx, _p21._0, displayedVersions, navigationLocks, versionDateDetail);
+			var ctx = A3(_user$project$Render$mkCtx, response.stamp, _p17._0, m);
 			return {
 				ctor: '::',
 				_0: A2(
@@ -16597,10 +18207,10 @@ var _user$project$Render$viewAsList = F5(
 					},
 					A2(
 						_elm_lang$core$Basics_ops['++'],
-						A2(_user$project$Render$objectListPanel, response.history, idx),
+						A2(_user$project$Render$objectListPanel, response.history, m.selected),
 						A2(
 							_elm_lang$core$Basics_ops['++'],
-							A2(_user$project$Render$objectListMobile, response.history, idx),
+							A2(_user$project$Render$objectListMobile, response.history, m.selected),
 							_user$project$Render$detailPanel(ctx)))),
 				_1: {ctor: '[]'}
 			};
@@ -16689,39 +18299,6 @@ var _user$project$Main$fl = function (xs) {
 	return _elm_lang$core$String$concat(
 		A2(_elm_lang$core$List$intersperse, '\n', xs));
 };
-var _user$project$Main$searchIcon = function (svgClass) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 24 24'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$class(svgClass),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$svg$Svg$path,
-				{
-					ctor: '::',
-					_0: _elm_lang$svg$Svg_Attributes$strokeLinecap('round'),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$svg$Svg_Attributes$strokeLinejoin('round'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$svg$Svg_Attributes$d('M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{ctor: '[]'}),
-			_1: {ctor: '[]'}
-		});
-};
 var _user$project$Main$searchBox = function (model) {
 	var cease = {stopPropagation: true, preventDefault: true};
 	return A2(
@@ -16760,7 +18337,7 @@ var _user$project$Main$searchBox = function (model) {
 					},
 					{
 						ctor: '::',
-						_0: _user$project$Main$searchIcon('searchIcon'),
+						_0: _user$project$Icons$zoomIcon('searchIcon'),
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
@@ -16867,7 +18444,7 @@ var _user$project$Main$view_ = function (model) {
 				_1: {ctor: '[]'}
 			};
 		} else {
-			return A5(_user$project$Render$viewAsList, _p2._0, model.selected, model.displayedVersions, model.navigationLocks, model.versionDateDetail);
+			return A2(_user$project$Render$viewAsList, _p2._0, model);
 		}
 	}();
 	return A2(
@@ -16900,6 +18477,12 @@ var _user$project$Main$view = function (model) {
 		},
 		model.redraw);
 };
+var _user$project$Main$zoomTimelineWidget = F3(
+	function (m, z, d) {
+		return _elm_lang$core$Native_Utils.update(
+			m,
+			{timelineWidgetZoom: z, timelineWidgetZoomDate: d});
+	});
 var _user$project$Main$flipShowVersionDateDetail = F2(
 	function (m, d) {
 		return _elm_lang$core$Native_Utils.update(
@@ -16957,6 +18540,74 @@ var _user$project$Main$flipNavigationLock = F2(
 				versionDateDetail: _elm_lang$core$Maybe$Nothing
 			});
 	});
+var _user$project$Main$navigateToVersion = F2(
+	function (model, version) {
+		var _p8 = model.navigationLocks;
+		var l1 = _p8._0;
+		var l2 = _p8._1;
+		var _p9 = model.displayedVersions;
+		var v1 = _p9._0;
+		var v2 = _p9._1;
+		var versions = A2(
+			_elm_lang$core$Maybe$withDefault,
+			{ctor: '[]'},
+			_user$project$Model$versions(model));
+		var distanceToV1 = _elm_community$maybe_extra$Maybe_Extra$join(
+			A4(
+				_elm_lang$core$Maybe$map3,
+				_user$project$Model$getDistance,
+				v1,
+				_elm_lang$core$Maybe$Just(version),
+				_elm_lang$core$Maybe$Just(versions)));
+		var distanceToV2 = _elm_community$maybe_extra$Maybe_Extra$join(
+			A4(
+				_elm_lang$core$Maybe$map3,
+				_user$project$Model$getDistance,
+				v2,
+				_elm_lang$core$Maybe$Just(version),
+				_elm_lang$core$Maybe$Just(versions)));
+		var previousV = A2(_user$project$Model$getPreviousVersion, version, versions);
+		var newDV = A2(
+			_Fresheyeball$elm_guards$Guards_ops['|='],
+			A2(
+				_Fresheyeball$elm_guards$Guards_ops['=>'],
+				_elm_lang$core$Native_Utils.eq(l1, _user$project$Model$Unlocked) && _elm_lang$core$Native_Utils.eq(l2, _user$project$Model$Unlocked),
+				{
+					ctor: '_Tuple2',
+					_0: previousV,
+					_1: _elm_lang$core$Maybe$Just(version)
+				}),
+			A2(
+				_Fresheyeball$elm_guards$Guards_ops['|='],
+				A2(
+					_Fresheyeball$elm_guards$Guards_ops['=>'],
+					_elm_lang$core$Native_Utils.eq(l1, _user$project$Model$Locked) && _elm_lang$core$Native_Utils.eq(l2, _user$project$Model$Locked),
+					{ctor: '_Tuple2', _0: v1, _1: v2}),
+				A2(
+					_Fresheyeball$elm_guards$Guards_ops['|='],
+					A2(
+						_Fresheyeball$elm_guards$Guards_ops['=>'],
+						_elm_lang$core$Native_Utils.eq(l1, _user$project$Model$Locked) && (_elm_lang$core$Native_Utils.cmp(
+							A2(_elm_lang$core$Maybe$withDefault, 0, distanceToV1),
+							0) > 0),
+						{
+							ctor: '_Tuple2',
+							_0: v1,
+							_1: _elm_lang$core$Maybe$Just(version)
+						}),
+					A2(
+						_Fresheyeball$elm_guards$Guards_ops['|='],
+						A2(
+							_Fresheyeball$elm_guards$Guards_ops['=>'],
+							_elm_lang$core$Native_Utils.eq(l2, _user$project$Model$Locked) && (_elm_lang$core$Native_Utils.cmp(
+								A2(_elm_lang$core$Maybe$withDefault, -1, distanceToV2),
+								0) < 1),
+							{ctor: '_Tuple2', _0: previousV, _1: v2}),
+						{ctor: '_Tuple2', _0: v1, _1: v2}))));
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{displayedVersions: newDV, versionDateDetail: _elm_lang$core$Maybe$Nothing});
+	});
 var _user$project$Main$navigate = F2(
 	function (model, dir) {
 		if (!A4(
@@ -16971,12 +18622,12 @@ var _user$project$Main$navigate = F2(
 			return model;
 		} else {
 			var getAdjacent = _elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _user$project$Model$getNextVersion : _user$project$Model$getPreviousVersion;
-			var _p8 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.navigationLocks);
-			var l1 = _p8._0;
-			var l2 = _p8._1;
-			var _p9 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.displayedVersions);
-			var v1 = _p9._0;
-			var v2 = _p9._1;
+			var _p10 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.navigationLocks);
+			var l1 = _p10._0;
+			var l2 = _p10._1;
+			var _p11 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.displayedVersions);
+			var v1 = _p11._0;
+			var v2 = _p11._1;
 			var versions = _user$project$Model$versions(model);
 			var v1AndV2Adjacent = _elm_lang$core$Native_Utils.eq(
 				_elm_community$maybe_extra$Maybe_Extra$join(
@@ -16998,24 +18649,24 @@ var _user$project$Main$navigate = F2(
 	});
 var _user$project$Main$upd = function (model) {
 	var displayedVersions = function () {
-		var _p10 = A2(
+		var _p12 = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
 			_user$project$Model$versions(model));
-		if (_p10.ctor === '[]') {
+		if (_p12.ctor === '[]') {
 			return {ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing};
 		} else {
-			if (_p10._1.ctor === '[]') {
+			if (_p12._1.ctor === '[]') {
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Maybe$Nothing,
-					_1: _elm_lang$core$Maybe$Just(_p10._0)
+					_1: _elm_lang$core$Maybe$Just(_p12._0)
 				};
 			} else {
 				return {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Maybe$Just(_p10._1._0),
-					_1: _elm_lang$core$Maybe$Just(_p10._0)
+					_0: _elm_lang$core$Maybe$Just(_p12._1._0),
+					_1: _elm_lang$core$Maybe$Just(_p12._0)
 				};
 			}
 		}
@@ -17025,8 +18676,8 @@ var _user$project$Main$upd = function (model) {
 		{redraw: !model.redraw, displayedVersions: displayedVersions, versionDateDetail: _elm_lang$core$Maybe$Nothing});
 };
 var _user$project$Main$errMsg = function (err) {
-	var _p11 = err;
-	switch (_p11.ctor) {
+	var _p13 = err;
+	switch (_p13.ctor) {
 		case 'Timeout':
 			return 'timeout';
 		case 'NetworkError':
@@ -17034,18 +18685,18 @@ var _user$project$Main$errMsg = function (err) {
 		case 'BadStatus':
 			return 'unexpected status';
 		case 'BadPayload':
-			return A2(_elm_lang$core$Basics_ops['++'], 'bad response ', _p11._0);
+			return A2(_elm_lang$core$Basics_ops['++'], 'bad response ', _p13._0);
 		default:
 			return 'invalid URL';
 	}
 };
 var _user$project$Main$fromFetch = function (r) {
-	var _p12 = r;
-	if (_p12.ctor === 'Ok') {
-		return _toastal$either$Either$Right(_p12._0);
+	var _p14 = r;
+	if (_p14.ctor === 'Ok') {
+		return _toastal$either$Either$Right(_p14._0);
 	} else {
 		return _toastal$either$Either$Left(
-			_user$project$Main$errMsg(_p12._0));
+			_user$project$Main$errMsg(_p14._0));
 	}
 };
 var _user$project$Main$init = function (loc) {
@@ -17053,7 +18704,7 @@ var _user$project$Main$init = function (loc) {
 	var resource = _elm_lang$core$String$isEmpty(hash) ? '203.133.248.0/24' : hash;
 	return {
 		ctor: '_Tuple2',
-		_0: A7(
+		_0: A9(
 			_user$project$Model$Model,
 			resource,
 			_toastal$either$Either$Left('Searching…'),
@@ -17061,14 +18712,16 @@ var _user$project$Main$init = function (loc) {
 			{ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing},
 			{ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked},
 			_elm_lang$core$Maybe$Nothing,
-			false),
+			false,
+			_user$project$Model$Lifetime,
+			_elm_lang$core$Maybe$Nothing),
 		_1: _user$project$Main$search(resource)
 	};
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p13 = msg;
-		switch (_p13.ctor) {
+		var _p15 = msg;
+		switch (_p15.ctor) {
 			case 'Nada':
 				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'Fetched':
@@ -17078,13 +18731,13 @@ var _user$project$Main$update = F2(
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								response: _user$project$Main$fromFetch(_p13._0),
+								response: _user$project$Main$fromFetch(_p15._0),
 								selected: 0
 							})),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'UrlChange':
-				return _user$project$Main$init(_p13._0);
+				return _user$project$Main$init(_p15._0);
 			case 'Select':
 				return {
 					ctor: '_Tuple2',
@@ -17092,7 +18745,7 @@ var _user$project$Main$update = F2(
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								selected: _p13._0,
+								selected: _p15._0,
 								navigationLocks: {ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked}
 							})),
 					_1: _elm_lang$core$Platform_Cmd$none
@@ -17102,24 +18755,36 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: model,
 					_1: _elm_lang$navigation$Navigation$newUrl(
-						A2(_elm_lang$core$Basics_ops['++'], '#', _p13._0))
+						A2(_elm_lang$core$Basics_ops['++'], '#', _p15._0))
 				};
 			case 'NavigateDiff':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$navigate, model, _p13._0),
+					_0: A2(_user$project$Main$navigate, model, _p15._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'NavigateDiffToVersion':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Main$navigateToVersion, model, _p15._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'FlipNavLock':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$flipNavigationLock, model, _p13._0),
+					_0: A2(_user$project$Main$flipNavigationLock, model, _p15._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'FlipShowVersionDateDetail':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Main$flipShowVersionDateDetail, model, _p15._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$flipShowVersionDateDetail, model, _p13._0),
+					_0: A3(_user$project$Main$zoomTimelineWidget, model, _p15._0, _p15._1),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}

@@ -181,20 +181,32 @@ abbr {
     -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
-    height: 100%;
-    overflow: hidden;
-    flex-wrap: nowrap; }
-    @media screen and (min-width: 800px) {
-      .historyPane .detailPanel {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-flex-direction: row;
-        -moz-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row; } }
+    height: 100%; }
+    .historyPane .detailPanel .detailPanelMain {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -moz-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      flex-wrap: nowrap; }
+      @media screen and (min-width: 800px) {
+        .historyPane .detailPanel .detailPanelMain {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-flex-direction: row;
+          -moz-flex-direction: row;
+          -ms-flex-direction: row;
+          flex-direction: row; } }
   .historyPane .navPanel {
     display: none; }
     @media screen and (min-width: 800px) {
@@ -403,6 +415,141 @@ abbr {
     @media screen and (min-width: 800px) {
       .historyPane .lockerIcon {
         height: 2.3em; } }
+
+.timelineWidget {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  height: 90px;
+  background-color: #006FAB;
+  padding: 0.3em 1em 0.3em 1em; }
+  .timelineWidget .timelineBox {
+    flex: 1 1 auto;
+    position: relative; }
+    .timelineWidget .timelineBox .timelineBoxTitle {
+      text-align: center;
+      color: white; }
+    .timelineWidget .timelineBox .timelineLifeline, .timelineWidget .timelineBox .timelineLifelineGuide {
+      height: 3px;
+      position: absolute;
+      top: 90%;
+      background: white;
+      transform: translate3d(0, -1px, 0);
+      transition: background 0.3s; }
+      .timelineWidget .timelineBox .timelineLifeline.active, .timelineWidget .timelineBox .active.timelineLifelineGuide {
+        background: #41BCFF;
+        height: 5px;
+        transform: translate3d(0, -2px, 0); }
+    .timelineWidget .timelineBox .timelineLifelineGuide {
+      background: darkgray;
+      height: 1px;
+      width: 100%;
+      transform: translate3d(0, 0, 0); }
+    .timelineWidget .timelineBox .timelineMarker {
+      position: absolute;
+      height: 50px;
+      width: 20px;
+      bottom: 10%;
+      transform: translate(-50%, 0%);
+      stroke: white;
+      fill: white;
+      z-index: 5; }
+      .timelineWidget .timelineBox .timelineMarker circle {
+        transition: stroke 0.3s, fill 0.3s; }
+        .timelineWidget .timelineBox .timelineMarker circle:hover {
+          stroke: #41BCFF;
+          fill: #41BCFF; }
+    .timelineWidget .timelineBox .selected {
+      z-index: 10;
+      stroke: #41BCFF; }
+      .timelineWidget .timelineBox .selected circle {
+        fill: black; }
+    .timelineWidget .timelineBox .timelineScale, .timelineWidget .timelineBox .timelineScaleHalf, .timelineWidget .timelineBox .timelineScaleFull {
+      position: absolute;
+      bottom: 20%;
+      height: 10px;
+      width: 1px;
+      background: darkgray; }
+    .timelineWidget .timelineBox .timelineScaleHalf {
+      height: 20px; }
+    .timelineWidget .timelineBox .timelineScaleFull {
+      height: 30px; }
+    .timelineWidget .timelineBox .zoomBoxYear {
+      position: absolute;
+      width: 100%;
+      height: 90%;
+      top: 0%;
+      left: 0%;
+      z-index: 2;
+      cursor: zoom-in; }
+      .timelineWidget .timelineBox .zoomBoxYear:hover {
+        background: rgba(255, 255, 255, 0.25); }
+        .timelineWidget .timelineBox .zoomBoxYear:hover + .zoomIcon {
+          fill: white; }
+    .timelineWidget .timelineBox .zoomIcon {
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      stroke: transparent;
+      fill: transparent;
+      height: 2em;
+      transition: fill 0.5s; }
+    .timelineWidget .timelineBox .zoomBoxMonth {
+      position: absolute;
+      height: 90%;
+      top: 0%;
+      z-index: 2;
+      cursor: zoom-in; }
+      .timelineWidget .timelineBox .zoomBoxMonth .zoomIcon {
+        left: 50%;
+        transform: translate(-50%, 0%); }
+      .timelineWidget .timelineBox .zoomBoxMonth:hover {
+        background: rgba(255, 255, 255, 0.25); }
+        .timelineWidget .timelineBox .zoomBoxMonth:hover .zoomIcon {
+          fill: white; }
+    .timelineWidget .timelineBox .zoomOutButton {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3em;
+      height: 3em;
+      z-index: 15;
+      border: none;
+      outline: none;
+      background: transparent;
+      fill: white; }
+      .timelineWidget .timelineBox .zoomOutButton:hover .zoomOutIcon {
+        transform: scale(1.2); }
+      .timelineWidget .timelineBox .zoomOutButton .zoomOutIcon {
+        transition: transform 0.3s, fill 0.3s;
+        width: 2em;
+        height: 2em; }
+  .timelineWidget .timelineWidgetNavPanel {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    justify-content: center; }
+    .timelineWidget .timelineWidgetNavPanel .arrowButton .timelineWidgetArrow, .timelineWidget .timelineWidgetNavPanel .arrowButton .timelineWidgetLeftArrow, .timelineWidget .timelineWidgetNavPanel .arrowButton .timelineWidgetRightArrow {
+      stroke: white;
+      height: 3em; }
+    .timelineWidget .timelineWidgetNavPanel .arrowButton .timelineWidgetLeftArrow {
+      transform: rotate(180deg); }
+    .timelineWidget .timelineWidgetNavPanel .arrowButton.left {
+      margin-right: 1em; }
+    .timelineWidget .timelineWidgetNavPanel .arrowButton.right {
+      margin-left: 1em; }
 
 .rdap, .rdap-was, .rdap-is {
   padding-top: 0.5em;
