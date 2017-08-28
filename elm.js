@@ -15707,7 +15707,11 @@ var _user$project$Icons$markerButton = F4(
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$svg$Svg_Attributes$y2('50'),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$class('timelineMarkerItem'),
+											_1: {ctor: '[]'}
+										}
 									}
 								}
 							}
@@ -15743,7 +15747,11 @@ var _user$project$Icons$markerButton = F4(
 										_1: {
 											ctor: '::',
 											_0: _elm_lang$svg$Svg_Attributes$style('stroke-width: 6'),
-											_1: {ctor: '[]'}
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$svg$Svg_Attributes$class('timelineMarkerItem'),
+												_1: {ctor: '[]'}
+											}
 										}
 									}
 								}
@@ -15898,7 +15906,7 @@ var _user$project$Icons$zoomBackIcon = function () {
 			}
 		});
 }();
-var _user$project$Icons$zoomOutIcon2 = A2(
+var _user$project$Icons$zoomOutCircleIcon = A2(
 	_elm_lang$svg$Svg$svg,
 	{
 		ctor: '::',

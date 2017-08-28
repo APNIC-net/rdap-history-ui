@@ -287,7 +287,8 @@ abbr {
     flex: 0 0 auto;
     font-size: 3.5vw;
     padding-right: 0.6em;
-    padding-left: 0.6em; }
+    padding-left: 0.6em;
+    cursor: default; }
     @media screen and (min-width: 800px) {
       .historyPane .versionDatesPanel {
         padding-right: 0;
@@ -323,6 +324,7 @@ abbr {
       border: none;
       outline: none;
       vertical-align: middle;
+      cursor: pointer;
       display: none;
       -webkit-backface-visibility: hidden; }
       .historyPane .versionDatesPanel .flipShowVersionButton svg, .historyPane .versionDatesPanel .pressedFlipShowVersionButton svg {
@@ -371,7 +373,8 @@ abbr {
     align-self: center;
     border: none;
     background: transparent;
-    outline: none; }
+    outline: none;
+    cursor: pointer; }
     .historyPane .arrowButton:enabled {
       transition-duration: 0.3s; }
       .historyPane .arrowButton:enabled path {
@@ -402,7 +405,8 @@ abbr {
     background-color: transparent;
     border: none;
     outline: none;
-    transition-duration: 0.3s; }
+    transition-duration: 0.3s;
+    cursor: pointer; }
     @media screen and (min-width: 800px) {
       .historyPane .lockButton:hover, .historyPane .lockedButton:hover, .historyPane .unlockedButton:hover {
         fill: #006FAB; } }
@@ -468,6 +472,8 @@ abbr {
         .timelineWidget .timelineBox .timelineMarker circle:hover {
           stroke: #41BCFF;
           fill: #41BCFF; }
+      .timelineWidget .timelineBox .timelineMarker .timelineMarkerItem {
+        cursor: pointer; }
     .timelineWidget .timelineBox .selected {
       z-index: 10;
       stroke: #41BCFF; }
@@ -493,8 +499,6 @@ abbr {
       cursor: zoom-in; }
       .timelineWidget .timelineBox .zoomBoxYear:hover {
         background: rgba(255, 255, 255, 0.25); }
-        .timelineWidget .timelineBox .zoomBoxYear:hover + .zoomIcon {
-          fill: white; }
     .timelineWidget .timelineBox .zoomIcon {
       position: absolute;
       top: 0%;
@@ -514,8 +518,6 @@ abbr {
         transform: translate(-50%, 0%); }
       .timelineWidget .timelineBox .zoomBoxMonth:hover {
         background: rgba(255, 255, 255, 0.25); }
-        .timelineWidget .timelineBox .zoomBoxMonth:hover .zoomIcon {
-          fill: white; }
     .timelineWidget .timelineBox .zoomOutButton {
       position: absolute;
       top: 0;
@@ -526,7 +528,8 @@ abbr {
       border: none;
       outline: none;
       background: transparent;
-      fill: white; }
+      fill: white;
+      cursor: pointer; }
       .timelineWidget .timelineBox .zoomOutButton:hover .zoomOutIcon {
         transform: scale(1.2); }
       .timelineWidget .timelineBox .zoomOutButton .zoomOutIcon {
