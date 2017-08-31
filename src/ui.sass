@@ -5,8 +5,9 @@ $title-font: 'Nunito', 'Arial', sans-serif
 $detail-font: 'Nunito', 'Arial', sans-serif
 $existed: rgb(151, 223, 129)
 $lockedButtonColour: #732a2a
-$phone-bp: 800px
-$unified-diff-bp: 1500px
+$phone-bp: 720px
+$unified-diff-bp: 1550px
+$detail-panel-font-bp: 880px
 $footer-height: 220px;
 $mobile-footer-height: 280px;
 
@@ -54,20 +55,36 @@ html
     line-height: initial
 
 body
-    margin: 0 0 $footer-height
+    +flex(column)
+    margin: 0
+    height: 100vh
+    width: 100vw
 
-    .fooer
+    footer
         display: none
 
+    header
+        flex: 0 0 auto
+        height: 42px
+
     @media screen and (min-width: $phone-bp)
+        display: block
+        height: inherit
+        width: inherit
         margin: 0 0 $mobile-footer-height
-        .footer
+        footer
             display: block
+        header
+            flex: 0 0 auto
+            height: 28px
+
 
 .navigation::after
-    height: 0;
+    height: 0
 
 .whowas
+    height: 100%
+    overflow: hidden
 
     a
         text-decoration: underline;
@@ -90,14 +107,18 @@ body
     input
         padding: 0 10px
 
+    hr
+        border-style: inset
+        border-width: 1px
+        max-width: inherit
+
     *
         margin: 0
         padding: 0
 
     .main
         +flex(column)
-        //height: 100vh
-        //width: 100vw
+        height: 100%
 
     .headerBar
         +flex(column)
@@ -106,6 +127,7 @@ body
         background-color: #003D5E
         margin: 0
         padding: 0.5em
+        z-index: 2
         .title
             font-size: x-large
             font-weight: bold
@@ -132,14 +154,10 @@ body
                 font-size: large
                 border: none
                 outline: none
+        .branding
+            display: none
 
-        @media screen and (max-width: 650px)
-            margin-top: 18px
-
-            .branding
-                display: none
-
-        @media screen and (min-width: 650px)
+        @media screen and (min-width: $phone-bp)
             +flex
             img
                 height: 2em
@@ -148,6 +166,8 @@ body
                 align-items: center
                 margin-right: 2.5em
                 width: inherit
+            .branding
+                display: inherit
 
     .object
         margin: 5em
@@ -159,6 +179,7 @@ body
         height: 100%
         @media screen and (min-width: $phone-bp)
             +flex
+
         .objectList
             display: none
 
@@ -167,7 +188,10 @@ body
                 position: absolute;
                 min-height: 100%;
                 background-color: #f4f4f4
+                // the following is such a terrible kludge introduced by the header and footer
+                // we need to get rid of these and depend on flex/grid entirely
                 margin: 0 0 ($footer-height - ($footer-height * 2)) 0;
+                width: 230px
                 padding: 1em 0 0 0
                 border-right: 1px solid #e5e3e3
                 font-size: small
@@ -200,7 +224,7 @@ body
             height: 100%
 
             @media screen and (min-width: $phone-bp)
-                margin-left: 220px;
+                margin-left: 230px
 
             .detailPanelMain
                 +flex(column)
@@ -211,6 +235,11 @@ body
 
                 @media screen and (min-width: $phone-bp)
                     +flex
+                    font-size: 1.5vw
+
+                @media screen and (min-width: $detail-panel-font-bp)
+                    font-size: inherit
+
 
         .navPanel
             display: none
@@ -228,6 +257,7 @@ body
                 justify-content: flex-start
                 align-items: center
                 width: 6em
+                z-index: 1
                 transform: translate3d(0, -50%, 0)
 
         .navBottomPanel
@@ -264,6 +294,7 @@ body
             padding-right: 0.6em
             padding-left: 0.6em
             cursor: default
+            z-index: 2
 
             @media screen and (min-width: $phone-bp)
                 padding-right: 0
@@ -428,6 +459,7 @@ body
 
     .timelineWidget
         display: none
+        z-index: 2
 
         @media screen and (min-width: $phone-bp)
             +flex
