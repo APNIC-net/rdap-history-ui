@@ -144,7 +144,12 @@ view model = lazy (\z -> view_ model) model.redraw
 view_ : Model -> Html Msg
 view_ model =
     let body = case model.response of
-                  Left error     -> [ div [ class "error" ] [ text error ] ]
+                  Left error     -> [ div [ class "error" ]
+                                          [ text "Oops... we've detected an error processing your query!",
+                                            Html.br [] [],
+                                            text "Please try a different query or try it later.",
+                                            Html.br [] [],
+                                            text <| "Error: " ++ error ] ]
                   Right response -> viewAsList response model
         contents = if String.isEmpty model.resource
                    then [initialView]
