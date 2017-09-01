@@ -31,8 +31,7 @@ type alias Model =
     }
 
 type Msg
-    = Nada
-    | UrlChange Location
+    = UrlChange Location
     | Fetched (Result Http.Error Response)
     | StartSearch String
     | Select Int

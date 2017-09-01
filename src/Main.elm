@@ -27,9 +27,9 @@ import Render exposing (viewAsList)
 
 init : Navigation.Location -> ( Model, Cmd Msg )
 init loc = let hash = String.dropLeft 1 loc.hash
-               resource = if String.isEmpty hash then "203.133.248.0/24" else hash
-            in ( Model resource (Left "Searching…") 0 (Nothing, Nothing) (Unlocked, Unlocked) Nothing False Lifetime Nothing,
-                     search resource )
+               cmd = if String.isEmpty hash then Cmd.none else search hash
+            in (Model hash (Left "Searching…") 0 (Nothing, Nothing) (Unlocked, Unlocked) Nothing False Lifetime
+                   Nothing, cmd)
 
 errMsg : Http.Error -> String
 errMsg err = case err of
@@ -54,8 +54,6 @@ fromFetch r = case r of
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model = case msg of
-    Nada ->
-        ( model, Cmd.none )
     Fetched f ->
         ( upd { model | response = fromFetch f, selected = 0 }, Cmd.none )
     UrlChange l ->
@@ -146,26 +144,43 @@ view model = lazy (\z -> view_ model) model.redraw
 view_ : Model -> Html Msg
 view_ model =
     let body = case model.response of
-        Left error     -> [ div [ class "error" ] [ text error ] ]
-        Right response -> viewAsList response model
-    in div [ class "main" ] <| List.concat [ styles, (headerBar model), body ]
+                  Left error     -> [ div [ class "error" ] [ text error ] ]
+                  Right response -> viewAsList response model
+        contents = if String.isEmpty model.resource
+                   then [initialView]
+                   else [(headerBar model), body]
+    in div [class "main"] <| List.concat <| [styles] ++ contents 
 
 styles : List (Html a)
 styles = [ node "link" [ rel "stylesheet", href "css/ui.css" ] [] ]
+
+initialView : List (Html Msg)
+initialView =
+    [div [class "initialPage"] [
+          div [class "initialTitle"] [text "Whowas"],
+          div [class "initialSearchBox"] [searchBox ""],
+          div [class "initialText"] [text "Try one of these searches:", Html.br [] [],
+                                         Html.a [href "#202.12.31.0/24"] [text "202.12.31.0/24"],
+                                         text " | ",
+                                         Html.a [href "#2001:0DF9::/32"] [text "2001:0DF9::/32"],
+                                         text " | ",
+                                         Html.a [href "#IRT-APNICRANDNET-AU"] [text "IRT-APNICRANDNET-AU"]]
+    ],
+    div [class "initialPageBg"] []]
 
 headerBar : Model -> List (Html Msg)
 headerBar model =
     [ div [class "headerBar"]
           [ div [ class "branding" ] [ span [class "title"] [ text "Whowas" ] ]
-          , div [] [ searchBox model ]
+          , div [] [ searchBox model.resource ]
           ]
     ]
 
-searchBox : Model -> Html Msg
-searchBox model =
+searchBox : String -> Html Msg
+searchBox resource =
     let cease = { stopPropagation = True, preventDefault = True }
     in form [ class "range", onWithOptions "submit" cease searchForm ]
-            [ input [ value model.resource, autofocus True ] [],
+            [ input [ value resource, autofocus True ] [],
               button [class "searchButton"] [zoomIcon "searchIcon"]]
 
 fl : List String -> String
