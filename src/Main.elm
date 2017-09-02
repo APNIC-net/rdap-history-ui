@@ -185,7 +185,7 @@ initialView =
 headerBar : Model -> List (Html Msg)
 headerBar model =
     [ div [class "headerBar"]
-          [ div [ class "branding" ] [ span [class "title"] [ text "Whowas" ] ]
+          [ div [ class "branding", onClick (StartSearch "") ] [ span [class "title"] [ text "Whowas" ] ]
           , div [] [ searchBox model.resource ]
           ]
     ]
