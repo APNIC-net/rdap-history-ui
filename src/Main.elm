@@ -52,7 +52,6 @@ fromFetch r = case r of
     Ok ok -> Right ok
     Err e -> Left (errMsg e)
 
-
 -- Update
 
 update : Msg -> Model -> ( Model, Cmd Msg )
