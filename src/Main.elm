@@ -26,10 +26,13 @@ import Decode exposing (history)
 import Render exposing (viewAsList)
 
 init : Navigation.Location -> ( Model, Cmd Msg )
-init loc = let hash = String.dropLeft 1 loc.hash
+init loc = let hash = extractHash loc
                cmd = if String.isEmpty hash then Cmd.none else search hash
-            in (Model hash (Left "Searching…") 0 (Nothing, Nothing) (Unlocked, Unlocked) Nothing False Lifetime
+            in (Model hash (Left "Searching…") 0 (Nothing, Nothing) (Unlocked, Unlocked) Nothing Lifetime
                    Nothing, cmd)
+
+extractHash : Navigation.Location -> String
+extractHash loc = String.dropLeft 1 loc.hash
 
 errMsg : Http.Error -> String
 errMsg err = case err of
@@ -54,10 +57,10 @@ fromFetch r = case r of
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model = case msg of
-    Fetched f ->
-        ( upd { model | response = fromFetch f, selected = 0 }, Cmd.none )
+    Fetched r f ->
+        ( upd { model | resource = r, response = fromFetch f, selected = 0 }, Cmd.none )
     UrlChange l ->
-        init l
+        processUrlChange model l
     Select i ->
         ( upd { model | selected = i, navigationLocks = (Unlocked, Unlocked) }, Cmd.none )
     StartSearch s ->
@@ -79,7 +82,7 @@ upd model =
                                []            -> (Nothing, Nothing)
                                v :: []       -> (Nothing, Just v)
                                v1 :: v2 :: _ -> (Just v2, Just v1)
-            in { model | redraw = not model.redraw, displayedVersions = displayedVersions, versionDateDetail = Nothing }
+            in { model | displayedVersions = displayedVersions, versionDateDetail = Nothing }
 
 navigate : Model -> NavigationDirection -> Model
 navigate model dir =
@@ -136,10 +139,17 @@ flipShowVersionDateDetail m d = { m | versionDateDetail = d }
 zoomTimelineWidget : Model -> TimelineZoom -> Maybe Date -> Model
 zoomTimelineWidget m z d = {m | timelineWidgetZoom = z, timelineWidgetZoomDate = d}
 
+processUrlChange : Model -> Navigation.Location -> (Model, Cmd Msg)
+processUrlChange model loc =
+    let resource = extractHash loc
+    in if String.isEmpty resource
+       then ({model | resource = resource}, Cmd.none)
+       else (model, search resource)
+
 -- View
 
 view : Model -> Html Msg
-view model = lazy (\z -> view_ model) model.redraw
+view model = lazy view_ model
 
 view_ : Model -> Html Msg
 view_ model =
@@ -154,7 +164,7 @@ view_ model =
         contents = if String.isEmpty model.resource
                    then [initialView]
                    else [(headerBar model), body]
-    in div [class "main"] <| List.concat <| [styles] ++ contents 
+    in div [class "main"] <| List.concat <| [styles] ++ contents
 
 styles : List (Html a)
 styles = [ node "link" [ rel "stylesheet", href "css/ui.css" ] [] ]
@@ -203,7 +213,7 @@ search resource =
         url   = "//rdap.apnic.net/history/" ++ typ ++ "/" ++ resource
         fetch = Http.toTask <| Http.get url Decode.history
     in fetch |> Task.andThen (\r -> Task.map (\d -> Response d r) Date.now)
-             |> Task.attempt Fetched
+             |> Task.attempt (Fetched resource)
 
 url_of_typ : ObjectClass -> String
 url_of_typ oc = case oc of
