@@ -82,11 +82,7 @@ detailPanel ctx =
         timelineWidgetPanel ctx,
         div [class "detailPanelMain"] [
             navPanel ctx Bkwd,
-            div [class "detailCenterPanel"] [
-              versionDatesPanel ctx,
-              versionDateDetailPanel ctx,
-              diffPanel ctx
-            ],
+            div [class "detailCenterPanel"] ([versionDatesPanel ctx] ++ versionDateDetailPanels ctx ++ [diffPanel ctx]),
             navPanel ctx Fwd,
             navBottomPanel ctx
         ]
@@ -119,12 +115,16 @@ versionDatesPanel ctx =
                                    div [class "versionDateRight"] [span [] ([text "<"] ++ createDateLabel v2.until ctx.versionDateDetail)]
                                 ]
 
-versionDateDetailPanel : Context -> Html a
-versionDateDetailPanel ctx =
-    let (panelClass, dateString) = case ctx.versionDateDetail of
-                                       Nothing -> ("hidePanel", "")
-                                       Just d  -> ("showPanel", toString d)
-    in div [class <| "versionDateDetailPanel " ++ panelClass] [text dateString]
+versionDateDetailPanels : Context -> List (Html a)
+versionDateDetailPanels ctx =
+    let createDiv pos (panelClass, dateString) = div [class <| "versionDateDetailPanel " ++ pos ++ " " ++ panelClass]
+                                                     [text dateString]
+        process date = if date /= Nothing && ctx.versionDateDetail == date
+                       then ("showPanel", Maybe.withDefault "" <| Maybe.map toString date)
+                       else ("hidePanel", "")
+    in [createDiv "left" <| process <| Maybe.map .from ctx.fromVersion,
+        createDiv "center" <| process <| Maybe.map .from ctx.toVersion,
+        createDiv "right" <| process <| Maybe.Extra.join <| Maybe.map .until ctx.toVersion]
 
 timelineWidgetPanel : Context -> Html Msg
 timelineWidgetPanel ctx =
@@ -134,9 +134,8 @@ navPanel : Context -> NavigationDirection -> Html Msg
 navPanel ctx direction =
     div [class "navPanel"] [
         div [class "versionDatesPanel"] [],
-        div [class "navPanelItem"] [],
-        arrowButton ctx direction,
-        div [class "navPanelItem"] [lockButton ctx direction <| "navPanel" ++ toString direction]
+        div [class "navPanelButtons"] [arrowButton ctx direction,
+                                        lockButton ctx direction <| "navPanel" ++ toString direction]
      ]
 
 navBottomPanel : Context -> Html Msg
@@ -177,15 +176,16 @@ viewDiff ctx was is =
                         div [class "rdap-mobile"] [mobileDiffOutput]
                       ]
 
-prettifyDate : Date -> DateFormat -> Html a
-prettifyDate d df =
+prettifyDate : Date -> DateFormat -> Bool -> Html a
+prettifyDate d df active =
     let pattern = case df of
                       Short -> "%d/%m/%y"
                       Long  -> "%d/%m/%Y %H:%M"
         spanClass = case df of
                         Short -> "dateShort"
                         Long  -> "dateLong"
-    in span [class spanClass] [text <| formatUtc config pattern d]
+        activeClass = if active then " active" else ""
+    in span [class <| spanClass ++ activeClass] [text <| formatUtc config pattern d]
 
 createDateLabel : Maybe Date -> Maybe Date -> List (Html Msg)
 createDateLabel md versionDateDetail =
@@ -194,10 +194,10 @@ createDateLabel md versionDateDetail =
         Just d  -> let flipTo = case versionDateDetail of
                                     Nothing -> md
                                     Just vd -> if (is Same d vd) then Nothing else md
-                       (buttonClass, tooltipText) = if flipTo == Nothing
-                                                    then ("pressedFlipShowVersionButton", "Hide date detail")
-                                                    else ("flipShowVersionButton", "Show date detail")
-                   in [ prettifyDate d Short, prettifyDate d Long,
+                       (buttonClass, tooltipText, active) = if flipTo == Nothing
+                                                    then ("pressedFlipShowVersionButton", "Hide date detail", True)
+                                                    else ("flipShowVersionButton", "Show date detail", False)
+                   in [ prettifyDate d Short active, prettifyDate d Long active,
                          button [class buttonClass, onClick (FlipShowVersionDateDetail flipTo), title tooltipText]
                                 [expandIcon "moreIconSvg"]
                       ]
@@ -211,4 +211,5 @@ checkNavDisabled ctx dir =
 
 mkTimelineModel : Context -> TimelineWidget.Model
 mkTimelineModel ctx =
-    TimelineWidget.Model ctx.timelineWidgetZoom ctx.timelineWidgetZoomDate (ctx.fromVersion, ctx.toVersion) ctx.history.versions ctx.today
+    TimelineWidget.Model ctx.timelineWidgetZoom ctx.timelineWidgetZoomDate (ctx.fromVersion, ctx.toVersion)
+        ctx.history.versions ctx.today
