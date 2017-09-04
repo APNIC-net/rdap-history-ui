@@ -194,7 +194,7 @@ searchBox : String -> Html Msg
 searchBox resource =
     let cease = { stopPropagation = True, preventDefault = True }
     in form [ class "range", onWithOptions "submit" cease searchForm ]
-            [ input [ value resource, autofocus True ] [],
+            [ input [ value resource, autofocus True, Html.Attributes.attribute "inputmode" "number" ] [],
               button [class "searchButton"] [zoomIcon "searchIcon"]]
 
 fl : List String -> String
