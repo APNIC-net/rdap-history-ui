@@ -25,15 +25,13 @@ type alias Model =
     , displayedVersions : (Maybe Version, Maybe Version)
     , navigationLocks : (LockerState, LockerState)
     , versionDateDetail : Maybe Date
-    , redraw : Bool
     , timelineWidgetZoom : TimelineZoom
     , timelineWidgetZoomDate : Maybe Date
     }
 
 type Msg
-    = Nada
-    | UrlChange Location
-    | Fetched (Result Http.Error Response)
+    = UrlChange Location
+    | Fetched String (Result Http.Error Response)
     | StartSearch String
     | Select Int
     | NavigateDiff NavigationDirection

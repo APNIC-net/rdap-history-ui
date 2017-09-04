@@ -26,10 +26,13 @@ import Decode exposing (history)
 import Render exposing (viewAsList)
 
 init : Navigation.Location -> ( Model, Cmd Msg )
-init loc = let hash = String.dropLeft 1 loc.hash
-               resource = if String.isEmpty hash then "203.133.248.0/24" else hash
-            in ( Model resource (Left "Searching…") 0 (Nothing, Nothing) (Unlocked, Unlocked) Nothing False Lifetime Nothing,
-                     search resource )
+init loc = let hash = extractHash loc
+               cmd = if String.isEmpty hash then Cmd.none else search hash
+            in (Model hash (Left "Searching…") 0 (Nothing, Nothing) (Unlocked, Unlocked) Nothing Lifetime
+                   Nothing, cmd)
+
+extractHash : Navigation.Location -> String
+extractHash loc = String.dropLeft 1 loc.hash
 
 errMsg : Http.Error -> String
 errMsg err = case err of
@@ -49,17 +52,14 @@ fromFetch r = case r of
     Ok ok -> Right ok
     Err e -> Left (errMsg e)
 
-
 -- Update
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model = case msg of
-    Nada ->
-        ( model, Cmd.none )
-    Fetched f ->
-        ( upd { model | response = fromFetch f, selected = 0 }, Cmd.none )
+    Fetched r f ->
+        ( upd { model | resource = r, response = fromFetch f, selected = 0 }, Cmd.none )
     UrlChange l ->
-        init l
+        processUrlChange model l
     Select i ->
         ( upd { model | selected = i, navigationLocks = (Unlocked, Unlocked) }, Cmd.none )
     StartSearch s ->
@@ -81,7 +81,7 @@ upd model =
                                []            -> (Nothing, Nothing)
                                v :: []       -> (Nothing, Just v)
                                v1 :: v2 :: _ -> (Just v2, Just v1)
-            in { model | redraw = not model.redraw, displayedVersions = displayedVersions, versionDateDetail = Nothing }
+            in { model | displayedVersions = displayedVersions, versionDateDetail = Nothing }
 
 navigate : Model -> NavigationDirection -> Model
 navigate model dir =
@@ -138,34 +138,63 @@ flipShowVersionDateDetail m d = { m | versionDateDetail = d }
 zoomTimelineWidget : Model -> TimelineZoom -> Maybe Date -> Model
 zoomTimelineWidget m z d = {m | timelineWidgetZoom = z, timelineWidgetZoomDate = d}
 
+processUrlChange : Model -> Navigation.Location -> (Model, Cmd Msg)
+processUrlChange model loc =
+    let resource = extractHash loc
+    in if String.isEmpty resource
+       then ({model | resource = resource}, Cmd.none)
+       else (model, search resource)
+
 -- View
 
 view : Model -> Html Msg
-view model = lazy (\z -> view_ model) model.redraw
+view model = lazy view_ model
 
 view_ : Model -> Html Msg
 view_ model =
     let body = case model.response of
-        Left error     -> [ div [ class "error" ] [ text error ] ]
-        Right response -> viewAsList response model
-    in div [ class "main" ] <| List.concat [ styles, (headerBar model), body ]
+                  Left error     -> [ div [ class "error" ]
+                                          [ text "Oops... we've detected an error processing your query!",
+                                            Html.br [] [],
+                                            text "Please try a different query or try it later.",
+                                            Html.br [] [],
+                                            text <| "Error: " ++ error ] ]
+                  Right response -> viewAsList response model
+        contents = if String.isEmpty model.resource
+                   then [initialView]
+                   else [(headerBar model), body]
+    in div [class "main"] <| List.concat <| [styles] ++ contents
 
 styles : List (Html a)
 styles = [ node "link" [ rel "stylesheet", href "css/ui.css" ] [] ]
 
+initialView : List (Html Msg)
+initialView =
+    [div [class "initialPage"] [
+          div [class "initialTitle"] [text "Whowas"],
+          div [class "initialSearchBox"] [searchBox ""],
+          div [class "initialText"] [text "Try one of these searches:", Html.br [] [],
+                                         Html.a [href "#202.12.31.0/24"] [text "202.12.31.0/24"],
+                                         text " | ",
+                                         Html.a [href "#2001:0DF9::/32"] [text "2001:0DF9::/32"],
+                                         text " | ",
+                                         Html.a [href "#IRT-APNICRANDNET-AU"] [text "IRT-APNICRANDNET-AU"]]
+    ],
+    div [class "initialPageBg"] []]
+
 headerBar : Model -> List (Html Msg)
 headerBar model =
     [ div [class "headerBar"]
-          [ div [ class "branding" ] [ span [class "title"] [ text "Whowas" ] ]
-          , div [] [ searchBox model ]
+          [ div [ class "branding", onClick (StartSearch "") ] [ span [class "title"] [ text "Whowas" ] ]
+          , div [] [ searchBox model.resource ]
           ]
     ]
 
-searchBox : Model -> Html Msg
-searchBox model =
+searchBox : String -> Html Msg
+searchBox resource =
     let cease = { stopPropagation = True, preventDefault = True }
     in form [ class "range", onWithOptions "submit" cease searchForm ]
-            [ input [ value model.resource, autofocus True ] [],
+            [ input [ value resource, autofocus True ] [],
               button [class "searchButton"] [zoomIcon "searchIcon"]]
 
 fl : List String -> String
@@ -183,7 +212,7 @@ search resource =
         url   = "//rdap.apnic.net/history/" ++ typ ++ "/" ++ resource
         fetch = Http.toTask <| Http.get url Decode.history
     in fetch |> Task.andThen (\r -> Task.map (\d -> Response d r) Date.now)
-             |> Task.attempt Fetched
+             |> Task.attempt (Fetched resource)
 
 url_of_typ : ObjectClass -> String
 url_of_typ oc = case oc of

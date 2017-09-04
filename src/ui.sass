@@ -8,8 +8,9 @@ $lockedButtonColour: #732a2a
 $phone-bp: 720px
 $unified-diff-bp: 1550px
 $detail-panel-font-bp: 880px
-$footer-height: 220px;
-$mobile-footer-height: 280px;
+$footer-height: 220px
+$mobile-footer-height: 280px
+$initial-page-bp: 400px
 
 =prefixed($name, $value)
     -webkit-#{$name}: $value
@@ -68,23 +69,26 @@ body
         height: 42px
 
     @media screen and (min-width: $phone-bp)
-        display: block
+        min-height: 100vh
         height: inherit
         width: inherit
-        margin: 0 0 $mobile-footer-height
+        // overwriting dodgy stylesheet coming from the style guide
         footer
             display: block
+            position: inherit !important
+            margin: 0 !important
+            flex: 0 0 auto
         header
             flex: 0 0 auto
-            height: 28px
-
+            height: auto
 
 .navigation::after
     height: 0
 
 .whowas
-    height: 100%
+    +flex(column)
     overflow: hidden
+    flex: 1 1 auto
 
     a
         text-decoration: underline;
@@ -118,11 +122,81 @@ body
 
     .main
         +flex(column)
+        flex: 1 1 auto
+
+    .error
+        margin: 1em
+        color: red
+
+    .initialPage
+        +flex(column)
+        align-items: center
+        width: 100%
         height: 100%
+        flex: 1 1 auto
+        justify-content: center
+        border-top: 1px solid white
+        color: white
+
+        a:link
+            color: white
+        a:visited
+            color: white
+
+        .initialTitle
+            font-size: 16vw
+            font-weight: bold
+
+        .initialSearchBox
+            .range
+                +flex
+                align-item: center
+                .searchButton
+                    background-color: white
+                    width: 2em
+                    border: none
+                    outline: none
+                .searchIcon
+                    stroke: transparent
+                    fill: darkgray
+                input
+                    font-size: 6vw
+                    border: none
+                    outline: none
+
+        .initialText
+            font-size: small
+            font-style: italic
+            text-align: center
+            padding: 1em
+
+
+        @media screen and (min-width: $phone-bp)
+            border: none
+            height: auto
+            position: fixed
+            top: 50%
+            transform: translate3d(0, -100%, 0)
+
+        @media screen and (min-width: $initial-page-bp)
+            .initialTitle
+                font-size: 4em
+            .initialSearchBox
+                .range
+                    input
+                        font-size: x-large
+
+    .initialPageBg
+        width: 100vw
+        height: 100vh
+        position: fixed
+        background-color: #0081C6
+        z-index: -10
 
     .headerBar
         +flex(column)
         align-items: center
+        flex: 0 0 auto
         color: white
         background-color: #003D5E
         margin: 0
@@ -156,6 +230,7 @@ body
                 outline: none
         .branding
             display: none
+            cursor: pointer
 
         @media screen and (min-width: $phone-bp)
             +flex
@@ -174,9 +249,9 @@ body
 
     .historyPane
         +flex(column)
+        flex: 1 1 auto
         min-width: 0
         min-height: 0
-        height: 100%
         @media screen and (min-width: $phone-bp)
             +flex
 
@@ -185,13 +260,8 @@ body
 
             @media screen and (min-width: $phone-bp)
                 display: block
-                position: absolute;
-                min-height: 100%;
+                min-height: 100%
                 background-color: #f4f4f4
-                // the following is such a terrible kludge introduced by the header and footer
-                // we need to get rid of these and depend on flex/grid entirely
-                margin: 0 0 ($footer-height - ($footer-height * 2)) 0;
-                width: 230px
                 padding: 1em 0 0 0
                 border-right: 1px solid #e5e3e3
                 font-size: small
@@ -221,15 +291,10 @@ body
         .detailPanel
             +flex(column)
             width: 100%
-            height: 100%
-
-            @media screen and (min-width: $phone-bp)
-                margin-left: 230px
 
             .detailPanelMain
                 +flex(column)
                 width: 100%
-                height: 100%
                 overflow: hidden
                 flex-wrap: nowrap
 
@@ -239,7 +304,6 @@ body
 
                 @media screen and (min-width: $detail-panel-font-bp)
                     font-size: inherit
-
 
         .navPanel
             display: none
@@ -263,20 +327,23 @@ body
         .navBottomPanel
             +flex
             flex: 0 0 auto
-            height: 5em
             justify-content: space-around
+            border-top: 1px solid #999999
+            padding: 0.2em
 
             @media screen and (min-width: $phone-bp)
                 display: none
 
+            .navBottomPanelItem
+                +flex
+                align-items: center
+
             button
-                margin-right: 0.6em
-                margin-left: 0.6em
+                margin: 0 0.6em 0 0.6em
 
         .detailCenterPanel
             +flex(column)
             flex: 5 1 auto
-            height: 100%
             overflow: hidden
             align-items: center
 
@@ -295,6 +362,10 @@ body
             padding-left: 0.6em
             cursor: default
             z-index: 2
+
+            span
+                .active
+                    font-weight: bold
 
             @media screen and (min-width: $phone-bp)
                 padding-right: 0
@@ -432,8 +503,6 @@ body
         .lockButton
             flex: 0 0 auto
             margin-top: 0.8em
-            height: 30px
-            width: 30px
             background-color: transparent
             border: none
             outline: none
@@ -702,6 +771,7 @@ body
         .mobileAddedLine
             background-color: #ddffdd
         .mobileRdapDiff
+            margin-top: 0.5em
             margin-bottom: 0.5em
         hr
             margin-top: 0.5em
@@ -713,8 +783,6 @@ body
         overflow: auto
         flex-wrap: nowrap
         width: 100%
-        height: 100%
-        padding-top: 1em
         padding-right: 0.6em
         padding-left: 0.6em
 
@@ -725,7 +793,7 @@ body
         .diffPanelItem
             flex: 1
             display: none
-            padding: 0 0.7em
+            padding: 0.7em
             @media screen and (min-width: $unified-diff-bp)
                 display: inline-block
 

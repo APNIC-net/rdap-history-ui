@@ -142,8 +142,8 @@ navBottomPanel : Context -> Html Msg
 navBottomPanel ctx =
     div [class "navBottomPanel"]
         [
-            div [] [lockButton ctx Bkwd "navBottomBkwd", arrowButton ctx Bkwd],
-            div [] [arrowButton ctx Fwd, lockButton ctx Fwd "navBottomFwd"]
+            div [class "navBottomPanelItem"] [lockButton ctx Bkwd "navBottomBkwd", arrowButton ctx Bkwd],
+            div [class "navBottomPanelItem"] [arrowButton ctx Fwd, lockButton ctx Fwd "navBottomFwd"]
         ]
 
 arrowButton : Context -> NavigationDirection -> Html Msg
@@ -201,7 +201,6 @@ createDateLabel md versionDateDetail =
                          button [class buttonClass, onClick (FlipShowVersionDateDetail flipTo), title tooltipText]
                                 [expandIcon "moreIconSvg"]
                       ]
-
 
 -- Utility methods
 
