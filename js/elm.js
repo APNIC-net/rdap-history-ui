@@ -14101,9 +14101,9 @@ var _user$project$Model$Response = F2(
 	function (a, b) {
 		return {stamp: a, history: b};
 	});
-var _user$project$Model$Model = F9(
-	function (a, b, c, d, e, f, g, h, i) {
-		return {resource: a, response: b, selected: c, displayedVersions: d, navigationLocks: e, versionDateDetail: f, redraw: g, timelineWidgetZoom: h, timelineWidgetZoomDate: i};
+var _user$project$Model$Model = F8(
+	function (a, b, c, d, e, f, g, h) {
+		return {resource: a, response: b, selected: c, displayedVersions: d, navigationLocks: e, versionDateDetail: f, timelineWidgetZoom: g, timelineWidgetZoomDate: h};
 	});
 var _user$project$Model$Identifier = F2(
 	function (a, b) {
@@ -14139,13 +14139,13 @@ var _user$project$Model$Select = function (a) {
 var _user$project$Model$StartSearch = function (a) {
 	return {ctor: 'StartSearch', _0: a};
 };
-var _user$project$Model$Fetched = function (a) {
-	return {ctor: 'Fetched', _0: a};
-};
+var _user$project$Model$Fetched = F2(
+	function (a, b) {
+		return {ctor: 'Fetched', _0: a, _1: b};
+	});
 var _user$project$Model$UrlChange = function (a) {
 	return {ctor: 'UrlChange', _0: a};
 };
-var _user$project$Model$Nada = {ctor: 'Nada'};
 var _user$project$Model$NotSelected = {ctor: 'NotSelected'};
 var _user$project$Model$Selected = {ctor: 'Selected'};
 var _user$project$Model$Domain = {ctor: 'Domain'};
@@ -17611,7 +17611,11 @@ var _user$project$Render$navBottomPanel = function (ctx) {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$div,
-				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('navBottomPanelItem'),
+					_1: {ctor: '[]'}
+				},
 				{
 					ctor: '::',
 					_0: A3(_user$project$Render$lockButton, ctx, _user$project$Model$Bkwd, 'navBottomBkwd'),
@@ -17625,7 +17629,11 @@ var _user$project$Render$navBottomPanel = function (ctx) {
 				ctor: '::',
 				_0: A2(
 					_elm_lang$html$Html$div,
-					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('navBottomPanelItem'),
+						_1: {ctor: '[]'}
+					},
 					{
 						ctor: '::',
 						_0: A2(_user$project$Render$arrowButton, ctx, _user$project$Model$Fwd),
@@ -18320,7 +18328,7 @@ var _user$project$Main$search = function (resource) {
 		A2(_elm_lang$http$Http$get, url, _user$project$Decode$history));
 	return A2(
 		_elm_lang$core$Task$attempt,
-		_user$project$Model$Fetched,
+		_user$project$Model$Fetched(resource),
 		A2(
 			_elm_lang$core$Task$andThen,
 			function (r) {
@@ -18348,7 +18356,7 @@ var _user$project$Main$fl = function (xs) {
 	return _elm_lang$core$String$concat(
 		A2(_elm_lang$core$List$intersperse, '\n', xs));
 };
-var _user$project$Main$searchBox = function (model) {
+var _user$project$Main$searchBox = function (resource) {
 	var cease = {stopPropagation: true, preventDefault: true};
 	return A2(
 		_elm_lang$html$Html$form,
@@ -18367,7 +18375,7 @@ var _user$project$Main$searchBox = function (model) {
 				_elm_lang$html$Html$input,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$value(model.resource),
+					_0: _elm_lang$html$Html_Attributes$value(resource),
 					_1: {
 						ctor: '::',
 						_0: _elm_lang$html$Html_Attributes$autofocus(true),
@@ -18410,7 +18418,12 @@ var _user$project$Main$headerBar = function (model) {
 					{
 						ctor: '::',
 						_0: _elm_lang$html$Html_Attributes$class('branding'),
-						_1: {ctor: '[]'}
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(
+								_user$project$Model$StartSearch('')),
+							_1: {ctor: '[]'}
+						}
 					},
 					{
 						ctor: '::',
@@ -18435,7 +18448,7 @@ var _user$project$Main$headerBar = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _user$project$Main$searchBox(model),
+							_0: _user$project$Main$searchBox(model.resource),
 							_1: {ctor: '[]'}
 						}),
 					_1: {ctor: '[]'}
@@ -18443,6 +18456,134 @@ var _user$project$Main$headerBar = function (model) {
 			}),
 		_1: {ctor: '[]'}
 	};
+};
+var _user$project$Main$initialView = {
+	ctor: '::',
+	_0: A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('initialPage'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('initialTitle'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Whowas'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('initialSearchBox'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _user$project$Main$searchBox(''),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('initialText'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('Try one of these searches:'),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$br,
+									{ctor: '[]'},
+									{ctor: '[]'}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$a,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$href('#202.12.31.0/24'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('202.12.31.0/24'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(' | '),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$a,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$href('#2001:0DF9::/32'),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('2001:0DF9::/32'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(' | '),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('#IRT-APNICRANDNET-AU'),
+															_1: {ctor: '[]'}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('IRT-APNICRANDNET-AU'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {ctor: '[]'}
+												}
+											}
+										}
+									}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}),
+	_1: {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('initialPageBg'),
+				_1: {ctor: '[]'}
+			},
+			{ctor: '[]'}),
+		_1: {ctor: '[]'}
+	}
 };
 var _user$project$Main$styles = {
 	ctor: '::',
@@ -18476,8 +18617,31 @@ var _user$project$Main$view_ = function (model) {
 					},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text(_p2._0),
-						_1: {ctor: '[]'}
+						_0: _elm_lang$html$Html$text('Oops... we\'ve detected an error processing your query!'),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$br,
+								{ctor: '[]'},
+								{ctor: '[]'}),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Please try a different query or try it later.'),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$br,
+										{ctor: '[]'},
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(
+											A2(_elm_lang$core$Basics_ops['++'], 'Error: ', _p2._0)),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
 					}),
 				_1: {ctor: '[]'}
 			};
@@ -18485,6 +18649,19 @@ var _user$project$Main$view_ = function (model) {
 			return A2(_user$project$Render$viewAsList, _p2._0, model);
 		}
 	}();
+	var contents = _elm_lang$core$String$isEmpty(model.resource) ? {
+		ctor: '::',
+		_0: _user$project$Main$initialView,
+		_1: {ctor: '[]'}
+	} : {
+		ctor: '::',
+		_0: _user$project$Main$headerBar(model),
+		_1: {
+			ctor: '::',
+			_0: body,
+			_1: {ctor: '[]'}
+		}
+	};
 	return A2(
 		_elm_lang$html$Html$div,
 		{
@@ -18493,27 +18670,17 @@ var _user$project$Main$view_ = function (model) {
 			_1: {ctor: '[]'}
 		},
 		_elm_lang$core$List$concat(
-			{
-				ctor: '::',
-				_0: _user$project$Main$styles,
-				_1: {
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				{
 					ctor: '::',
-					_0: _user$project$Main$headerBar(model),
-					_1: {
-						ctor: '::',
-						_0: body,
-						_1: {ctor: '[]'}
-					}
-				}
-			}));
+					_0: _user$project$Main$styles,
+					_1: {ctor: '[]'}
+				},
+				contents)));
 };
 var _user$project$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html_Lazy$lazy,
-		function (z) {
-			return _user$project$Main$view_(model);
-		},
-		model.redraw);
+	return A2(_elm_lang$html$Html_Lazy$lazy, _user$project$Main$view_, model);
 };
 var _user$project$Main$zoomTimelineWidget = F3(
 	function (m, z, d) {
@@ -18711,7 +18878,7 @@ var _user$project$Main$upd = function (model) {
 	}();
 	return _elm_lang$core$Native_Utils.update(
 		model,
-		{redraw: !model.redraw, displayedVersions: displayedVersions, versionDateDetail: _elm_lang$core$Maybe$Nothing});
+		{displayedVersions: displayedVersions, versionDateDetail: _elm_lang$core$Maybe$Nothing});
 };
 var _user$project$Main$errMsg = function (err) {
 	var _p13 = err;
@@ -18737,31 +18904,28 @@ var _user$project$Main$fromFetch = function (r) {
 			_user$project$Main$errMsg(_p14._0));
 	}
 };
-var _user$project$Main$init = function (loc) {
-	var hash = A2(_elm_lang$core$String$dropLeft, 1, loc.hash);
-	var resource = _elm_lang$core$String$isEmpty(hash) ? '203.133.248.0/24' : hash;
-	return {
-		ctor: '_Tuple2',
-		_0: A9(
-			_user$project$Model$Model,
-			resource,
-			_toastal$either$Either$Left('Searching…'),
-			0,
-			{ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing},
-			{ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked},
-			_elm_lang$core$Maybe$Nothing,
-			false,
-			_user$project$Model$Lifetime,
-			_elm_lang$core$Maybe$Nothing),
-		_1: _user$project$Main$search(resource)
-	};
+var _user$project$Main$extractHash = function (loc) {
+	return A2(_elm_lang$core$String$dropLeft, 1, loc.hash);
 };
+var _user$project$Main$processUrlChange = F2(
+	function (model, loc) {
+		var resource = _user$project$Main$extractHash(loc);
+		return _elm_lang$core$String$isEmpty(resource) ? {
+			ctor: '_Tuple2',
+			_0: _elm_lang$core$Native_Utils.update(
+				model,
+				{resource: resource}),
+			_1: _elm_lang$core$Platform_Cmd$none
+		} : {
+			ctor: '_Tuple2',
+			_0: model,
+			_1: _user$project$Main$search(resource)
+		};
+	});
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p15 = msg;
 		switch (_p15.ctor) {
-			case 'Nada':
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 			case 'Fetched':
 				return {
 					ctor: '_Tuple2',
@@ -18769,13 +18933,14 @@ var _user$project$Main$update = F2(
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								response: _user$project$Main$fromFetch(_p15._0),
+								resource: _p15._0,
+								response: _user$project$Main$fromFetch(_p15._1),
 								selected: 0
 							})),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'UrlChange':
-				return _user$project$Main$init(_p15._0);
+				return A2(_user$project$Main$processUrlChange, model, _p15._0);
 			case 'Select':
 				return {
 					ctor: '_Tuple2',
@@ -18827,6 +18992,24 @@ var _user$project$Main$update = F2(
 				};
 		}
 	});
+var _user$project$Main$init = function (loc) {
+	var hash = _user$project$Main$extractHash(loc);
+	var cmd = _elm_lang$core$String$isEmpty(hash) ? _elm_lang$core$Platform_Cmd$none : _user$project$Main$search(hash);
+	return {
+		ctor: '_Tuple2',
+		_0: A8(
+			_user$project$Model$Model,
+			hash,
+			_toastal$either$Either$Left('Searching…'),
+			0,
+			{ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing},
+			{ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked},
+			_elm_lang$core$Maybe$Nothing,
+			_user$project$Model$Lifetime,
+			_elm_lang$core$Maybe$Nothing),
+		_1: cmd
+	};
+};
 var _user$project$Main$main = A2(
 	_elm_lang$navigation$Navigation$program,
 	_user$project$Model$UrlChange,
