@@ -202,7 +202,6 @@ createDateLabel md versionDateDetail =
                                 [expandIcon "moreIconSvg"]
                       ]
 
-
 -- Utility methods
 
 checkNavDisabled : Context -> NavigationDirection -> Bool
