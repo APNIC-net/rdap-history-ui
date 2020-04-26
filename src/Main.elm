@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Date exposing (Date, fromString, toTime)
 import DOM exposing (target, childNode)
+import Char
 import Either exposing (Either(..))
 import Guards exposing (..)
 import Html exposing (nav, div, node, Html, li, h1, text, img, form, input, ul, span, button)
@@ -178,6 +179,8 @@ initialView =
                                          text " | ",
                                          Html.a [href "#2001:0DF9::/32"] [text "2001:0DF9::/32"],
                                          text " | ",
+                                         Html.a [href "#AS4608"] [text "AS4608"],
+                                         text " | ",
                                          Html.a [href "#IRT-APNICRANDNET-AU"] [text "IRT-APNICRANDNET-AU"]]
     ],
     div [class "initialPageBg"] []]
@@ -208,8 +211,10 @@ searchForm = target (childNode 0 (Json.Decode.map StartSearch (Json.Decode.field
 
 search : String -> Cmd Msg
 search resource =
-    let typ   = url_of_typ <| infer_type resource
-        url   = "//rdap.apnic.net/history/" ++ typ ++ "/" ++ resource
+    let obj_class = infer_type resource 
+        typ   = url_of_typ obj_class
+        sanitised_res = sanitise_res obj_class resource
+        url   = "//rdap.apnic.net/history/" ++ typ ++ "/" ++ sanitised_res
         fetch = Http.toTask <| Http.get url Decode.history
     in fetch |> Task.andThen (\r -> Task.map (\d -> Response d r) Date.now)
              |> Task.attempt (Fetched resource)
@@ -228,6 +233,12 @@ infer_type res
     |= Regex.contains (Regex.regex "^AS\\d+$") res => AutNum
     |= Regex.contains (Regex.regex "^([\\d\\.]+|[\\da-fA-F:]+)(/\\d+)?$") res => InetNum
     |= Entity
+
+-- Sanitise resource
+sanitise_res : ObjectClass -> String -> String
+sanitise_res oc res = case oc of
+    AutNum -> String.filter Char.isDigit res
+    _      -> res
 
 main : Program Never Model Msg
 main = Navigation.program UrlChange
