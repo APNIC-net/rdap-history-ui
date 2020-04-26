@@ -3407,6 +3407,974 @@ _Fresheyeball$elm_tuple_extra$Tuple2_ops['=>'] = F2(
 		return {ctor: '_Tuple2', _0: a, _1: b};
 	});
 
+var _elm_lang$core$Native_Bitwise = function() {
+
+return {
+	and: F2(function and(a, b) { return a & b; }),
+	or: F2(function or(a, b) { return a | b; }),
+	xor: F2(function xor(a, b) { return a ^ b; }),
+	complement: function complement(a) { return ~a; },
+	shiftLeftBy: F2(function(offset, a) { return a << offset; }),
+	shiftRightBy: F2(function(offset, a) { return a >> offset; }),
+	shiftRightZfBy: F2(function(offset, a) { return a >>> offset; })
+};
+
+}();
+
+var _elm_lang$core$Bitwise$shiftRightZfBy = _elm_lang$core$Native_Bitwise.shiftRightZfBy;
+var _elm_lang$core$Bitwise$shiftRightBy = _elm_lang$core$Native_Bitwise.shiftRightBy;
+var _elm_lang$core$Bitwise$shiftLeftBy = _elm_lang$core$Native_Bitwise.shiftLeftBy;
+var _elm_lang$core$Bitwise$complement = _elm_lang$core$Native_Bitwise.complement;
+var _elm_lang$core$Bitwise$xor = _elm_lang$core$Native_Bitwise.xor;
+var _elm_lang$core$Bitwise$or = _elm_lang$core$Native_Bitwise.or;
+var _elm_lang$core$Bitwise$and = _elm_lang$core$Native_Bitwise.and;
+
+var _Skinney$elm_array_exploration$Native_JsArray = function() {
+
+var empty = [];
+
+function singleton(val) {
+    return [val];
+}
+
+function length(arr) {
+    return arr.length;
+}
+
+function initialize(size, offset, f) {
+    var result = new Array(size);
+
+    for (var i = 0; i < size; i++) {
+        result[i] = f(offset + i);
+    }
+
+    return result;
+}
+
+function initializeFromList(max, ls) {
+    var result = new Array(max);
+
+    for (var i = 0; i < max && ls.ctor !== '[]'; i++) {
+        result[i] = ls._0;
+        ls = ls._1;
+    }
+
+    result.length = i;
+
+    return {
+        ctor: '_Tuple2',
+        _0: result,
+        _1: ls
+    };
+}
+
+function unsafeGet(idx, arr) {
+    return arr[idx];
+}
+
+function unsafeSet(idx, val, arr) {
+    var length = arr.length;
+    var result = new Array(length);
+
+    for (var i = 0; i < length; i++) {
+        result[i] = arr[i];
+    }
+
+    result[idx] = val;
+    return result;
+}
+
+function push(val, arr) {
+    var length = arr.length;
+    var result = new Array(length + 1);
+
+    for (var i = 0; i < length; i++) {
+        result[i] = arr[i];
+    }
+
+    result[length] = val;
+    return result;
+}
+
+function foldl(f, acc, arr) {
+    var length = arr.length;
+
+    for (var i = 0; i < length; i++) {
+        acc = A2(f, arr[i], acc);
+    }
+
+    return acc;
+}
+
+function foldr(f, acc, arr) {
+    for (var i = arr.length - 1; i >= 0; i--) {
+        acc = A2(f, arr[i], acc);
+    }
+
+    return acc;
+}
+
+function map(f, arr) {
+    var length = arr.length;
+    var result = new Array(length);
+
+    for (var i = 0; i < length; i++) {
+        result[i] = f(arr[i]);
+    }
+
+    return result;
+}
+
+function indexedMap(f, offset, arr) {
+    var length = arr.length;
+    var result = new Array(length);
+
+    for (var i = 0; i < length; i++) {
+        result[i] = A2(f, offset + i, arr[i]);
+    }
+
+    return result;
+}
+
+function slice(from, to, arr) {
+    return arr.slice(from, to);
+}
+
+function appendN(n, dest, source) {
+    var destLen = dest.length;
+    var itemsToCopy = n - destLen;
+
+    if (itemsToCopy > source.length) {
+        itemsToCopy = source.length;
+    }
+
+    var size = destLen + itemsToCopy;
+    var result = new Array(size);
+
+    for (var i = 0; i < destLen; i++) {
+        result[i] = dest[i];
+    }
+
+    for (var i = 0; i < itemsToCopy; i++) {
+        result[i + destLen] = source[i];
+    }
+
+    return result;
+}
+
+return {
+    empty: empty,
+    singleton: singleton,
+    length: length,
+    initialize: F3(initialize),
+    initializeFromList: F2(initializeFromList),
+    unsafeGet: F2(unsafeGet),
+    unsafeSet: F3(unsafeSet),
+    push: F2(push),
+    foldl: F3(foldl),
+    foldr: F3(foldr),
+    map: F2(map),
+    indexedMap: F3(indexedMap),
+    slice: F3(slice),
+    appendN: F3(appendN)
+};
+
+}();
+
+var _Skinney$elm_array_exploration$Array_JsArray$appendN = _Skinney$elm_array_exploration$Native_JsArray.appendN;
+var _Skinney$elm_array_exploration$Array_JsArray$slice = _Skinney$elm_array_exploration$Native_JsArray.slice;
+var _Skinney$elm_array_exploration$Array_JsArray$indexedMap = _Skinney$elm_array_exploration$Native_JsArray.indexedMap;
+var _Skinney$elm_array_exploration$Array_JsArray$map = _Skinney$elm_array_exploration$Native_JsArray.map;
+var _Skinney$elm_array_exploration$Array_JsArray$foldr = _Skinney$elm_array_exploration$Native_JsArray.foldr;
+var _Skinney$elm_array_exploration$Array_JsArray$foldl = _Skinney$elm_array_exploration$Native_JsArray.foldl;
+var _Skinney$elm_array_exploration$Array_JsArray$push = _Skinney$elm_array_exploration$Native_JsArray.push;
+var _Skinney$elm_array_exploration$Array_JsArray$unsafeSet = _Skinney$elm_array_exploration$Native_JsArray.unsafeSet;
+var _Skinney$elm_array_exploration$Array_JsArray$unsafeGet = _Skinney$elm_array_exploration$Native_JsArray.unsafeGet;
+var _Skinney$elm_array_exploration$Array_JsArray$initializeFromList = _Skinney$elm_array_exploration$Native_JsArray.initializeFromList;
+var _Skinney$elm_array_exploration$Array_JsArray$initialize = _Skinney$elm_array_exploration$Native_JsArray.initialize;
+var _Skinney$elm_array_exploration$Array_JsArray$length = _Skinney$elm_array_exploration$Native_JsArray.length;
+var _Skinney$elm_array_exploration$Array_JsArray$singleton = _Skinney$elm_array_exploration$Native_JsArray.singleton;
+var _Skinney$elm_array_exploration$Array_JsArray$empty = _Skinney$elm_array_exploration$Native_JsArray.empty;
+var _Skinney$elm_array_exploration$Array_JsArray$JsArray = function (a) {
+	return {ctor: 'JsArray', _0: a};
+};
+
+var _Skinney$elm_array_exploration$Array_Hamt$emptyBuilder = {
+	tail: _Skinney$elm_array_exploration$Array_JsArray$empty,
+	nodeList: {ctor: '[]'},
+	nodeListSize: 0
+};
+var _Skinney$elm_array_exploration$Array_Hamt$translateIndex = F2(
+	function (idx, _p0) {
+		var _p1 = _p0;
+		var _p2 = _p1._0;
+		var posIndex = (_elm_lang$core$Native_Utils.cmp(idx, 0) < 0) ? (_p2 + idx) : idx;
+		return (_elm_lang$core$Native_Utils.cmp(posIndex, 0) < 0) ? 0 : ((_elm_lang$core$Native_Utils.cmp(posIndex, _p2) > 0) ? _p2 : posIndex);
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$foldl = F3(
+	function (f, init, _p3) {
+		var _p4 = _p3;
+		var helper = F2(
+			function (i, acc) {
+				var _p5 = i;
+				if (_p5.ctor === 'SubTree') {
+					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, acc, _p5._0);
+				} else {
+					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, f, acc, _p5._0);
+				}
+			});
+		var acc = A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, init, _p4._2);
+		return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, f, acc, _p4._3);
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$foldr = F3(
+	function (f, init, _p6) {
+		var _p7 = _p6;
+		var acc = A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, f, init, _p7._3);
+		var helper = F2(
+			function (i, acc) {
+				var _p8 = i;
+				if (_p8.ctor === 'SubTree') {
+					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, helper, acc, _p8._0);
+				} else {
+					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, f, acc, _p8._0);
+				}
+			});
+		return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, helper, acc, _p7._2);
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$toIndexedList = function (_p9) {
+	var _p10 = _p9;
+	var helper = F2(
+		function (n, _p11) {
+			var _p12 = _p11;
+			var _p13 = _p12._0;
+			return {
+				ctor: '_Tuple2',
+				_0: _p13 - 1,
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: _p13, _1: n},
+					_1: _p12._1
+				}
+			};
+		});
+	return _elm_lang$core$Tuple$second(
+		A3(
+			_Skinney$elm_array_exploration$Array_Hamt$foldr,
+			helper,
+			{
+				ctor: '_Tuple2',
+				_0: _p10._0 - 1,
+				_1: {ctor: '[]'}
+			},
+			_p10));
+};
+var _Skinney$elm_array_exploration$Array_Hamt$toList = function (arr) {
+	return A3(
+		_Skinney$elm_array_exploration$Array_Hamt$foldr,
+		F2(
+			function (x, y) {
+				return {ctor: '::', _0: x, _1: y};
+			}),
+		{ctor: '[]'},
+		arr);
+};
+var _Skinney$elm_array_exploration$Array_Hamt$tailIndex = function (len) {
+	return (len >>> 5) << 5;
+};
+var _Skinney$elm_array_exploration$Array_Hamt$length = function (_p14) {
+	var _p15 = _p14;
+	return _p15._0;
+};
+var _Skinney$elm_array_exploration$Array_Hamt$isEmpty = function (_p16) {
+	var _p17 = _p16;
+	return _elm_lang$core$Native_Utils.eq(_p17._0, 0);
+};
+var _Skinney$elm_array_exploration$Array_Hamt$branchFactor = 32;
+var _Skinney$elm_array_exploration$Array_Hamt$shiftStep = _elm_lang$core$Basics$ceiling(
+	A2(
+		_elm_lang$core$Basics$logBase,
+		2,
+		_elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor)));
+var _Skinney$elm_array_exploration$Array_Hamt$bitMask = 4294967295 >>> (32 - _Skinney$elm_array_exploration$Array_Hamt$shiftStep);
+var _Skinney$elm_array_exploration$Array_Hamt$getHelp = F3(
+	function (shift, idx, tree) {
+		getHelp:
+		while (true) {
+			var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (idx >>> shift);
+			var _p18 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
+			if (_p18.ctor === 'SubTree') {
+				var _v10 = shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
+					_v11 = idx,
+					_v12 = _p18._0;
+				shift = _v10;
+				idx = _v11;
+				tree = _v12;
+				continue getHelp;
+			} else {
+				return A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, _p18._0);
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$get = F2(
+	function (idx, _p19) {
+		var _p20 = _p19;
+		var _p21 = _p20._0;
+		return ((_elm_lang$core$Native_Utils.cmp(idx, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(idx, _p21) > -1)) ? _elm_lang$core$Maybe$Nothing : ((_elm_lang$core$Native_Utils.cmp(
+			idx,
+			_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p21)) > -1) ? _elm_lang$core$Maybe$Just(
+			A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, _p20._3)) : _elm_lang$core$Maybe$Just(
+			A3(_Skinney$elm_array_exploration$Array_Hamt$getHelp, _p20._1, idx, _p20._2)));
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$fetchNewTail = F4(
+	function (shift, end, treeEnd, tree) {
+		fetchNewTail:
+		while (true) {
+			var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (treeEnd >>> shift);
+			var _p22 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
+			if (_p22.ctor === 'SubTree') {
+				var _v15 = shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
+					_v16 = end,
+					_v17 = treeEnd,
+					_v18 = _p22._0;
+				shift = _v15;
+				end = _v16;
+				treeEnd = _v17;
+				tree = _v18;
+				continue fetchNewTail;
+			} else {
+				return A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, _Skinney$elm_array_exploration$Array_Hamt$bitMask & end, _p22._0);
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$hoistTree = F3(
+	function (oldShift, newShift, tree) {
+		hoistTree:
+		while (true) {
+			if ((_elm_lang$core$Native_Utils.cmp(oldShift, newShift) < 1) || _elm_lang$core$Native_Utils.eq(
+				_Skinney$elm_array_exploration$Array_JsArray$length(tree),
+				0)) {
+				return tree;
+			} else {
+				var _p23 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, 0, tree);
+				if (_p23.ctor === 'SubTree') {
+					var _v20 = oldShift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
+						_v21 = newShift,
+						_v22 = _p23._0;
+					oldShift = _v20;
+					newShift = _v21;
+					tree = _v22;
+					continue hoistTree;
+				} else {
+					return tree;
+				}
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$builderFromArray = function (_p24) {
+	var _p25 = _p24;
+	var helper = F2(
+		function (node, acc) {
+			var _p26 = node;
+			if (_p26.ctor === 'SubTree') {
+				return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, acc, _p26._0);
+			} else {
+				return {ctor: '::', _0: node, _1: acc};
+			}
+		});
+	return {
+		tail: _p25._3,
+		nodeList: A3(
+			_Skinney$elm_array_exploration$Array_JsArray$foldl,
+			helper,
+			{ctor: '[]'},
+			_p25._2),
+		nodeListSize: (_p25._0 / _Skinney$elm_array_exploration$Array_Hamt$branchFactor) | 0
+	};
+};
+var _Skinney$elm_array_exploration$Array_Hamt$Builder = F3(
+	function (a, b, c) {
+		return {tail: a, nodeList: b, nodeListSize: c};
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$Array = F4(
+	function (a, b, c, d) {
+		return {ctor: 'Array', _0: a, _1: b, _2: c, _3: d};
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$empty = A4(_Skinney$elm_array_exploration$Array_Hamt$Array, 0, _Skinney$elm_array_exploration$Array_Hamt$shiftStep, _Skinney$elm_array_exploration$Array_JsArray$empty, _Skinney$elm_array_exploration$Array_JsArray$empty);
+var _Skinney$elm_array_exploration$Array_Hamt$Leaf = function (a) {
+	return {ctor: 'Leaf', _0: a};
+};
+var _Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder = F2(
+	function (tail, builder) {
+		var tailLen = _Skinney$elm_array_exploration$Array_JsArray$length(tail);
+		var notAppended = (_Skinney$elm_array_exploration$Array_Hamt$branchFactor - _Skinney$elm_array_exploration$Array_JsArray$length(builder.tail)) - tailLen;
+		var appended = A3(_Skinney$elm_array_exploration$Array_JsArray$appendN, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, builder.tail, tail);
+		return (_elm_lang$core$Native_Utils.cmp(notAppended, 0) < 0) ? {
+			tail: A3(_Skinney$elm_array_exploration$Array_JsArray$slice, notAppended, tailLen, tail),
+			nodeList: {
+				ctor: '::',
+				_0: _Skinney$elm_array_exploration$Array_Hamt$Leaf(appended),
+				_1: builder.nodeList
+			},
+			nodeListSize: builder.nodeListSize + 1
+		} : (_elm_lang$core$Native_Utils.eq(notAppended, 0) ? {
+			tail: _Skinney$elm_array_exploration$Array_JsArray$empty,
+			nodeList: {
+				ctor: '::',
+				_0: _Skinney$elm_array_exploration$Array_Hamt$Leaf(appended),
+				_1: builder.nodeList
+			},
+			nodeListSize: builder.nodeListSize + 1
+		} : {tail: appended, nodeList: builder.nodeList, nodeListSize: builder.nodeListSize});
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$SubTree = function (a) {
+	return {ctor: 'SubTree', _0: a};
+};
+var _Skinney$elm_array_exploration$Array_Hamt$setHelp = F4(
+	function (shift, idx, val, tree) {
+		var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (idx >>> shift);
+		var _p27 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
+		if (_p27.ctor === 'SubTree') {
+			var newSub = A4(_Skinney$elm_array_exploration$Array_Hamt$setHelp, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, idx, val, _p27._0);
+			return A3(
+				_Skinney$elm_array_exploration$Array_JsArray$unsafeSet,
+				pos,
+				_Skinney$elm_array_exploration$Array_Hamt$SubTree(newSub),
+				tree);
+		} else {
+			var newLeaf = A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, val, _p27._0);
+			return A3(
+				_Skinney$elm_array_exploration$Array_JsArray$unsafeSet,
+				pos,
+				_Skinney$elm_array_exploration$Array_Hamt$Leaf(newLeaf),
+				tree);
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$set = F3(
+	function (idx, val, _p28) {
+		var _p29 = _p28;
+		var _p33 = _p29._2;
+		var _p32 = _p29._3;
+		var _p31 = _p29._1;
+		var _p30 = _p29._0;
+		return ((_elm_lang$core$Native_Utils.cmp(idx, 0) < 0) || (_elm_lang$core$Native_Utils.cmp(idx, _p30) > -1)) ? _p29 : ((_elm_lang$core$Native_Utils.cmp(
+			idx,
+			_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p30)) > -1) ? A4(
+			_Skinney$elm_array_exploration$Array_Hamt$Array,
+			_p30,
+			_p31,
+			_p33,
+			A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, _Skinney$elm_array_exploration$Array_Hamt$bitMask & idx, val, _p32)) : A4(
+			_Skinney$elm_array_exploration$Array_Hamt$Array,
+			_p30,
+			_p31,
+			A4(_Skinney$elm_array_exploration$Array_Hamt$setHelp, _p31, idx, val, _p33),
+			_p32));
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$insertTailInTree = F4(
+	function (shift, idx, tail, tree) {
+		var pos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (idx >>> shift);
+		if (_elm_lang$core$Native_Utils.cmp(
+			pos,
+			_Skinney$elm_array_exploration$Array_JsArray$length(tree)) > -1) {
+			if (_elm_lang$core$Native_Utils.eq(shift, 5)) {
+				return A2(
+					_Skinney$elm_array_exploration$Array_JsArray$push,
+					_Skinney$elm_array_exploration$Array_Hamt$Leaf(tail),
+					tree);
+			} else {
+				var newSub = _Skinney$elm_array_exploration$Array_Hamt$SubTree(
+					A4(_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, idx, tail, _Skinney$elm_array_exploration$Array_JsArray$empty));
+				return A2(_Skinney$elm_array_exploration$Array_JsArray$push, newSub, tree);
+			}
+		} else {
+			var val = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, pos, tree);
+			var _p34 = val;
+			if (_p34.ctor === 'SubTree') {
+				var newSub = _Skinney$elm_array_exploration$Array_Hamt$SubTree(
+					A4(_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, idx, tail, _p34._0));
+				return A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, pos, newSub, tree);
+			} else {
+				var newSub = _Skinney$elm_array_exploration$Array_Hamt$SubTree(
+					A4(
+						_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree,
+						shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep,
+						idx,
+						tail,
+						_Skinney$elm_array_exploration$Array_JsArray$singleton(val)));
+				return A3(_Skinney$elm_array_exploration$Array_JsArray$unsafeSet, pos, newSub, tree);
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail = F2(
+	function (newTail, _p35) {
+		var _p36 = _p35;
+		var _p39 = _p36._2;
+		var _p38 = _p36._1;
+		var _p37 = _p36._0;
+		var newTailLen = _Skinney$elm_array_exploration$Array_JsArray$length(newTail);
+		var originalTailLen = _Skinney$elm_array_exploration$Array_JsArray$length(_p36._3);
+		var newArrayLen = _p37 + (newTailLen - originalTailLen);
+		if (_elm_lang$core$Native_Utils.eq(newTailLen, _Skinney$elm_array_exploration$Array_Hamt$branchFactor)) {
+			var overflow = _elm_lang$core$Native_Utils.cmp(newArrayLen >>> _Skinney$elm_array_exploration$Array_Hamt$shiftStep, 1 << _p38) > 0;
+			if (overflow) {
+				var newShift = _p38 + _Skinney$elm_array_exploration$Array_Hamt$shiftStep;
+				var newTree = A4(
+					_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree,
+					newShift,
+					_p37,
+					newTail,
+					_Skinney$elm_array_exploration$Array_JsArray$singleton(
+						_Skinney$elm_array_exploration$Array_Hamt$SubTree(_p39)));
+				return A4(_Skinney$elm_array_exploration$Array_Hamt$Array, newArrayLen, newShift, newTree, _Skinney$elm_array_exploration$Array_JsArray$empty);
+			} else {
+				return A4(
+					_Skinney$elm_array_exploration$Array_Hamt$Array,
+					newArrayLen,
+					_p38,
+					A4(_Skinney$elm_array_exploration$Array_Hamt$insertTailInTree, _p38, _p37, newTail, _p39),
+					_Skinney$elm_array_exploration$Array_JsArray$empty);
+			}
+		} else {
+			return A4(_Skinney$elm_array_exploration$Array_Hamt$Array, newArrayLen, _p38, _p39, newTail);
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$push = F2(
+	function (a, _p40) {
+		var _p41 = _p40;
+		return A2(
+			_Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail,
+			A2(_Skinney$elm_array_exploration$Array_JsArray$push, a, _p41._3),
+			_p41);
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$appendHelpTree = F2(
+	function (toAppend, _p42) {
+		var _p43 = _p42;
+		var _p44 = _p43._3;
+		var itemsToAppend = _Skinney$elm_array_exploration$Array_JsArray$length(toAppend);
+		var notAppended = (_Skinney$elm_array_exploration$Array_Hamt$branchFactor - _Skinney$elm_array_exploration$Array_JsArray$length(_p44)) - itemsToAppend;
+		var appended = A3(_Skinney$elm_array_exploration$Array_JsArray$appendN, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, _p44, toAppend);
+		var newArray = A2(_Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail, appended, _p43);
+		if (_elm_lang$core$Native_Utils.cmp(notAppended, 0) < 0) {
+			var nextTail = A3(_Skinney$elm_array_exploration$Array_JsArray$slice, notAppended, itemsToAppend, toAppend);
+			return A2(_Skinney$elm_array_exploration$Array_Hamt$unsafeReplaceTail, nextTail, newArray);
+		} else {
+			return newArray;
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$map = F2(
+	function (f, _p45) {
+		var _p46 = _p45;
+		var helper = function (i) {
+			var _p47 = i;
+			if (_p47.ctor === 'SubTree') {
+				return _Skinney$elm_array_exploration$Array_Hamt$SubTree(
+					A2(_Skinney$elm_array_exploration$Array_JsArray$map, helper, _p47._0));
+			} else {
+				return _Skinney$elm_array_exploration$Array_Hamt$Leaf(
+					A2(_Skinney$elm_array_exploration$Array_JsArray$map, f, _p47._0));
+			}
+		};
+		return A4(
+			_Skinney$elm_array_exploration$Array_Hamt$Array,
+			_p46._0,
+			_p46._1,
+			A2(_Skinney$elm_array_exploration$Array_JsArray$map, helper, _p46._2),
+			A2(_Skinney$elm_array_exploration$Array_JsArray$map, f, _p46._3));
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$toString = function (array) {
+	var content = A2(
+		_elm_lang$core$String$join,
+		',',
+		_Skinney$elm_array_exploration$Array_Hamt$toList(
+			A2(_Skinney$elm_array_exploration$Array_Hamt$map, _elm_lang$core$Basics$toString, array)));
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		'Array [',
+		A2(_elm_lang$core$Basics_ops['++'], content, ']'));
+};
+var _Skinney$elm_array_exploration$Array_Hamt$sliceTree = F3(
+	function (shift, endIdx, tree) {
+		var lastPos = _Skinney$elm_array_exploration$Array_Hamt$bitMask & (endIdx >>> shift);
+		var _p48 = A2(_Skinney$elm_array_exploration$Array_JsArray$unsafeGet, lastPos, tree);
+		if (_p48.ctor === 'SubTree') {
+			var newSub = A3(_Skinney$elm_array_exploration$Array_Hamt$sliceTree, shift - _Skinney$elm_array_exploration$Array_Hamt$shiftStep, endIdx, _p48._0);
+			return _elm_lang$core$Native_Utils.eq(
+				_Skinney$elm_array_exploration$Array_JsArray$length(newSub),
+				0) ? A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, lastPos, tree) : A3(
+				_Skinney$elm_array_exploration$Array_JsArray$unsafeSet,
+				lastPos,
+				_Skinney$elm_array_exploration$Array_Hamt$SubTree(newSub),
+				A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, lastPos + 1, tree));
+		} else {
+			return A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, lastPos, tree);
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$sliceRight = F2(
+	function (end, _p49) {
+		var _p50 = _p49;
+		var _p53 = _p50._2;
+		var _p52 = _p50._1;
+		var _p51 = _p50._0;
+		if (_elm_lang$core$Native_Utils.eq(end, _p51)) {
+			return _p50;
+		} else {
+			if (_elm_lang$core$Native_Utils.cmp(
+				end,
+				_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p51)) > -1) {
+				return A4(
+					_Skinney$elm_array_exploration$Array_Hamt$Array,
+					end,
+					_p52,
+					_p53,
+					A3(_Skinney$elm_array_exploration$Array_JsArray$slice, 0, _Skinney$elm_array_exploration$Array_Hamt$bitMask & end, _p50._3));
+			} else {
+				var endIdx = _Skinney$elm_array_exploration$Array_Hamt$tailIndex(end);
+				var depth = _elm_lang$core$Basics$floor(
+					A2(
+						_elm_lang$core$Basics$logBase,
+						_elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor),
+						_elm_lang$core$Basics$toFloat(
+							A2(_elm_lang$core$Basics$max, 1, endIdx - 1))));
+				var newShift = A2(_elm_lang$core$Basics$max, 5, depth * _Skinney$elm_array_exploration$Array_Hamt$shiftStep);
+				return A4(
+					_Skinney$elm_array_exploration$Array_Hamt$Array,
+					end,
+					newShift,
+					A3(
+						_Skinney$elm_array_exploration$Array_Hamt$hoistTree,
+						_p52,
+						newShift,
+						A3(_Skinney$elm_array_exploration$Array_Hamt$sliceTree, _p52, endIdx, _p53)),
+					A4(_Skinney$elm_array_exploration$Array_Hamt$fetchNewTail, _p52, end, endIdx, _p53));
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$compressNodes = F2(
+	function (nodes, acc) {
+		compressNodes:
+		while (true) {
+			var _p54 = A2(_Skinney$elm_array_exploration$Array_JsArray$initializeFromList, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, nodes);
+			var node = _p54._0;
+			var remainingNodes = _p54._1;
+			var newAcc = {
+				ctor: '::',
+				_0: _Skinney$elm_array_exploration$Array_Hamt$SubTree(node),
+				_1: acc
+			};
+			var _p55 = remainingNodes;
+			if (_p55.ctor === '[]') {
+				return _elm_lang$core$List$reverse(newAcc);
+			} else {
+				var _v36 = remainingNodes,
+					_v37 = newAcc;
+				nodes = _v36;
+				acc = _v37;
+				continue compressNodes;
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$treeFromBuilder = F2(
+	function (nodeList, nodeListSize) {
+		treeFromBuilder:
+		while (true) {
+			var newNodeSize = _elm_lang$core$Basics$ceiling(
+				_elm_lang$core$Basics$toFloat(nodeListSize) / _elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor));
+			if (_elm_lang$core$Native_Utils.eq(newNodeSize, 1)) {
+				return _elm_lang$core$Tuple$first(
+					A2(_Skinney$elm_array_exploration$Array_JsArray$initializeFromList, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, nodeList));
+			} else {
+				var _v38 = A2(
+					_Skinney$elm_array_exploration$Array_Hamt$compressNodes,
+					nodeList,
+					{ctor: '[]'}),
+					_v39 = newNodeSize;
+				nodeList = _v38;
+				nodeListSize = _v39;
+				continue treeFromBuilder;
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$builderToArray = F2(
+	function (reverseNodeList, builder) {
+		if (_elm_lang$core$Native_Utils.eq(builder.nodeListSize, 0)) {
+			return A4(
+				_Skinney$elm_array_exploration$Array_Hamt$Array,
+				_Skinney$elm_array_exploration$Array_JsArray$length(builder.tail),
+				_Skinney$elm_array_exploration$Array_Hamt$shiftStep,
+				_Skinney$elm_array_exploration$Array_JsArray$empty,
+				builder.tail);
+		} else {
+			var correctNodeList = reverseNodeList ? _elm_lang$core$List$reverse(builder.nodeList) : builder.nodeList;
+			var tree = A2(_Skinney$elm_array_exploration$Array_Hamt$treeFromBuilder, correctNodeList, builder.nodeListSize);
+			var treeLen = builder.nodeListSize * _Skinney$elm_array_exploration$Array_Hamt$branchFactor;
+			var depth = _elm_lang$core$Basics$floor(
+				A2(
+					_elm_lang$core$Basics$logBase,
+					_elm_lang$core$Basics$toFloat(_Skinney$elm_array_exploration$Array_Hamt$branchFactor),
+					_elm_lang$core$Basics$toFloat(treeLen - 1)));
+			return A4(
+				_Skinney$elm_array_exploration$Array_Hamt$Array,
+				_Skinney$elm_array_exploration$Array_JsArray$length(builder.tail) + treeLen,
+				A2(_elm_lang$core$Basics$max, 5, depth * _Skinney$elm_array_exploration$Array_Hamt$shiftStep),
+				tree,
+				builder.tail);
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$initializeHelp = F5(
+	function (fn, fromIndex, length, nodeList, tail) {
+		initializeHelp:
+		while (true) {
+			if (_elm_lang$core$Native_Utils.cmp(fromIndex, 0) < 0) {
+				return A2(
+					_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
+					false,
+					{tail: tail, nodeList: nodeList, nodeListSize: (length / _Skinney$elm_array_exploration$Array_Hamt$branchFactor) | 0});
+			} else {
+				var leaf = _Skinney$elm_array_exploration$Array_Hamt$Leaf(
+					A3(_Skinney$elm_array_exploration$Array_JsArray$initialize, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, fromIndex, fn));
+				var _v40 = fn,
+					_v41 = fromIndex - _Skinney$elm_array_exploration$Array_Hamt$branchFactor,
+					_v42 = length,
+					_v43 = {ctor: '::', _0: leaf, _1: nodeList},
+					_v44 = tail;
+				fn = _v40;
+				fromIndex = _v41;
+				length = _v42;
+				nodeList = _v43;
+				tail = _v44;
+				continue initializeHelp;
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$initialize = F2(
+	function (length, fn) {
+		if (_elm_lang$core$Native_Utils.cmp(length, 0) < 1) {
+			return _Skinney$elm_array_exploration$Array_Hamt$empty;
+		} else {
+			var tailLen = A2(_elm_lang$core$Basics$rem, length, _Skinney$elm_array_exploration$Array_Hamt$branchFactor);
+			var tail = A3(_Skinney$elm_array_exploration$Array_JsArray$initialize, tailLen, length - tailLen, fn);
+			var initialFromIndex = (length - tailLen) - _Skinney$elm_array_exploration$Array_Hamt$branchFactor;
+			return A5(
+				_Skinney$elm_array_exploration$Array_Hamt$initializeHelp,
+				fn,
+				initialFromIndex,
+				length,
+				{ctor: '[]'},
+				tail);
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$repeat = F2(
+	function (n, e) {
+		return A2(
+			_Skinney$elm_array_exploration$Array_Hamt$initialize,
+			n,
+			function (_p56) {
+				return e;
+			});
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$fromListHelp = F3(
+	function (list, nodeList, nodeListSize) {
+		fromListHelp:
+		while (true) {
+			var _p57 = A2(_Skinney$elm_array_exploration$Array_JsArray$initializeFromList, _Skinney$elm_array_exploration$Array_Hamt$branchFactor, list);
+			var jsArray = _p57._0;
+			var remainingItems = _p57._1;
+			if (_elm_lang$core$Native_Utils.cmp(
+				_Skinney$elm_array_exploration$Array_JsArray$length(jsArray),
+				_Skinney$elm_array_exploration$Array_Hamt$branchFactor) < 0) {
+				return A2(
+					_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
+					true,
+					{tail: jsArray, nodeList: nodeList, nodeListSize: nodeListSize});
+			} else {
+				var _v45 = remainingItems,
+					_v46 = {
+					ctor: '::',
+					_0: _Skinney$elm_array_exploration$Array_Hamt$Leaf(jsArray),
+					_1: nodeList
+				},
+					_v47 = nodeListSize + 1;
+				list = _v45;
+				nodeList = _v46;
+				nodeListSize = _v47;
+				continue fromListHelp;
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$fromList = function (ls) {
+	var _p58 = ls;
+	if (_p58.ctor === '[]') {
+		return _Skinney$elm_array_exploration$Array_Hamt$empty;
+	} else {
+		return A3(
+			_Skinney$elm_array_exploration$Array_Hamt$fromListHelp,
+			ls,
+			{ctor: '[]'},
+			0);
+	}
+};
+var _Skinney$elm_array_exploration$Array_Hamt$filter = F2(
+	function (f, arr) {
+		var helper = F2(
+			function (n, acc) {
+				return f(n) ? {ctor: '::', _0: n, _1: acc} : acc;
+			});
+		return _Skinney$elm_array_exploration$Array_Hamt$fromList(
+			A3(
+				_Skinney$elm_array_exploration$Array_Hamt$foldr,
+				helper,
+				{ctor: '[]'},
+				arr));
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$indexedMap = F2(
+	function (f, _p59) {
+		var _p60 = _p59;
+		var initialBuilder = {
+			tail: A3(
+				_Skinney$elm_array_exploration$Array_JsArray$indexedMap,
+				f,
+				_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p60._0),
+				_p60._3),
+			nodeList: {ctor: '[]'},
+			nodeListSize: 0
+		};
+		var helper = F2(
+			function (node, builder) {
+				var _p61 = node;
+				if (_p61.ctor === 'SubTree') {
+					return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, builder, _p61._0);
+				} else {
+					var offset = builder.nodeListSize * _Skinney$elm_array_exploration$Array_Hamt$branchFactor;
+					var mappedLeaf = _Skinney$elm_array_exploration$Array_Hamt$Leaf(
+						A3(_Skinney$elm_array_exploration$Array_JsArray$indexedMap, f, offset, _p61._0));
+					return {
+						tail: builder.tail,
+						nodeList: {ctor: '::', _0: mappedLeaf, _1: builder.nodeList},
+						nodeListSize: builder.nodeListSize + 1
+					};
+				}
+			});
+		return A2(
+			_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
+			true,
+			A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, helper, initialBuilder, _p60._2));
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$append = F2(
+	function (_p63, _p62) {
+		var _p64 = _p63;
+		var _p70 = _p64;
+		var _p65 = _p62;
+		var _p69 = _p65._2;
+		var _p68 = _p65._3;
+		if (_elm_lang$core$Native_Utils.cmp(_p65._0, _Skinney$elm_array_exploration$Array_Hamt$branchFactor * 4) < 1) {
+			var foldHelper = F2(
+				function (node, arr) {
+					var _p66 = node;
+					if (_p66.ctor === 'SubTree') {
+						return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, arr, _p66._0);
+					} else {
+						return A2(_Skinney$elm_array_exploration$Array_Hamt$appendHelpTree, _p66._0, arr);
+					}
+				});
+			return A2(
+				_Skinney$elm_array_exploration$Array_Hamt$appendHelpTree,
+				_p68,
+				A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, _p70, _p69));
+		} else {
+			var foldHelper = F2(
+				function (node, builder) {
+					var _p67 = node;
+					if (_p67.ctor === 'SubTree') {
+						return A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, builder, _p67._0);
+					} else {
+						return A2(_Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder, _p67._0, builder);
+					}
+				});
+			var builder = _Skinney$elm_array_exploration$Array_Hamt$builderFromArray(_p70);
+			return A2(
+				_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
+				true,
+				A2(
+					_Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder,
+					_p68,
+					A3(_Skinney$elm_array_exploration$Array_JsArray$foldl, foldHelper, builder, _p69)));
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$sliceLeft = F2(
+	function (from, _p71) {
+		var _p72 = _p71;
+		var _p77 = _p72._3;
+		var _p76 = _p72._0;
+		if (_elm_lang$core$Native_Utils.eq(from, 0)) {
+			return _p72;
+		} else {
+			if (_elm_lang$core$Native_Utils.cmp(
+				from,
+				_Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p76)) > -1) {
+				return A4(
+					_Skinney$elm_array_exploration$Array_Hamt$Array,
+					_p76 - from,
+					_Skinney$elm_array_exploration$Array_Hamt$shiftStep,
+					_Skinney$elm_array_exploration$Array_JsArray$empty,
+					A3(
+						_Skinney$elm_array_exploration$Array_JsArray$slice,
+						from - _Skinney$elm_array_exploration$Array_Hamt$tailIndex(_p76),
+						_Skinney$elm_array_exploration$Array_JsArray$length(_p77),
+						_p77));
+			} else {
+				var skipNodes = (from / _Skinney$elm_array_exploration$Array_Hamt$branchFactor) | 0;
+				var helper = F2(
+					function (node, acc) {
+						var _p73 = node;
+						if (_p73.ctor === 'SubTree') {
+							return A3(_Skinney$elm_array_exploration$Array_JsArray$foldr, helper, acc, _p73._0);
+						} else {
+							return {ctor: '::', _0: _p73._0, _1: acc};
+						}
+					});
+				var leafNodes = A3(
+					_Skinney$elm_array_exploration$Array_JsArray$foldr,
+					helper,
+					{
+						ctor: '::',
+						_0: _p77,
+						_1: {ctor: '[]'}
+					},
+					_p72._2);
+				var nodesToInsert = A2(_elm_lang$core$List$drop, skipNodes, leafNodes);
+				var _p74 = nodesToInsert;
+				if (_p74.ctor === '[]') {
+					return _Skinney$elm_array_exploration$Array_Hamt$empty;
+				} else {
+					var _p75 = _p74._0;
+					var firstSlice = from - (skipNodes * _Skinney$elm_array_exploration$Array_Hamt$branchFactor);
+					var initialBuilder = {
+						tail: A3(
+							_Skinney$elm_array_exploration$Array_JsArray$slice,
+							firstSlice,
+							_Skinney$elm_array_exploration$Array_JsArray$length(_p75),
+							_p75),
+						nodeList: {ctor: '[]'},
+						nodeListSize: 0
+					};
+					return A2(
+						_Skinney$elm_array_exploration$Array_Hamt$builderToArray,
+						true,
+						A3(_elm_lang$core$List$foldl, _Skinney$elm_array_exploration$Array_Hamt$appendHelpBuilder, initialBuilder, _p74._1));
+				}
+			}
+		}
+	});
+var _Skinney$elm_array_exploration$Array_Hamt$slice = F3(
+	function (from, to, arr) {
+		var correctTo = A2(_Skinney$elm_array_exploration$Array_Hamt$translateIndex, to, arr);
+		var correctFrom = A2(_Skinney$elm_array_exploration$Array_Hamt$translateIndex, from, arr);
+		return (_elm_lang$core$Native_Utils.cmp(correctFrom, correctTo) > 0) ? _Skinney$elm_array_exploration$Array_Hamt$empty : A2(
+			_Skinney$elm_array_exploration$Array_Hamt$sliceLeft,
+			correctFrom,
+			A2(_Skinney$elm_array_exploration$Array_Hamt$sliceRight, correctTo, arr));
+	});
+
 //import Native.List //
 
 var _elm_lang$core$Native_Array = function() {
@@ -12028,8 +12996,8 @@ var _jinjor$elm_diff$Diff$makeChangesHelp = F5(
 					getA(_p6)) : _elm_lang$core$Native_Utils.crash(
 					'Diff',
 					{
-						start: {line: 138, column: 13},
-						end: {line: 138, column: 24}
+						start: {line: 144, column: 25},
+						end: {line: 144, column: 36}
 					})(
 					A2(
 						_elm_lang$core$Basics_ops['++'],
@@ -12080,11 +13048,11 @@ var _jinjor$elm_diff$Diff$step = F4(
 		var fromTop = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
-			A2(_elm_lang$core$Array$get, (k + 1) + offset, v));
+			A2(_Skinney$elm_array_exploration$Array_Hamt$get, (k + 1) + offset, v));
 		var fromLeft = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
-			A2(_elm_lang$core$Array$get, (k - 1) + offset, v));
+			A2(_Skinney$elm_array_exploration$Array_Hamt$get, (k - 1) + offset, v));
 		var _p9 = function () {
 			var _p10 = {ctor: '_Tuple2', _0: fromLeft, _1: fromTop};
 			if (_p10._0.ctor === '[]') {
@@ -12138,7 +13106,7 @@ var _jinjor$elm_diff$Diff$step = F4(
 		var newPath = _p13._0;
 		var goal = _p13._1;
 		return goal ? _jinjor$elm_diff$Diff$Found(newPath) : _jinjor$elm_diff$Diff$Continue(
-			A3(_elm_lang$core$Array$set, k + offset, newPath, v));
+			A3(_Skinney$elm_array_exploration$Array_Hamt$set, k + offset, newPath, v));
 	});
 var _jinjor$elm_diff$Diff$ondLoopDK = F5(
 	function (snake, offset, d, k, v) {
@@ -12179,7 +13147,7 @@ var _jinjor$elm_diff$Diff$ondLoopDK = F5(
 var _jinjor$elm_diff$Diff$ond = F4(
 	function (getA, getB, m, n) {
 		var v = A2(
-			_elm_lang$core$Array$initialize,
+			_Skinney$elm_array_exploration$Array_Hamt$initialize,
 			(m + n) + 1,
 			_elm_lang$core$Basics$always(
 				{ctor: '[]'}));
@@ -12251,7 +13219,7 @@ var _jinjor$elm_diff$Diff$onp = F4(
 	function (getA, getB, m, n) {
 		var delta = n - m;
 		var v = A2(
-			_elm_lang$core$Array$initialize,
+			_Skinney$elm_array_exploration$Array_Hamt$initialize,
 			(m + n) + 1,
 			_elm_lang$core$Basics$always(
 				{ctor: '[]'}));
@@ -12265,10 +13233,10 @@ var _jinjor$elm_diff$Diff$onp = F4(
 	});
 var _jinjor$elm_diff$Diff$diff = F2(
 	function (a, b) {
-		var arrB = _elm_lang$core$Array$fromList(b);
-		var n = _elm_lang$core$Array$length(arrB);
+		var arrB = _Skinney$elm_array_exploration$Array_Hamt$fromList(b);
+		var n = _Skinney$elm_array_exploration$Array_Hamt$length(arrB);
 		var getB = function (y) {
-			return A2(_elm_lang$core$Array$get, y - 1, arrB);
+			return A2(_Skinney$elm_array_exploration$Array_Hamt$get, y - 1, arrB);
 		};
 		var getBOrCrash = function (y) {
 			var _p18 = getB(y);
@@ -12278,8 +13246,8 @@ var _jinjor$elm_diff$Diff$diff = F2(
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Diff',
 					{
-						start: {line: 101, column: 7},
-						end: {line: 103, column: 70}
+						start: {line: 103, column: 13},
+						end: {line: 108, column: 71}
 					},
 					_p18)(
 					A2(
@@ -12291,10 +13259,10 @@ var _jinjor$elm_diff$Diff$diff = F2(
 							']')));
 			}
 		};
-		var arrA = _elm_lang$core$Array$fromList(a);
-		var m = _elm_lang$core$Array$length(arrA);
+		var arrA = _Skinney$elm_array_exploration$Array_Hamt$fromList(a);
+		var m = _Skinney$elm_array_exploration$Array_Hamt$length(arrA);
 		var getA = function (x) {
-			return A2(_elm_lang$core$Array$get, x - 1, arrA);
+			return A2(_Skinney$elm_array_exploration$Array_Hamt$get, x - 1, arrA);
 		};
 		var getAOrCrash = function (x) {
 			var _p20 = getA(x);
@@ -12304,8 +13272,8 @@ var _jinjor$elm_diff$Diff$diff = F2(
 				return _elm_lang$core$Native_Utils.crashCase(
 					'Diff',
 					{
-						start: {line: 96, column: 7},
-						end: {line: 98, column: 70}
+						start: {line: 95, column: 13},
+						end: {line: 100, column: 71}
 					},
 					_p20)(
 					A2(
@@ -13888,6 +14856,10 @@ var _toastal$either$Either$map = F2(
 		}
 	});
 var _toastal$either$Either$mapRight = _toastal$either$Either$map;
+var _toastal$either$Either$voidRight = function (f) {
+	return _toastal$either$Either$map(
+		_elm_lang$core$Basics$always(f));
+};
 var _toastal$either$Either$mapLeft = F2(
 	function (f, e) {
 		var _p21 = e;
@@ -13898,6 +14870,10 @@ var _toastal$either$Either$mapLeft = F2(
 			return _toastal$either$Either$Right(_p21._0);
 		}
 	});
+var _toastal$either$Either$voidLeft = function (f) {
+	return _toastal$either$Either$mapLeft(
+		_elm_lang$core$Basics$always(f));
+};
 var _toastal$either$Either$andMapLeft = F2(
 	function (e, e1) {
 		var _p22 = {ctor: '_Tuple2', _0: e, _1: e1};
@@ -18274,6 +19250,15 @@ var _user$project$Render$viewAsList = F2(
 		}
 	});
 
+var _user$project$Main$sanitise_res = F2(
+	function (oc, res) {
+		var _p0 = oc;
+		if (_p0.ctor === 'AutNum') {
+			return A2(_elm_lang$core$String$filter, _elm_lang$core$Char$isDigit, res);
+		} else {
+			return res;
+		}
+	});
 var _user$project$Main$infer_type = function (res) {
 	return A2(
 		_Fresheyeball$elm_guards$Guards_ops['|='],
@@ -18302,8 +19287,8 @@ var _user$project$Main$infer_type = function (res) {
 				_user$project$Model$Entity)));
 };
 var _user$project$Main$url_of_typ = function (oc) {
-	var _p0 = oc;
-	switch (_p0.ctor) {
+	var _p1 = oc;
+	switch (_p1.ctor) {
 		case 'AutNum':
 			return 'autnum';
 		case 'Entity':
@@ -18315,15 +19300,16 @@ var _user$project$Main$url_of_typ = function (oc) {
 	}
 };
 var _user$project$Main$search = function (resource) {
-	var typ = _user$project$Main$url_of_typ(
-		_user$project$Main$infer_type(resource));
+	var obj_class = _user$project$Main$infer_type(resource);
+	var typ = _user$project$Main$url_of_typ(obj_class);
+	var sanitised_res = A2(_user$project$Main$sanitise_res, obj_class, resource);
 	var url = A2(
 		_elm_lang$core$Basics_ops['++'],
 		'//rdap.apnic.net/history/',
 		A2(
 			_elm_lang$core$Basics_ops['++'],
 			typ,
-			A2(_elm_lang$core$Basics_ops['++'], '/', resource)));
+			A2(_elm_lang$core$Basics_ops['++'], '/', sanitised_res)));
 	var fetch = _elm_lang$http$Http$toTask(
 		A2(_elm_lang$http$Http$get, url, _user$project$Decode$history));
 	return A2(
@@ -18349,7 +19335,7 @@ var _user$project$Main$searchForm = _debois$elm_dom$DOM$target(
 			_elm_lang$core$Json_Decode$map,
 			_user$project$Model$StartSearch,
 			A2(_elm_lang$core$Json_Decode$field, 'value', _elm_lang$core$Json_Decode$string))));
-var _user$project$Main$subscriptions = function (_p1) {
+var _user$project$Main$subscriptions = function (_p2) {
 	return _elm_lang$core$Platform_Sub$none;
 };
 var _user$project$Main$fl = function (xs) {
@@ -18552,15 +19538,34 @@ var _user$project$Main$initialView = {
 														_elm_lang$html$Html$a,
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$href('#IRT-APNICRANDNET-AU'),
+															_0: _elm_lang$html$Html_Attributes$href('#AS4608'),
 															_1: {ctor: '[]'}
 														},
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text('IRT-APNICRANDNET-AU'),
+															_0: _elm_lang$html$Html$text('AS4608'),
 															_1: {ctor: '[]'}
 														}),
-													_1: {ctor: '[]'}
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(' | '),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$a,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$href('#IRT-APNICRANDNET-AU'),
+																	_1: {ctor: '[]'}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('IRT-APNICRANDNET-AU'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													}
 												}
 											}
 										}
@@ -18604,8 +19609,8 @@ var _user$project$Main$styles = {
 };
 var _user$project$Main$view_ = function (model) {
 	var body = function () {
-		var _p2 = model.response;
-		if (_p2.ctor === 'Left') {
+		var _p3 = model.response;
+		if (_p3.ctor === 'Left') {
 			return {
 				ctor: '::',
 				_0: A2(
@@ -18636,7 +19641,7 @@ var _user$project$Main$view_ = function (model) {
 									_1: {
 										ctor: '::',
 										_0: _elm_lang$html$Html$text(
-											A2(_elm_lang$core$Basics_ops['++'], 'Error: ', _p2._0)),
+											A2(_elm_lang$core$Basics_ops['++'], 'Error: ', _p3._0)),
 										_1: {ctor: '[]'}
 									}
 								}
@@ -18646,7 +19651,7 @@ var _user$project$Main$view_ = function (model) {
 				_1: {ctor: '[]'}
 			};
 		} else {
-			return A2(_user$project$Render$viewAsList, _p2._0, model);
+			return A2(_user$project$Render$viewAsList, _p3._0, model);
 		}
 	}();
 	var contents = _elm_lang$core$String$isEmpty(model.resource) ? {
@@ -18696,19 +19701,19 @@ var _user$project$Main$flipShowVersionDateDetail = F2(
 	});
 var _user$project$Main$flipNavigationLock = F2(
 	function (model, direction) {
-		var _p3 = model.displayedVersions;
-		var leftVersion = _p3._0;
-		var rightVersion = _p3._1;
-		var _p4 = model.navigationLocks;
-		var bkwdState = _p4._0;
-		var fwdState = _p4._1;
+		var _p4 = model.displayedVersions;
+		var leftVersion = _p4._0;
+		var rightVersion = _p4._1;
+		var _p5 = model.navigationLocks;
+		var bkwdState = _p5._0;
+		var fwdState = _p5._1;
 		var flip = function (state) {
 			return _elm_lang$core$Native_Utils.eq(state, _user$project$Model$Locked) ? _user$project$Model$Unlocked : _user$project$Model$Locked;
 		};
 		var newstate = _elm_lang$core$Native_Utils.eq(direction, _user$project$Model$Fwd) ? flip(fwdState) : flip(bkwdState);
 		var newLeftVersion = function () {
-			var _p5 = newstate;
-			if (_p5.ctor === 'Unlocked') {
+			var _p6 = newstate;
+			if (_p6.ctor === 'Unlocked') {
 				return _elm_community$maybe_extra$Maybe_Extra$join(
 					A3(
 						_elm_lang$core$Maybe$map2,
@@ -18719,9 +19724,9 @@ var _user$project$Main$flipNavigationLock = F2(
 				return leftVersion;
 			}
 		}();
-		var _p6 = function () {
-			var _p7 = direction;
-			if (_p7.ctor === 'Fwd') {
+		var _p7 = function () {
+			var _p8 = direction;
+			if (_p8.ctor === 'Fwd') {
 				return {
 					ctor: '_Tuple2',
 					_0: bkwdState,
@@ -18735,8 +19740,8 @@ var _user$project$Main$flipNavigationLock = F2(
 				};
 			}
 		}();
-		var newBkwdState = _p6._0;
-		var newFwdState = _p6._1;
+		var newBkwdState = _p7._0;
+		var newFwdState = _p7._1;
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{
@@ -18747,12 +19752,12 @@ var _user$project$Main$flipNavigationLock = F2(
 	});
 var _user$project$Main$navigateToVersion = F2(
 	function (model, version) {
-		var _p8 = model.navigationLocks;
-		var l1 = _p8._0;
-		var l2 = _p8._1;
-		var _p9 = model.displayedVersions;
-		var v1 = _p9._0;
-		var v2 = _p9._1;
+		var _p9 = model.navigationLocks;
+		var l1 = _p9._0;
+		var l2 = _p9._1;
+		var _p10 = model.displayedVersions;
+		var v1 = _p10._0;
+		var v2 = _p10._1;
 		var versions = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
@@ -18827,12 +19832,12 @@ var _user$project$Main$navigate = F2(
 			return model;
 		} else {
 			var getAdjacent = _elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _user$project$Model$getNextVersion : _user$project$Model$getPreviousVersion;
-			var _p10 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.navigationLocks);
-			var l1 = _p10._0;
-			var l2 = _p10._1;
-			var _p11 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.displayedVersions);
-			var v1 = _p11._0;
-			var v2 = _p11._1;
+			var _p11 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.navigationLocks);
+			var l1 = _p11._0;
+			var l2 = _p11._1;
+			var _p12 = (_elm_lang$core$Native_Utils.eq(dir, _user$project$Model$Fwd) ? _elm_lang$core$Basics$identity : _Fresheyeball$elm_tuple_extra$Tuple2$swap)(model.displayedVersions);
+			var v1 = _p12._0;
+			var v2 = _p12._1;
 			var versions = _user$project$Model$versions(model);
 			var v1AndV2Adjacent = _elm_lang$core$Native_Utils.eq(
 				_elm_community$maybe_extra$Maybe_Extra$join(
@@ -18854,24 +19859,24 @@ var _user$project$Main$navigate = F2(
 	});
 var _user$project$Main$upd = function (model) {
 	var displayedVersions = function () {
-		var _p12 = A2(
+		var _p13 = A2(
 			_elm_lang$core$Maybe$withDefault,
 			{ctor: '[]'},
 			_user$project$Model$versions(model));
-		if (_p12.ctor === '[]') {
+		if (_p13.ctor === '[]') {
 			return {ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing};
 		} else {
-			if (_p12._1.ctor === '[]') {
+			if (_p13._1.ctor === '[]') {
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Maybe$Nothing,
-					_1: _elm_lang$core$Maybe$Just(_p12._0)
+					_1: _elm_lang$core$Maybe$Just(_p13._0)
 				};
 			} else {
 				return {
 					ctor: '_Tuple2',
-					_0: _elm_lang$core$Maybe$Just(_p12._1._0),
-					_1: _elm_lang$core$Maybe$Just(_p12._0)
+					_0: _elm_lang$core$Maybe$Just(_p13._1._0),
+					_1: _elm_lang$core$Maybe$Just(_p13._0)
 				};
 			}
 		}
@@ -18881,8 +19886,8 @@ var _user$project$Main$upd = function (model) {
 		{displayedVersions: displayedVersions, versionDateDetail: _elm_lang$core$Maybe$Nothing});
 };
 var _user$project$Main$errMsg = function (err) {
-	var _p13 = err;
-	switch (_p13.ctor) {
+	var _p14 = err;
+	switch (_p14.ctor) {
 		case 'Timeout':
 			return 'timeout';
 		case 'NetworkError':
@@ -18890,18 +19895,18 @@ var _user$project$Main$errMsg = function (err) {
 		case 'BadStatus':
 			return 'unexpected status';
 		case 'BadPayload':
-			return A2(_elm_lang$core$Basics_ops['++'], 'bad response ', _p13._0);
+			return A2(_elm_lang$core$Basics_ops['++'], 'bad response ', _p14._0);
 		default:
 			return 'invalid URL';
 	}
 };
 var _user$project$Main$fromFetch = function (r) {
-	var _p14 = r;
-	if (_p14.ctor === 'Ok') {
-		return _toastal$either$Either$Right(_p14._0);
+	var _p15 = r;
+	if (_p15.ctor === 'Ok') {
+		return _toastal$either$Either$Right(_p15._0);
 	} else {
 		return _toastal$either$Either$Left(
-			_user$project$Main$errMsg(_p14._0));
+			_user$project$Main$errMsg(_p15._0));
 	}
 };
 var _user$project$Main$extractHash = function (loc) {
@@ -18924,8 +19929,8 @@ var _user$project$Main$processUrlChange = F2(
 	});
 var _user$project$Main$update = F2(
 	function (msg, model) {
-		var _p15 = msg;
-		switch (_p15.ctor) {
+		var _p16 = msg;
+		switch (_p16.ctor) {
 			case 'Fetched':
 				return {
 					ctor: '_Tuple2',
@@ -18933,14 +19938,14 @@ var _user$project$Main$update = F2(
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								resource: _p15._0,
-								response: _user$project$Main$fromFetch(_p15._1),
+								resource: _p16._0,
+								response: _user$project$Main$fromFetch(_p16._1),
 								selected: 0
 							})),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'UrlChange':
-				return A2(_user$project$Main$processUrlChange, model, _p15._0);
+				return A2(_user$project$Main$processUrlChange, model, _p16._0);
 			case 'Select':
 				return {
 					ctor: '_Tuple2',
@@ -18948,7 +19953,7 @@ var _user$project$Main$update = F2(
 						_elm_lang$core$Native_Utils.update(
 							model,
 							{
-								selected: _p15._0,
+								selected: _p16._0,
 								navigationLocks: {ctor: '_Tuple2', _0: _user$project$Model$Unlocked, _1: _user$project$Model$Unlocked}
 							})),
 					_1: _elm_lang$core$Platform_Cmd$none
@@ -18958,36 +19963,36 @@ var _user$project$Main$update = F2(
 					ctor: '_Tuple2',
 					_0: model,
 					_1: _elm_lang$navigation$Navigation$newUrl(
-						A2(_elm_lang$core$Basics_ops['++'], '#', _p15._0))
+						A2(_elm_lang$core$Basics_ops['++'], '#', _p16._0))
 				};
 			case 'NavigateDiff':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$navigate, model, _p15._0),
+					_0: A2(_user$project$Main$navigate, model, _p16._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'NavigateDiffToVersion':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$navigateToVersion, model, _p15._0),
+					_0: A2(_user$project$Main$navigateToVersion, model, _p16._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'FlipNavLock':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$flipNavigationLock, model, _p15._0),
+					_0: A2(_user$project$Main$flipNavigationLock, model, _p16._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'FlipShowVersionDateDetail':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$flipShowVersionDateDetail, model, _p15._0),
+					_0: A2(_user$project$Main$flipShowVersionDateDetail, model, _p16._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
 				return {
 					ctor: '_Tuple2',
-					_0: A3(_user$project$Main$zoomTimelineWidget, model, _p15._0, _p15._1),
+					_0: A3(_user$project$Main$zoomTimelineWidget, model, _p16._0, _p16._1),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 		}
