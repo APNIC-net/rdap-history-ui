@@ -6,7 +6,9 @@ This project contains a simple user interface for an [RDAP history](https://gith
 
 ### Building
 
-You will need a relatively recent version of NodeJS, preferably installed in an environment.  Then, run:
+**Use node.js 8.x.x to build this project. Newer node.js releases are not compatible.**
+
+To initialise the project:
 
     npm install
 
@@ -16,7 +18,7 @@ And if you like:
 
 To build:
 
-	npm run build
+    npm run build
 
 ### Coding guide
 
